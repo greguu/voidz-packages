@@ -1,0 +1,33 @@
+# Template file for 'visurf-git based on Alpine APKBUILD and netsurf/template'
+pkgname=visurf-git
+version=3.10
+revision=1
+_githash=8f7036e440f47a37ec917b6856ba20cd747adceb
+_netsurf=3.10
+_libcss=f420dd16136de1dc07f18824c6d0f5540d5df6d1
+wrksrc="netsurf-all-${_netsurf}"
+build_style=gnu-makefile
+make_use_env=yes
+make_check=no
+make_build_args="TARGET=visurf PREFIX=/usr LIBDIR=lib INCLUDEDIR=include"
+make_install_args="$make_build_args"
+hostmakedepends="pkg-config gperf flex bison perl which wayland-devel nsgenbind zlib-devel tar"
+makedepends="flex bison gperf wayland-protocols expat-devel libcurl-devel wayland-devel cairo-devel pango-devel libxkbcommon-devel libjpeg-turbo-devel libwebp-devel openssl-devel libpng-devel perl libcss-git-devel libhubbub-devel libdom-devel libnsutils-devel libnslog-devel libnsbmp-devel libnsgif-devel librosprite-devel libsvgtiny-devel libnspsl-devel libutf8proc-devel"
+short_desc="power-user frontend for netsurf with vi-inspired keybindings"
+maintainer="Greguu <greguu@null.net>"
+license="GPL-2.0-only, MIT"
+homepage="https://git.sr.ht/~sircmpwn/visurf"
+distfiles="${homepage}/archive/${_githash}.tar.gz https://download.netsurf-browser.org/netsurf/releases/source-full/netsurf-all-${_netsurf}.tar.gz http://git.netsurf-browser.org/libcss.git/snapshot/libcss-${_libcss}.tar.gz"
+checksum="9f9983ac1cf6f2a9f15ca2b70a33e2f6aca416f8126321257eb4b1662b2e8e23 495adf6b6614ce36fca6c605f7c321f9cb4a3df838043158122678ce2b3325b7 5a78a6243fa25f6e2fe7e0db3d1b56f88f09636647416f222f759cd6f4344b23"
+conflicts=netsurf
+
+pre_patch() {
+        rm -rf netsurf libcss
+        mv "$XBPS_BUILDDIR"/visurf-$_githash netsurf
+        mv "$XBPS_BUILDDIR"/libcss-$_libcss libcss
+}
+
+post_install() {
+        vinstall netsurf/tools/urlfilter 0755 usr/bin
+}
+
