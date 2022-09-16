@@ -4158,3 +4158,8 @@ libsyncthingmodel.so.1.2.2 syncthingtray-1.2.2_1
 libsyncthingconnector.so.1.2.2 syncthingtray-1.2.2_1
 libglibutil.so.1 libglibutil-1.0.64_1
 libgbinder.so.1 libgbinder-1.1.20_1
+libsvgtiny.so.0 libsvgtiny-0.1.7_1
+librosprite.so.0 librosprite-0.1.3_1
+libnspsl.so.0 libnspsl-0.1.6_1
+libnslog.so.0 libnslog-0.1.3_1
+libnsfb.so.0 libnsfb-0.2.2_1
