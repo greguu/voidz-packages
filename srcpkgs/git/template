@@ -2,12 +2,11 @@
 pkgname=git
 version=2.37.3
 revision=1
-hostmakedepends="asciidoc gettext perl pkg-config tk xmlto"
-makedepends="libglib-devel libcurl-devel libsecret-devel pcre2-devel tk-devel"
+hostmakedepends="asciidoc gettext perl pkg-config xmlto"
+makedepends="libglib-devel libcurl-devel libsecret-devel pcre2-devel"
 # Required by https://
 depends="ca-certificates perl-Authen-SASL perl-MIME-tools perl-Net-SMTP-SSL"
-checkdepends="gnupg cvs cvsps2 perl-DBD-SQLite subversion subversion-perl
- perl-Term-ReadKey perl-CGI perl-IO-Tty"
+checkdepends="gnupg perl-DBD-SQLite perl-Term-ReadKey perl-CGI perl-IO-Tty"
 short_desc="Git Tree History Storage Tool"
 maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="GPL-2.0-only"
@@ -19,7 +18,7 @@ replaces="git-perl>=0"
 register_shell=/usr/bin/git-shell
 python_version=3
 
-subpackages="git-cvs git-svn gitk git-gui git-all git-libsecret git-netrc"
+subpackages="git-all git-libsecret git-netrc"
 
 do_configure() {
 	cat <<-EOF >config.mak
@@ -81,56 +80,6 @@ do_install() {
 	vinstall contrib/credential/libsecret/git-credential-libsecret 755 \
 		usr/libexec/git-core
 	make -C contrib/credential/netrc DESTDIR=${DESTDIR} install
-}
-
-git-cvs_package() {
-	depends="${sourcepkg}-${version}_${revision} cvs cvsps2 perl-DBD-SQLite"
-	short_desc+=" - CVS support"
-	pkg_install() {
-		vmove usr/bin/git-cvsserver
-		vmove usr/libexec/git-core/git-cvsexportcommit
-		vmove usr/libexec/git-core/git-cvsimport
-		vmove usr/libexec/git-core/git-cvsserver
-		vmove usr/share/man/man1/git-cvsexportcommit.1
-		vmove usr/share/man/man1/git-cvsimport.1
-		vmove usr/share/man/man1/git-cvsserver.1
-		vmove usr/share/man/man7/gitcvs-migration.7
-	}
-}
-
-git-svn_package() {
-	depends="${sourcepkg}-${version}_${revision} subversion-perl perl-Term-ReadKey"
-	short_desc+=" - Subversion support"
-	pkg_install() {
-		vmove "usr/share/perl5/vendor_perl/Git/SVN*"
-		vmove usr/libexec/git-core/git-svn
-		vmove usr/share/man/man1/git-svn.1
-	}
-}
-
-gitk_package() {
-	depends="git-${version}_${revision} tk"
-	short_desc="Git repository browser"
-	license="GPL-2.0-or-later"
-	pkg_install() {
-		vmove usr/bin/gitk
-		vmove usr/share/gitk
-		vmove usr/share/man/man1/gitk.1
-	}
-}
-
-git-gui_package() {
-	depends="git-${version}_${revision} tk"
-	short_desc+=" - GUI tool"
-	license="GPL-2.0-or-later"
-	pkg_install() {
-		vmove usr/libexec/git-core/git-gui--askpass
-		vmove usr/libexec/git-core/git-gui
-		vmove usr/libexec/git-core/git-citool
-		vmove usr/share/man/man1/git-gui.1
-		vmove usr/share/man/man1/git-citool.1
-		vmove usr/share/git-gui
-	}
 }
 
 git-all_package() {
