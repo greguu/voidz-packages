@@ -3,13 +3,11 @@ pkgname=weechat
 version=3.6
 revision=1
 build_style=cmake
-configure_args="-DENABLE_MAN=ON -DENABLE_PERL=ON
- -DENABLE_LUA=ON -DENABLE_RUBY=ON -DENABLE_SPELL=ON
+configure_args="-DENABLE_MAN=OFF -DENABLE_PERL=ON -DENABLE_TCL=OFF
+ -DENABLE_LUA=ON -DENABLE_RUBY=OFF -DENABLE_SPELL=ON
  -DENABLE_GUILE=OFF -DENABLE_PHP=OFF -DENABLE_JAVASCRIPT=OFF"
-hostmakedepends="ruby ruby-asciidoctor libgcrypt-devel pkg-config python3 tcl-devel
- gettext"
-makedepends="aspell-devel gnutls-devel libcurl-devel lua53-devel ncurses-devel
- perl python3-devel ruby-devel tcl-devel libgcrypt-devel"
+hostmakedepends="libgcrypt-devel pkg-config python3 gettext ncurses-devel"
+makedepends="aspell-devel gnutls-devel libcurl-devel lua53-devel ncurses-devel perl python3-devel libgcrypt-devel"
 depends="ca-certificates"
 short_desc="Fast, light and extensible IRC client"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
@@ -20,7 +18,7 @@ distfiles="https://www.weechat.org/files/src/weechat-${version}.tar.xz"
 checksum=9d85d71b3b7d04c03bd35ab6501afa8b5b3c609dce7691709ec740fecc31f2de
 lib32disabled=yes
 
-subpackages="weechat-aspell weechat-devel weechat-ruby weechat-python weechat-tcl weechat-lua weechat-perl"
+subpackages="weechat-aspell weechat-devel weechat-python weechat-lua weechat-perl"
 
 if [ "$CROSS_BUILD" ]; then
 	_perlpath="${XBPS_CROSS_BASE}/usr/lib/perl5/core_perl/CORE"
@@ -57,28 +55,12 @@ weechat-perl_package() {
 		vmove usr/lib/weechat/plugins/perl.so
 	}
 }
-weechat-ruby_package() {
-	lib32disabled=yes
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" - ruby plugin"
-	pkg_install() {
-		vmove usr/lib/weechat/plugins/ruby.so
-	}
-}
 weechat-python_package() {
 	lib32disabled=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - python plugin"
 	pkg_install() {
 		vmove usr/lib/weechat/plugins/python.so
-	}
-}
-weechat-tcl_package() {
-	lib32disabled=yes
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" - tcl plugin"
-	pkg_install() {
-		vmove usr/lib/weechat/plugins/tcl.so
 	}
 }
 weechat-lua_package() {
