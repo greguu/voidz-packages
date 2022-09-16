@@ -1,0 +1,35 @@
+# Template file for 'libsvgtiny'
+pkgname=libsvgtiny
+version=0.1.7
+revision=1
+hostmakedepends="pkg-config perl netsurf-buildsystem flex bison which gperf"
+makedepends="libdom-devel gperf"
+short_desc="Netsurf Browser"
+maintainer="Greguu <greguu@null.net>"
+license="MIT"
+homepage="http://www.netsurf-browser.org"
+distfiles="http://download.netsurf-browser.org/libs/releases/${pkgname}-${version}-src.tar.gz"
+checksum=2c0dcf952f1cd882c3e95401ef9459f16dbb53c5d3e4512339b2f9eb769d7781
+
+do_build() {
+	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-shared PREFIX=/usr
+	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-static PREFIX=/usr
+}
+
+do_install() {
+	make COMPONENT_TYPE=lib-shared PREFIX=/usr DESTDIR=${DESTDIR} install
+	make COMPONENT_TYPE=lib-static PREFIX=/usr DESTDIR=${DESTDIR} install
+
+	vlicense COPYING
+}
+
+libsvgtiny-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}
