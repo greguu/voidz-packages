@@ -7,4 +7,4 @@ export TSLIB_TSDEVICE=/dev/input/event2
 #export SDL_VIDEO_FBCON_ROTATION=CW
 export SDL_MOUSEDRV=TSLIB
 export SDL_MOUSEDEV=$TSLIB_TSDEVICE
-/usr/bin/netsurf-fb --ca-bundle /etc/ssl/certs.pem -w 480 -h 640 "$@"
+/usr/bin/netsurf-fb -V /var/log/netsurf.log --ca-bundle /etc/ssl/certs.pem -w 480 -h 640 "$@"

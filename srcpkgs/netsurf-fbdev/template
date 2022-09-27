@@ -6,7 +6,7 @@ build_style=gnu-makefile
 wrksrc=netsurf-${version}
 make_use_env=yes
 make_build_args="TARGET=framebuffer NETSURF_USE_BMP=YES NETSURF_USE_WEBP=YES NETSURF_USE_FREETYPE2=YES NETSURF_FB_FONTPATH=/usr/share/fonts/TTF
- NETSURF_USE_VIDEO=NO NETSURF_USE_HARU_PDF=NO NETSURF_USE_DUKTAPE=YES NETSURF_FB_FONTLIB=freetype NETSURF_FB_FRONTEND=sdl"
+ NETSURF_USE_VIDEO=NO NETSURF_USE_HARU_PDF=NO NETSURF_USE_DUKTAPE=YES NETSURF_FB_FONTLIB=freetype NETSURF_FB_FRONTEND=sdl NETSURF_USE_NSLOG=YES"
 make_install_args="$make_build_args"
 hostmakedepends="pkg-config gperf flex nsgenbind gdk-pixbuf-devel
  tar perl-HTML-Parser glib-devel xxd"

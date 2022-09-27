@@ -1,0 +1,24 @@
+--- a/frontends/framebuffer/gui.c	2020-05-25 09:35:23.000000000 +1200
++++ b/frontends/framebuffer/gui.c	2022-09-27 18:40:11.475307743 +1300
+@@ -974,6 +974,10 @@
+ 			modifier |= FBTK_MOD_LCTRL;
+ 			break;
+ 
++		case NSFB_KEY_RALT:
++			modifier |= FBTK_MOD_RALT;
++			break;
++
+ 		case NSFB_KEY_y:
+ 		case NSFB_KEY_z:
+ 			if (cbi->event->value.keycode == NSFB_KEY_z &&
+@@ -1029,6 +1033,10 @@
+ 			modifier &= ~FBTK_MOD_LCTRL;
+ 			break;
+ 
++		case NSFB_KEY_RALT:
++			modifier &= ~FBTK_MOD_RALT;
++			break;
++
+ 		default:
+ 			break;
+ 		}
