@@ -1,0 +1,22 @@
+From 9dc96553df70e2ec64f25f2cea43032518efa911 Mon Sep 17 00:00:00 2001
+From: greguu <greguu@null.net>
+Date: Sun, 11 Feb 2018 15:28:12 +1300
+Subject: [PATCH] Increase USB power budget to 180 mA
+
+---
+ arch/arm/mach-pxa/spitz.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/mach-pxa/spitz.c b/arch/arm/mach-pxa/spitz.c
+index 67d66c70..679dd14d 100644
+--- a/arch/arm/mach-pxa/spitz.c
++++ b/arch/arm/mach-pxa/spitz.c
+@@ -656,7 +656,7 @@ static struct pxaohci_platform_data spitz_ohci_platform_data = {
+ 	.init		= spitz_ohci_init,
+ 	.exit		= spitz_ohci_exit,
+ 	.flags		= ENABLE_PORT_ALL | NO_OC_PROTECTION,
+-	.power_budget	= 150,
++	.power_budget	= 180,
+ };
+ 
+ static void __init spitz_uhc_init(void)
