@@ -5,11 +5,7 @@ revision=1
 build_style=configure
 configure_args="prefix=/usr LD=$CC"
 hostmakedepends="pkg-config"
-makedepends="ncurses-devel faad2-devel libcdio-devel libcdio-paranoia-devel
- libcddb-devel libdiscid-devel libflac-devel libao-devel libmad-devel
- libmodplug-devel libmp4v2-devel libmpcdec-devel pulseaudio-devel
- opusfile-devel wavpack-devel alsa-lib-devel libvorbis-devel ffmpeg-devel
- sndio-devel jack-devel $(vopt_if elogind elogind-devel)"
+makedepends="ncurses-devel libflac-devel libmad-devel libmodplug-devel opusfile-devel alsa-lib-devel tremor-git-devel $(vopt_if elogind elogind-devel)"
 short_desc="Small, fast and powerful console music player"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
@@ -25,47 +21,11 @@ if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
 	export LDLIBS+=" -latomic"
 fi
 
-cmus-libao_package() {
-	short_desc+=" - libao output plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/op/ao.so
-	}
-}
-cmus-cdio_package() {
-	short_desc+=" - CDIO input plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/ip/cdio.so
-	}
-}
-cmus-faad_package() {
-	short_desc+=" - AAC/MP4 input plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/ip/aac.so
-		vmove usr/lib/cmus/ip/mp4.so
-	}
-}
-cmus-ffmpeg_package() {
-	short_desc+=" - FFmpeg input plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/ip/ffmpeg.so
-	}
-}
 cmus-flac_package() {
 	short_desc+=" - FLAC input plugin"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/lib/cmus/ip/flac.so
-	}
-}
-cmus-mpc_package() {
-	short_desc+=" - MPC input plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/ip/mpc.so
 	}
 }
 cmus-modplug_package() {
@@ -80,40 +40,5 @@ cmus-opus_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/lib/cmus/ip/opus.so
-	}
-}
-cmus-oss_package() {
-	short_desc+=" - OSS output plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/op/oss.so
-	}
-}
-cmus-pulseaudio_package() {
-	short_desc+=" - Pulseaudio output plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/op/pulse.so
-	}
-}
-cmus-jack_package() {
-	short_desc+=" - JACK output plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/op/jack.so
-	}
-}
-cmus-wavpack_package() {
-	short_desc+=" - Wavpack input plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/ip/wavpack.so
-	}
-}
-cmus-sndio_package() {
-	short_desc+=" - sndio output plugin"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		vmove usr/lib/cmus/op/sndio.so
 	}
 }
