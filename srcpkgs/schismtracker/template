@@ -3,6 +3,7 @@ pkgname=schismtracker
 version=20200412
 revision=1
 build_style=gnu-configure
+configure_args="--without-x"
 hostmakedepends="automake SDL-devel"
 makedepends="SDL-devel libXv-devel"
 short_desc="Sample-based music composition tool"
