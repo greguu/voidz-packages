@@ -12,7 +12,7 @@ short_desc="Free client for Cisco AnyConnect SSL VPN software"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-only"
 homepage="http://www.infradead.org/openconnect/"
-distfiles="ftp://ftp.infradead.org/pub/${pkgname}/${pkgname}-${version}.tar.gz"
+distfiles="https://gentoo.osuosl.org/distfiles/${pkgname}-${version}.tar.gz"
 checksum=b3d7faf830e9793299d6a41e81d84cd4a3e2789c148c9e598e4585010090e4c7
 
 openconnect-devel_package() {
