@@ -4224,3 +4224,8 @@ libIlmThread-3_1.so.30 libopenexr-3.1.5_1
 libOpenEXR-3_1.so.30 libopenexr-3.1.5_1
 libOpenEXRCore-3_1.so.30 libopenexr-3.1.5_1
 libOpenEXRUtil-3_1.so.30 libopenexr-3.1.5_1
+libsvgtiny.so.0 libsvgtiny-0.1.7_1
+librosprite.so.0 librosprite-0.1.3_1
+libnspsl.so.0 libnspsl-0.1.6_1
+libnslog.so.0 libnslog-0.1.3_1
+libnsfb.so.0 libnsfb-0.2.2_1

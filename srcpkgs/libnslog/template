@@ -1,0 +1,34 @@
+# Template file for 'libnslog'
+pkgname=libnslog
+version=0.1.3
+revision=1
+hostmakedepends="pkg-config perl netsurf-buildsystem flex bison which"
+short_desc="Netsurf Browser"
+maintainer="Greguu <greguu@null.net>"
+license="MIT"
+homepage="http://www.netsurf-browser.org"
+distfiles="http://download.netsurf-browser.org/libs/releases/${pkgname}-${version}-src.tar.gz"
+checksum=fc98dca9d7efa67096470a5d96c023146e25bfdec08c0db74661c7b4db0453d0
+
+do_build() {
+	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-shared PREFIX=/usr
+	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-static PREFIX=/usr
+}
+
+do_install() {
+	make COMPONENT_TYPE=lib-shared PREFIX=/usr DESTDIR=${DESTDIR} install
+	make COMPONENT_TYPE=lib-static PREFIX=/usr DESTDIR=${DESTDIR} install
+
+	vlicense COPYING
+}
+
+libnslog-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

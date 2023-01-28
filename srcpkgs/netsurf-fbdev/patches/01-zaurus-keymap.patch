@@ -1,0 +1,57 @@
+--- a/frontends/framebuffer/gui.c	2020-05-25 09:35:23.000000000 +1200
++++ b/frontends/framebuffer/gui.c	2022-09-28 18:30:24.373046270 +1300
+@@ -937,26 +937,24 @@
+ 				widget_scroll_y(gw, 100, false);
+ 			break;
+ 
+-		case NSFB_KEY_MINUS:
+-			if (modifier & FBTK_MOD_RCTRL ||
+-					modifier & FBTK_MOD_LCTRL) {
++		case NSFB_KEY_1: /* Zaurus Magnifiy Minus */
++			if (modifier & FBTK_MOD_RALT) {
+ 				browser_window_set_scale(gw->bw, -0.1, false);
+ 			}
+ 			break;
+ 
+-		case NSFB_KEY_EQUALS: /* PLUS */
+-			if (modifier & FBTK_MOD_RCTRL ||
+-					modifier & FBTK_MOD_LCTRL) {
++		case NSFB_KEY_2: /* Zaurus Magnify Plus */
++			if (modifier & FBTK_MOD_RALT) {
+ 				browser_window_set_scale(gw->bw, 0.1, false);
+ 			}
+ 			break;
+ 
+-		case NSFB_KEY_0:
++		/* case NSFB_KEY_0:
+ 			if (modifier & FBTK_MOD_RCTRL ||
+ 					modifier & FBTK_MOD_LCTRL) {
+ 				browser_window_set_scale(gw->bw, 1.0, true);
+ 			}
+-			break;
++			break;  */
+ 
+ 		case NSFB_KEY_RSHIFT:
+ 			modifier |= FBTK_MOD_RSHIFT;
+@@ -974,6 +972,10 @@
+ 			modifier |= FBTK_MOD_LCTRL;
+ 			break;
+ 
++		case NSFB_KEY_RALT:
++			modifier |= FBTK_MOD_RALT;
++			break;
++
+ 		case NSFB_KEY_y:
+ 		case NSFB_KEY_z:
+ 			if (cbi->event->value.keycode == NSFB_KEY_z &&
+@@ -1029,6 +1031,10 @@
+ 			modifier &= ~FBTK_MOD_LCTRL;
+ 			break;
+ 
++		case NSFB_KEY_RALT:
++			modifier &= ~FBTK_MOD_RALT;
++			break;
++
+ 		default:
+ 			break;
+ 		}
