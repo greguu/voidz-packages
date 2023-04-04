@@ -8,9 +8,9 @@ configure_args="
  --disable-nis --disable-audit --disable-selinux
  --disable-regenerate-docu BUILD_CFLAGS=-Os BUILD_LDFLAGS="
 hostmakedepends="gettext-devel pkg-config"
-makedepends="libfl-devel db-devel"
+makedepends="libfl-devel db-devel pam-base"
 # version of pam-base that doesn't include removed modules
-depends="pam-base>=0.4_1"
+#depends="pam-base>=0.4_1"
 checkdepends="${depends}"
 conf_files="
 	/etc/environment
