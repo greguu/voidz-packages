@@ -1,32 +1,315 @@
-# Template file for 'busybox'
+# Template file for 'busybox-zaurus'
 pkgname=busybox
-version=1.34.1
-revision=4
+version=1.35.0
+revision=0
 hostmakedepends="perl"
 checkdepends="tar which zip"
 short_desc="Swiss Army Knife of Embedded Linux"
-maintainer="Cameron Nemo <cam@nohom.org>"
+maintainer="greguu <greguu@null.net>"
 license="GPL-2.0-only"
 homepage="https://www.busybox.net"
 distfiles="${homepage}/downloads/busybox-${version}.tar.bz2"
-checksum=415fbd89e5344c96acf449d94a6f956dbed62e18e835fc83e064db33a34bd549
+checksum=faeeb244c35a348a334f4a59e44626ee870fb07b6884d68c10ae8bc19f83a694
 
-_alternatives_core="
- ash:ash:/usr/bin/busybox
- awk:awk:/usr/bin/busybox
- hostname:hostname:/usr/bin/busybox
- sh:sh:/usr/bin/busybox
- vi:vi:/usr/bin/busybox
- logger:logger:/usr/bin/busybox"
-
-_alternatives="
- ${_alternatives_core}
- ntpd:ntpd:/usr/bin/busybox
- ntpd:ntpd:/etc/sv/busybox-ntpd"
-
-alternatives="${_alternatives}"
 register_shell="/usr/bin/ash"
+conflicts="busybox>=0 busybox-static>=0 base-system>=0 base-voidstrap>=0"
 
+_FEATURES="acpid coreutils cpio dash diffutils dosfstools findutils
+        grep gzip hdparm ifenslave iproute2 iputils less lsof netcat nvi
+        patch powertop psmisc rfkill run-parts sed tar
+        traceroute util-linux which whois ncurses"
+
+for f in ${_FEATURES}; do
+        provides+=" ${f}-${version}_${revision}"
+        conflicts+=" ${f}>=0"
+done
+
+alternatives="
+[:[:/usr/bin/busybox
+[[:[[:/usr/bin/busybox
+acpid:acpid:/usr/bin/busybox
+add-shell:add-shell:/usr/bin/busybox
+addgroup:addgroup:/usr/bin/busybox
+adduser:adduser:/usr/bin/busybox
+adjtimex:adjtimex:/usr/bin/busybox
+arch:arch:/usr/bin/busybox
+arp:arp:/usr/bin/busybox
+arping:arping:/usr/bin/busybox
+ash:ash:/usr/bin/busybox
+awk:awk:/usr/bin/busybox
+base64:base64:/usr/bin/busybox
+basename:basename:/usr/bin/busybox
+bbconfig:bbconfig:/usr/bin/busybox
+beep:beep:/usr/bin/busybox
+blkdiscard:blkdiscard:/usr/bin/busybox
+blkid:blkid:/usr/bin/busybox
+blockdev:blockdev:/usr/bin/busybox
+brctl:brctl:/usr/bin/busybox
+bunzip2:bunzip2:/usr/bin/busybox
+bzcat:bzcat:/usr/bin/busybox
+bzip2:bzip2:/usr/bin/busybox
+cal:cal:/usr/bin/busybox
+cat:cat:/usr/bin/busybox
+chgrp:chgrp:/usr/bin/busybox
+chmod:chmod:/usr/bin/busybox
+chown:chown:/usr/bin/busybox
+chpasswd:chpasswd:/usr/bin/busybox
+chroot:chroot:/usr/bin/busybox
+cksum:cksum:/usr/bin/busybox
+clear:clear:/usr/bin/busybox
+cmp:cmp:/usr/bin/busybox
+comm:comm:/usr/bin/busybox
+conspy:conspy:/usr/bin/busybox
+cp:cp:/usr/bin/busybox
+cpio:cpio:/usr/bin/busybox
+crond:crond:/usr/bin/busybox
+crontab:crontab:/usr/bin/busybox
+cryptpw:cryptpw:/usr/bin/busybox
+cut:cut:/usr/bin/busybox
+date:date:/usr/bin/busybox
+dc:dc:/usr/bin/busybox
+dd:dd:/usr/bin/busybox
+delgroup:delgroup:/usr/bin/busybox
+deluser:deluser:/usr/bin/busybox
+depmod:depmod:/usr/bin/busybox
+df:df:/usr/bin/busybox
+diff:diff:/usr/bin/busybox
+dirname:dirname:/usr/bin/busybox
+dmesg:dmesg:/usr/bin/busybox
+dnsdomainname:dnsdomainname:/usr/bin/busybox
+dos2unix:dos2unix:/usr/bin/busybox
+du:du:/usr/bin/busybox
+dumpkmap:dumpkmap:/usr/bin/busybox
+dumpleases:dumpleases:/usr/bin/busybox
+echo:echo:/usr/bin/busybox
+ed:ed:/usr/bin/busybox
+egrep:egrep:/usr/bin/busybox
+eject:eject:/usr/bin/busybox
+env:env:/usr/bin/busybox
+ether-wake:ether-wake:/usr/bin/busybox
+expand:expand:/usr/bin/busybox
+expr:expr:/usr/bin/busybox
+factor:factor:/usr/bin/busybox
+fallocate:fallocate:/usr/bin/busybox
+false:false:/usr/bin/busybox
+fatattr:fatattr:/usr/bin/busybox
+fbset:fbset:/usr/bin/busybox
+fdflush:fdflush:/usr/bin/busybox
+fdformat:fdformat:/usr/bin/busybox
+fdisk:fdisk:/usr/bin/busybox
+fgrep:fgrep:/usr/bin/busybox
+find:find:/usr/bin/busybox
+findfs:findfs:/usr/bin/busybox
+flock:flock:/usr/bin/busybox
+fold:fold:/usr/bin/busybox
+fsck:fsck:/usr/bin/busybox
+fstrim:fstrim:/usr/bin/busybox
+fsync:fsync:/usr/bin/busybox
+fuser:fuser:/usr/bin/busybox
+getopt:getopt:/usr/bin/busybox
+getty:getty:/usr/bin/busybox
+grep:grep:/usr/bin/busybox
+groups:groups:/usr/bin/busybox
+gunzip:gunzip:/usr/bin/busybox
+gzip:gzip:/usr/bin/busybox
+hd:hd:/usr/bin/busybox
+hdparm:hdparm:/usr/bin/busybox
+head:head:/usr/bin/busybox
+hexdump:hexdump:/usr/bin/busybox
+hostid:hostid:/usr/bin/busybox
+hostname:hostname:/usr/bin/busybox
+hwclock:hwclock:/usr/bin/busybox
+id:id:/usr/bin/busybox
+ifconfig:ifconfig:/usr/bin/busybox
+ifdown:ifdown:/usr/bin/busybox
+ifenslave:ifenslave:/usr/bin/busybox
+ifup:ifup:/usr/bin/busybox
+inotifyd:inotifyd:/usr/bin/busybox
+insmod:insmod:/usr/bin/busybox
+install:install:/usr/bin/busybox
+ionice:ionice:/usr/bin/busybox
+iostat:iostat:/usr/bin/busybox
+ip:ip:/usr/bin/busybox
+ipaddr:ipaddr:/usr/bin/busybox
+ipcalc:ipcalc:/usr/bin/busybox
+ipcrm:ipcrm:/usr/bin/busybox
+ipcs:ipcs:/usr/bin/busybox
+iplink:iplink:/usr/bin/busybox
+ipneigh:ipneigh:/usr/bin/busybox
+iproute:iproute:/usr/bin/busybox
+iprule:iprule:/usr/bin/busybox
+iptunnel:iptunnel:/usr/bin/busybox
+kill:kill:/usr/bin/busybox
+killall:killall:/usr/bin/busybox
+killall5:killall5:/usr/bin/busybox
+klogd:klogd:/usr/bin/busybox
+less:less:/usr/bin/busybox
+link:link:/usr/bin/busybox
+ln:ln:/usr/bin/busybox
+loadfont:loadfont:/usr/bin/busybox
+loadkmap:loadkmap:/usr/bin/busybox
+logger:logger:/usr/bin/busybox
+login:login:/usr/bin/busybox
+logread:logread:/usr/bin/busybox
+losetup:losetup:/usr/bin/busybox
+ls:ls:/usr/bin/busybox
+lsmod:lsmod:/usr/bin/busybox
+lsof:lsof:/usr/bin/busybox
+lspci:lspci:/usr/bin/busybox
+lsusb:lsusb:/usr/bin/busybox
+lzcat:lzcat:/usr/bin/busybox
+lzma:lzma:/usr/bin/busybox
+lzop:lzop:/usr/bin/busybox
+lzopcat:lzopcat:/usr/bin/busybox
+makemime:makemime:/usr/bin/busybox
+md5sum:md5sum:/usr/bin/busybox
+mdev:mdev:/usr/bin/busybox
+mesg:mesg:/usr/bin/busybox
+microcom:microcom:/usr/bin/busybox
+mkdir:mkdir:/usr/bin/busybox
+mkdosfs:mkdosfs:/usr/bin/busybox
+mkfifo:mkfifo:/usr/bin/busybox
+mkfs.vfat:mkfs.vfat:/usr/bin/busybox
+mknod:mknod:/usr/bin/busybox
+mkpasswd:mkpasswd:/usr/bin/busybox
+mkswap:mkswap:/usr/bin/busybox
+mktemp:mktemp:/usr/bin/busybox
+modinfo:modinfo:/usr/bin/busybox
+modprobe:modprobe:/usr/bin/busybox
+more:more:/usr/bin/busybox
+mount:mount:/usr/bin/busybox
+mountpoint:mountpoint:/usr/bin/busybox
+mpstat:mpstat:/usr/bin/busybox
+mv:mv:/usr/bin/busybox
+nameif:nameif:/usr/bin/busybox
+nanddump:nanddump:/usr/bin/busybox
+nandwrite:nandwrite:/usr/bin/busybox
+nbd-client:nbd-client:/usr/bin/busybox
+nc:nc:/usr/bin/busybox
+netstat:netstat:/usr/bin/busybox
+nice:nice:/usr/bin/busybox
+nl:nl:/usr/bin/busybox
+nmeter:nmeter:/usr/bin/busybox
+nohup:nohup:/usr/bin/busybox
+nologin:nologin:/usr/bin/busybox
+nproc:nproc:/usr/bin/busybox
+nsenter:nsenter:/usr/bin/busybox
+nslookup:nslookup:/usr/bin/busybox
+ntpd:ntpd:/usr/bin/busybox
+ntpd:ntpd:/etc/sv/busybox-ntpd
+od:od:/usr/bin/busybox
+partprobe:partprobe:/usr/bin/busybox
+passwd:passwd:/usr/bin/busybox
+paste:paste:/usr/bin/busybox
+patch:patch:/usr/bin/busybox
+ping:ping:/usr/bin/busybox
+ping6:ping6:/usr/bin/busybox
+pipe_progress:pipe_progress:/usr/bin/busybox
+powertop:powertop:/usr/bin/busybox
+printenv:printenv:/usr/bin/busybox
+printf:printf:/usr/bin/busybox
+pscan:pscan:/usr/bin/busybox
+pstree:pstree:/usr/bin/busybox
+pwd:pwd:/usr/bin/busybox
+raidautorun:raidautorun:/usr/bin/busybox
+rdate:rdate:/usr/bin/busybox
+rdev:rdev:/usr/bin/busybox
+readahead:readahead:/usr/bin/busybox
+readlink:readlink:/usr/bin/busybox
+readprofile:readprofile:/usr/bin/busybox
+realpath:realpath:/usr/bin/busybox
+reformime:reformime:/usr/bin/busybox
+remove-shell:remove-shell:/usr/bin/busybox
+renice:renice:/usr/bin/busybox
+reset:reset:/usr/bin/busybox
+resize:resize:/usr/bin/busybox
+rev:rev:/usr/bin/busybox
+rfkill:rfkill:/usr/bin/busybox
+rm:rm:/usr/bin/busybox
+rmdir:rmdir:/usr/bin/busybox
+rmmod:rmmod:/usr/bin/busybox
+route:route:/usr/bin/busybox
+run-parts:run-parts:/usr/bin/busybox
+sed:sed:/usr/bin/busybox
+sendmail:sendmail:/usr/bin/busybox
+seq:seq:/usr/bin/busybox
+setconsole:setconsole:/usr/bin/busybox
+setlogcons:setlogcons:/usr/bin/busybox
+setpriv:setpriv:/usr/bin/busybox
+setserial:setserial:/usr/bin/busybox
+setsid:setsid:/usr/bin/busybox
+sh:sh:/usr/bin/busybox
+sha1sum:sha1sum:/usr/bin/busybox
+sha256sum:sha256sum:/usr/bin/busybox
+sha3sum:sha3sum:/usr/bin/busybox
+sha512sum:sha512sum:/usr/bin/busybox
+shred:shred:/usr/bin/busybox
+shuf:shuf:/usr/bin/busybox
+slattach:slattach:/usr/bin/busybox
+sleep:sleep:/usr/bin/busybox
+smemcap:smemcap:/usr/bin/busybox
+sort:sort:/usr/bin/busybox
+split:split:/usr/bin/busybox
+ssl_client:ssl_client:/usr/bin/busybox
+stat:stat:/usr/bin/busybox
+strings:strings:/usr/bin/busybox
+stty:stty:/usr/bin/busybox
+su:su:/usr/bin/busybox
+sum:sum:/usr/bin/busybox
+swapoff:swapoff:/usr/bin/busybox
+swapon:swapon:/usr/bin/busybox
+switch_root:switch_root:/usr/bin/busybox
+sync:sync:/usr/bin/busybox
+syslogd:syslogd:/usr/bin/busybox
+tac:tac:/usr/bin/busybox
+tail:tail:/usr/bin/busybox
+tar:tar:/usr/bin/busybox
+tee:tee:/usr/bin/busybox
+test:test:/usr/bin/busybox
+time:time:/usr/bin/busybox
+timeout:timeout:/usr/bin/busybox
+touch:touch:/usr/bin/busybox
+tr:tr:/usr/bin/busybox
+traceroute:traceroute:/usr/bin/busybox
+traceroute6:traceroute6:/usr/bin/busybox
+1:1:/usr/bin/busybox
+truncate:truncate:/usr/bin/busybox
+tty:tty:/usr/bin/busybox
+ttysize:ttysize:/usr/bin/busybox
+tunctl:tunctl:/usr/bin/busybox
+udhcpc:udhcpc:/usr/bin/busybox
+udhcpc6:udhcpc6:/usr/bin/busybox
+dhcpc:dhcpc:/etc/sv/busybox-udhcpc
+umount:umount:/usr/bin/busybox
+uname:uname:/usr/bin/busybox
+unexpand:unexpand:/usr/bin/busybox
+uniq:uniq:/usr/bin/busybox
+unix2dos:unix2dos:/usr/bin/busybox
+unlink:unlink:/usr/bin/busybox
+unlzma:unlzma:/usr/bin/busybox
+unlzop:unlzop:/usr/bin/busybox
+unshare:unshare:/usr/bin/busybox
+unxz:unxz:/usr/bin/busybox
+unzip:unzip:/usr/bin/busybox
+usleep:usleep:/usr/bin/busybox
+uudecode:uudecode:/usr/bin/busybox
+uuencode:uuencode:/usr/bin/busybox
+vconfig:vconfig:/usr/bin/busybox
+vi:vi:/usr/bin/busybox
+volname:volname:/usr/bin/busybox
+watch:watch:/usr/bin/busybox
+watchdog:watchdog:/usr/bin/busybox
+wc:wc:/usr/bin/busybox
+wget:wget:/usr/bin/busybox
+which:which:/usr/bin/busybox
+whoami:whoami:/usr/bin/busybox
+whois:whois:/usr/bin/busybox
+xargs:xargs:/usr/bin/busybox
+xxd:xxd:/usr/bin/busybox
+xzcat:xzcat:/usr/bin/busybox
+yes:yes:/usr/bin/busybox
+zcat:zcat:/usr/bin/busybox
+"
 _patch_config() {
 	local t="$1"
 	shift
@@ -43,7 +326,7 @@ do_configure() {
 	mv * src || true
 
 	local t
-	for t in busybox busybox-static busybox-core busybox-huge; do
+	for t in busybox; do
 		mkdir -p $t
 		cp -f ${FILESDIR}/dotconfig ${t}/.config
 
@@ -59,11 +342,11 @@ do_configure() {
 		fi
 	done
 
-	_patch_config busybox udhcpc ntpd
-	_patch_config busybox-static udhcpc ntpd static
-	_patch_config busybox-huge udhcpc ntpd httpd mdev sysklogd huge
+	#_patch_config busybox udhcpc ntpd
+	#_patch_config busybox-static udhcpc ntpd static
+	#_patch_config busybox-huge udhcpc ntpd httpd mdev sysklogd huge
 
-	for t in busybox-core busybox busybox-static busybox-huge; do
+	for t in busybox; do
 		make -C "${t}" KBUILD_SRC="${wrksrc}/src" -f "${wrksrc}/src/Makefile" oldconfig
 		make -C "${t}" KBUILD_SRC="${wrksrc}/src" -f "${wrksrc}/src/Makefile" prepare "${makejobs}"
 	done
@@ -76,13 +359,13 @@ do_configure() {
 }
 
 do_build() {
-	for t in busybox-core busybox busybox-static busybox-huge; do
+	for t in busybox; do
 		make -C "${t}" SKIP_STRIP=y "${makejobs}"
 	done
 }
 
 do_check() {
-	for t in busybox-core busybox busybox-static busybox-huge; do
+	for t in busybox; do
 		make -C "${t}" "${makejobs}" \
 			SKIP_KNOWN_BUGS=yes SKIP_INTERNET_TESTS=yes \
 			check
@@ -95,34 +378,3 @@ do_install() {
 	vsv busybox-ntpd
 }
 
-busybox-core_package() {
-	short_desc+=" (essential applets)"
-	conflicts="busybox>=0 busybox-huge>=0"
-	alternatives="${_alternatives_core}"
-	register_shell="/usr/bin/ash"
-	pkg_install() {
-		vbin busybox-core/busybox_unstripped busybox
-		vman busybox-core/docs/busybox.1
-	}
-}
-
-busybox-static_package() {
-	short_desc+=" (statically linked)"
-	pkg_install() {
-		vbin busybox-static/busybox busybox.static
-	}
-}
-
-busybox-huge_package() {
-	short_desc+=" (extra applets)"
-	conflicts="busybox>=0 busybox-core>=0"
-	alternatives="${_alternatives}"
-	register_shell="/usr/bin/ash"
-	pkg_install() {
-		vbin busybox-huge/busybox_unstripped busybox
-		vman busybox-huge/docs/busybox.1
-		vsv busybox-ntpd
-		vsv busybox-syslogd
-		vsv busybox-klogd
-	}
-}
