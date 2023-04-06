@@ -18,9 +18,9 @@ distfiles="https://github.com/vim/vim/archive/v${version}.tar.gz"
 checksum=139cac855cb47ab7ae05a2459f7c5f84a4ec75492e34ff06f424e8c200732ad5
 python_version=3
 
-build_options="x11 gtk3 huge"
+build_options=""
 desc_option_huge="Enable support for many language interpreters"
-build_options_default="x11 gtk3"
+build_options_default=""
 # XXX vim-huge cannot be cross compiled for now.
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" huge"
@@ -34,10 +34,10 @@ _subdirs="$(vopt_if x11 vim-x11) $(vopt_if gtk3 gvim)
 alternatives="vim:vim:/usr/bin/vim-normal"
 
 pre_configure() {
-	local f
-	for f in vim-normal ${_subdirs}; do
-		rm -rf ${f}
-		cp -r vim-${version} ${f}
+	for f in ${_subdirs}; do
+		mkdir -p /tmp/${f}
+		cp -a $wrksrc/* /tmp/${f}
+		mv /tmp/${f} $wrksrc/${f}
 	done
 }
 
@@ -60,7 +60,7 @@ do_configure() {
 	fi
 
 	# Normal version.
-	cd $wrksrc/vim-normal
+	cd $wrksrc
 	./configure ${configure_args} ${args} ${nohuge_args} --disable-xim --enable-gui=no --with-x=no
 
 	# X11 version.
@@ -96,7 +96,10 @@ do_configure() {
 }
 
 do_build() {
-	for f in vim-normal ${_subdirs}; do
+	cd $wrksrc
+	make ${makejobs}
+
+	for f in ${_subdirs}; do
 		cd $wrksrc/$f
 		make ${makejobs}
 	done
@@ -104,12 +107,11 @@ do_build() {
 }
 
 do_check() {
-	cd $wrksrc/vim-normal
+	cd $wrksrc
 	TERM=xterm make test
 }
 
 do_install() {
-	cd $wrksrc/vim-normal
 	make DESTDIR=$DESTDIR install
 	vlicense runtime/doc/uganda.txt LICENSE
 
@@ -155,55 +157,6 @@ vim-common_package() {
 		vmove usr/share/vim
 		vinstall ${FILESDIR}/vimrc 644 usr/share/vim
 	}
-}
-vim-x11_package() {
-	depends="vim-common-${version}_${revision}"
-	provides="vim-${version}_${revision}"
-	short_desc+=" - with access to X11 selection"
-	alternatives="vim:vim:/usr/bin/vim-x11"
-	pkg_install() {
-		vbin $wrksrc/vim-x11/src/vim vim-x11
-	}
-}
-gvim_package() {
-	depends="vim-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
-	provides="vim-${version}_${revision}"
-	short_desc+=" - GTK+ GUI"
-	alternatives="vim:vim:/usr/bin/gvim"
-	pkg_install() {
-		cd $wrksrc/gvim
-		make -C src DESTDIR=${PKGDESTDIR} installvimbin install-icons
-		rm -f ${PKGDESTDIR}/usr/share/applications/vim.desktop
-		rm -rf ${PKGDESTDIR}/usr/share/icons
-	}
-}
-gvim-huge_package() {
-	depends="python3 vim-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
-	provides="vim-${version}_${revision}"
-	short_desc+=" - GTK+ GUI - Huge (all features enabled)"
-	alternatives="vim:vim:/usr/bin/gvim-huge"
-	pkg_install() {
-		cd $wrksrc/gvim-huge
-		make -C src DESTDIR=${PKGDESTDIR} installvimbin install-icons
-		rm -f ${PKGDESTDIR}/usr/share/applications/vim.desktop
-		mv ${PKGDESTDIR}/usr/share/applications/{gvim,gvim-huge}.desktop
-		vsed -i 's,Exec=gvim,Exec=gvim-huge,g' ${PKGDESTDIR}/usr/share/applications/gvim-huge.desktop
-		rm -rf ${PKGDESTDIR}/usr/share/icons
-	}
-}
-vim-huge_package() {
-	depends="python3 vim-common-${version}_${revision}"
-	short_desc+=" - Huge (all features enabled)"
-	provides="vim-${version}_${revision}"
-	alternatives="vim:vim:/usr/bin/vim-huge"
-	pkg_install() {
-		vbin $wrksrc/vim-huge/src/vim vim-huge
-	}
-}
-vim-huge-python3_package() {
-	depends="vim-huge"
-	short_desc+=" - transitional package"
-	build_style=meta
 }
 xxd_package() {
 	short_desc="Make a hexdump or do the reverse"
