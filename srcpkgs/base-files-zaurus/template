@@ -1,0 +1,43 @@
+# Template file for 'base-files-zaurus'
+pkgname=base-files-zaurus
+version=0.6
+revision=1
+bootstrap=yes
+depends="xbps-triggers base-files busybox kbd linux-zaurus runit-void"
+short_desc="Void Linux base system files for Sharp Zaurus"
+maintainer="greguu <greguu@null.net>"
+homepage="https://www.oesf.org"
+license="Public domain"
+
+do_install() {
+	# Install default kexecboot boot.cfg to /boot
+	vinstall ${FILESDIR}/boot.cfg 644 boot
+
+	# Install borzoi keymap
+	vmkdir usr/share/kbd/keymaps/zaurus
+	vinstall ${FILESDIR}/borzoi.map 644 usr/share/kbd/keymaps/zaurus
+
+	# Install fb.modes
+	vinstall ${FILESDIR}/fb.modes 644 etc
+
+	# Install touchscreen pointercal
+	vinstall ${FILESDIR}/pointercal 644 etc
+
+	# Install hostname
+	vinstall ${FILESDIR}/hostname 644 etc
+
+	# Install default fstab
+	vinstall ${FILESDIR}/fstab 644 etc
+
+	# Install default rc.conf
+	vinstall ${FILESDIR}/rc.conf 644 etc
+
+	# Install default profile
+	vinstall ${FILESDIR}/profile 644 etc
+
+	# Install terminus font for tty console
+	vinstall ${FILESDIR}/ter-v12n.psf.gz 644 usr/share/kbd/consolefonts
+
+	# Install spleen font for tty console
+	vinstall ${FILESDIR}/spleen-6x12.psfu.gz 644 usr/share/kbd/consolefonts
+}

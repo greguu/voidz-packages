@@ -1,0 +1,16 @@
+# Template file for 'base-system-busybox-zaurus'
+pkgname=base-system-busybox-zaurus
+version=0.6
+revision=1
+build_style=meta
+homepage="http://www.oesf.org/"
+short_desc="Void Linux base system meta package for containers/chroots with busybox (Sharp Zaurus) "
+maintainer="greguu <greguu@null.net>"
+license="Public domain"
+
+depends="base-files base-files-zaurus busybox linux-zaurus e2fsprogs f2fs-tools runit-void xbps kbd eudev shadow kmod ncurses-base procps-ng tzdata ethtool dropbear nano tmux iw wpa_actiond wpa_supplicant wireless_tools lynx libstdc++ alsa-utils links mc sudo fbset fbgrab"
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) depends+=" musl";;
+	*) depends+=" glibc-locales";;
+esac
