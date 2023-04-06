@@ -1,0 +1,22 @@
+# Template file for 'linux-zaurus'
+pkgname=linux-zaurus
+version=5.4
+revision=1
+build_style=meta
+homepage="http://www.oesf.org/"
+short_desc="The Linux kernel meta package (Zaurus)"
+maintainer="greguu <greguu@null.net>"
+license="Public Domain"
+
+case "$XBPS_TARGET_MACHINE" in
+	arm*)
+		depends="linux${version}-zaurus"
+		_depends_headers="linux${version}-zaurus-headers"
+		;;
+	*) ;;
+esac
+
+linux-zaurus-headers_package() {
+	short_desc="Linux kernel headers meta package"
+	depends="${_depends_headers}"
+}
