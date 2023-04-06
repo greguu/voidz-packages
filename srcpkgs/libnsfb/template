@@ -1,0 +1,36 @@
+# Template file for 'libnsfb'
+pkgname=libnsfb
+version=0.2.2
+revision=1
+hostmakedepends="netsurf-buildsystem pkg-config which"
+makedepends="SDL-devel"
+depends="SDL"
+short_desc="Framebuffer frontend for Netsurf Browser"
+maintainer="Greguu <greguu@null.net>"
+license="MIT"
+homepage="http://www.netsurf-browser.org"
+distfiles="http://download.netsurf-browser.org/libs/releases/${pkgname}-${version}-src.tar.gz"
+checksum=be446ca3eb54df903f2da98311d107d7574cd11f5ac0713e619156d4d19ea39a
+CFLAGS="-Wno-error"
+
+do_build() {
+	make ${makejobs} COMPONENT_TYPE=lib-shared PREFIX=/usr
+	make ${makejobs} COMPONENT_TYPE=lib-static PREFIX=/usr
+}
+
+do_install() {
+	make COMPONENT_TYPE=lib-shared PREFIX=/usr DESTDIR=${DESTDIR} install
+	make COMPONENT_TYPE=lib-static PREFIX=/usr DESTDIR=${DESTDIR} install
+	vlicense COPYING
+}
+
+libnsfb-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

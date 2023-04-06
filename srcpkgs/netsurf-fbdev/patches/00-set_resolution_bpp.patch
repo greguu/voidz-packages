@@ -1,0 +1,21 @@
+--- a/frontends/framebuffer/gui.c	2020-05-25 08:55:29.000000000 +1200
++++ b/frontends/framebuffer/gui.c	2022-09-13 15:47:03.447543692 +1200
+@@ -486,15 +486,15 @@
+ 
+ 	nsfb_enumerate_surface_types(framebuffer_pick_default_fename, NULL);
+ 
+-	febpp = 32;
++	febpp = 16;
+ 
+ 	fewidth = nsoption_int(window_width);
+ 	if (fewidth <= 0) {
+-		fewidth = 800;
++		fewidth = 640;
+ 	}
+ 	feheight = nsoption_int(window_height);
+ 	if (feheight <= 0) {
+-		feheight = 600;
++		feheight = 480;
+ 	}
+ 
+ 	if ((nsoption_charp(homepage_url) != NULL) && 
