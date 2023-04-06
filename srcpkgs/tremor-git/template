@@ -1,0 +1,32 @@
+# Template file for 'tremor-git'
+pkgname=tremor-git
+version=0.0.1
+revision=1
+build_style=gnu-configure
+hostmakedepends="autoconf automake libtool pkg-config"
+makedepends="libogg-devel"
+short_desc="Integer-only Vorbis decoder library"
+maintainer="Greguu <greguu@null.net>"
+license="Custom:Xiph"
+homepage="https://wiki.xiph.org/Tremor"
+distfiles="https://gitlab.xiph.org/xiph/tremor/-/archive/master/tremor-master.tar.gz"
+checksum=1cfd608de5f28cf331730d4b875b21a8ce37cd0f8a89b6439e0f462045163be4
+
+#post_extract() {
+#	mv ${XBPS_BUILDDIR}/tremor-master ${XBPS_BUILDDIR}/tremor-git-${version}
+#}
+
+pre_configure(){
+	autoreconf --install
+}
+
+tremor-git-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}
