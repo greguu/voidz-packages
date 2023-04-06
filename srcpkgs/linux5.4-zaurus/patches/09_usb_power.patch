@@ -1,0 +1,11 @@
+--- a/arch/arm/mach-pxa/spitz.c
++++ b/arch/arm/mach-pxa/spitz.c
+@@ -656,7 +656,7 @@ static struct pxaohci_platform_data spitz_ohci_platform_data = {
+ 	.init		= spitz_ohci_init,
+ 	.exit		= spitz_ohci_exit,
+ 	.flags		= ENABLE_PORT_ALL | NO_OC_PROTECTION,
+-	.power_budget	= 150,
++	.power_budget	= 180,
+ };
+ 
+ static void __init spitz_uhc_init(void)
