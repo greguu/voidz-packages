@@ -1,0 +1,13 @@
+# Template file for 'zaurus-base'
+pkgname=zaurus-base
+version=0.6
+revision=1
+build_style=meta
+short_desc="Base package for the Sharp Zaurus Cxx00 handhelds"
+homepage="http://www.oesf.org"
+maintainer="greguu <greguu@null.net>"
+license="GPL-3"
+
+# The Zaurus devices are all armv5tel based and we want musl only
+only_for_archs="armv5tel-musl"
+depends="linux-zaurus runit-void base-system-busybox-zaurus"
