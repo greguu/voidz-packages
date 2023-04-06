@@ -4538,3 +4538,8 @@ libopencore-amrwb.so.0 opencore-amr-0.1.6_1
 libilbc.so.3 libilbc-3.0.4_1
 libmaliit-plugins.so.2 maliit-keyboard-2.3.1_1
 libSDL3.so.0 SDL3-3.2.2_1
+libsvgtiny.so.0 libsvgtiny-0.1.7_1
+librosprite.so.0 librosprite-0.1.3_1
+libnspsl.so.0 libnspsl-0.1.6_1
+libnslog.so.0 libnslog-0.1.3_1
+libnsfb.so.0 libnsfb-0.2.2_1
