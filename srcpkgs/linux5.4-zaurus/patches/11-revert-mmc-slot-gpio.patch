@@ -1,0 +1,10 @@
+--- b/drivers/mmc/core/slot-gpio.c
++++ a/drivers/mmc/core/slot-gpio.c
+@@ -117,7 +117,6 @@ int mmc_gpio_request_ro(struct mmc_host
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ctx->override_ro_active_level = true;
+ 	ctx->ro_gpio = gpio_to_desc(gpio);
+ 
+ 	return 0;
