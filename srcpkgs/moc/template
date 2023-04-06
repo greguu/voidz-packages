@@ -4,10 +4,10 @@ version=2.5.2
 revision=6
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="db-devel ncurses-devel libcurl-devel popt-devel ffmpeg-devel
- jack-devel alsa-lib-devel libltdl-devel libflac-devel libvorbis-devel
- libmad-devel libmpcdec-devel libmodplug-devel libid3tag-devel faad2-devel
- taglib-devel libsndfile-devel wavpack-devel speex-devel libsamplerate-devel
+makedepends="db-devel ncurses-devel libcurl-devel popt-devel
+ alsa-lib-devel libltdl-devel libflac-devel tremor-git-devel
+ libmad-devel libmodplug-devel libid3tag-devel faad2-devel
+ taglib-devel libsndfile-devel speex-devel libsamplerate-devel
  sndio-devel"
 short_desc="Console-based audio player"
 maintainer="necrophcodr <necrophcodr@necrophcodr.me>"
