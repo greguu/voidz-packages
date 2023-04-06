@@ -1,0 +1,20 @@
+--- a/configure.in	2018-03-20 09:08:57.000000000 +1300
++++ b/configure.in	2022-09-10 17:01:40.549122220 +1200
+@@ -116,16 +116,7 @@
+ then
+   PKG_CHECK_MODULES(OGG, ogg >= 1.0, HAVE_OGG=yes, HAVE_OGG=no)
+ fi
+-if test "x$HAVE_OGG" = "xno"
+-then
+-  dnl fall back to the old school test
+-  XIPH_PATH_OGG(, AC_MSG_ERROR(must have Ogg installed!))
+-  libs_save=$LIBS
+-  LIBS="$OGG_LIBS"
+-  AC_CHECK_FUNC(oggpack_writealign, , AC_MSG_ERROR(Ogg >= 1.0 required !))
+-  LIBS=$libs_save
+-fi
+-
++    
+ dnl --------------------------------------------------
+ dnl Check for library functions
+ dnl --------------------------------------------------
