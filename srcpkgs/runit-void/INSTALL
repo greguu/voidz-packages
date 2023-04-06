@@ -11,7 +11,7 @@ post)
 	if [ ! -e etc/runit/runsvdir/current ]; then
 		ln -sf default etc/runit/runsvdir/current
 	fi
-	for f in 1 2 3 4 5 6; do
+	for f in 1 2; do
 		[ -e /etc/sv/agetty-tty${f}/down ] || ln -sf /etc/sv/agetty-tty$f etc/runit/runsvdir/default
 	done
 	[ -e etc/sv/udevd/run ] && ln -sf /etc/sv/udevd etc/runit/runsvdir/default
