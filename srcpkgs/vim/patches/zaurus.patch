@@ -1,0 +1,35 @@
+Zaurus fix, see: https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=83d72770bcd85405144b4a6ad2b427abc11fe62c
+--- a/src/po/Make_all.mak
++++ b/src/po/Make_all.mak
+@@ -18,7 +18,6 @@ LANGUAGES = \
+ 		it \
+ 		ja \
+ 		ja.euc-jp \
+-		ja.sjis \
+ 		ko \
+ 		ko.UTF-8 \
+ 		lv \
+@@ -62,7 +61,6 @@ POFILES = \
+ 		it.po \
+ 		ja.po \
+ 		ja.euc-jp.po \
+-		ja.sjis.po \
+ 		ko.po \
+ 		ko.UTF-8.po \
+ 		lv.po \
+@@ -127,7 +125,6 @@ MOFILES = \
+ MOCONVERTED = \
+ 		cs.cp1250.mo \
+ 		ja.euc-jp.mo \
+-		ja.sjis.mo \
+ 		pl.UTF-8.mo \
+ 		pl.cp1250.mo \
+ 		ru.cp1251.mo \
+@@ -153,7 +150,6 @@ CHECKFILES = \
+ 		it.ck \
+ 		ja.ck \
+ 		ja.euc-jp.ck \
+-		ja.sjis.ck \
+ 		ko.UTF-8.ck \
+ 		ko.ck \
+ 		lv.ck \
