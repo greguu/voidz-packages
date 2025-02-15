@@ -2,7 +2,7 @@
 pkgname=fbset
 version=2.1
 revision=6
-conf_files="/etc/fb.modes"
+#conf_files="/etc/fb.modes"
 hostmakedepends="flex"
 makedepends="libfl-devel"
 short_desc="Framebuffer device maintenance program"
@@ -21,4 +21,6 @@ do_build() {
 }
 do_install() {
 	make DESTDIR=$DESTDIR PREFIX=/usr install
+  # remove conflicting etc/fb.modes
+	rm -f ${DESTDIR}/etc/fb.modes
 }

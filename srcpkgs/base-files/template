@@ -8,9 +8,11 @@ short_desc="Void Linux base system files"
 maintainer="Enno Boland <orphan@voidlinux.org>"
 license="Public Domain"
 homepage="https://www.voidlinux.org"
+# conflicting files with zaurus-base
+#/etc/fstab
+#/etc/profile
 conf_files="
 	/etc/inputrc
-	/etc/profile
 	/etc/hosts
 	/etc/host.conf
 	/etc/securetty
@@ -23,7 +25,6 @@ conf_files="
 	/etc/issue
 	/etc/passwd
 	/etc/group
-	/etc/fstab
 	/etc/crypttab
 	/etc/nsswitch.conf"
 
@@ -60,8 +61,8 @@ do_install() {
 	done
 
 	vinstall ${FILESDIR}/securetty 600 etc
-	for f in profile hosts host.conf issue subuid subgid \
-		inputrc fstab passwd group crypttab nsswitch.conf; do
+	for f in hosts host.conf issue subuid subgid \
+		inputrc passwd group crypttab nsswitch.conf; do
 		vinstall ${FILESDIR}/${f} 644 etc
 	done
 	vmkdir etc/colors

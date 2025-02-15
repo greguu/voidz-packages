@@ -10,11 +10,12 @@ homepage="https://github.com/void-linux/void-runit"
 distfiles="https://github.com/void-linux/void-runit/archive/refs/tags/${version}.tar.gz"
 checksum=2bdb86a08ee0ee70d1a189ebbf9e60157f847e8c8f75caedc009536ca794a77c
 
+# conflicting with zaurus-base
+#/etc/hostname
+#/etc/rc.conf
 depends="virtual?awk procps-ng runit"
 conf_files="
- /etc/hostname
  /etc/locale.conf
- /etc/rc.conf
  /etc/rc.local
  /etc/rc.shutdown
  /etc/sv/agetty-console/conf
@@ -27,10 +28,10 @@ make_dirs="
  /etc/zzz.d/suspend 0755 root root
  /etc/zzz.d/resume 0755 root root"
 
+# vconf ${FILESDIR}/hostname
 post_install() {
 	vmkdir usr/bin
 	mv ${DESTDIR}/usr/sbin/* ${DESTDIR}/usr/bin
-	vconf ${FILESDIR}/hostname
 	vconf ${FILESDIR}/locale.conf
 	vinstall ${FILESDIR}/apparmor 644 /etc/default/
 	vinstall ${FILESDIR}/09-apparmor.sh 644 /etc/runit/core-services/
@@ -40,6 +41,8 @@ post_install() {
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/default
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/single
 	ln -s runit-init ${DESTDIR}/usr/bin/init
+  # remove conflicting rc.conf
+	rm -f ${DESTDIR}/etc/rc.conf
 }
 
 runit-void-apparmor_package() {
