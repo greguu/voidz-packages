@@ -1,0 +1,13 @@
+--- a/frontends/framebuffer/options.h	2020-05-25 08:55:29.000000000 +1200
++++ b/frontends/framebuffer/options.h	2022-09-11 16:50:29.032387145 +1200
+@@ -25,8 +25,8 @@
+ 
+ /***** surface options *****/
+ 
+-NSOPTION_INTEGER(fb_depth, 32)
+-NSOPTION_INTEGER(fb_refresh, 70)
++NSOPTION_INTEGER(fb_depth, 16)
++NSOPTION_INTEGER(fb_refresh, 60)
+ NSOPTION_STRING(fb_device, NULL)
+ NSOPTION_STRING(fb_input_devpath, NULL)
+ NSOPTION_STRING(fb_input_glob, NULL)
