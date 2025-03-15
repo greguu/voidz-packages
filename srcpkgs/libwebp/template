@@ -15,6 +15,7 @@ distfiles="http://downloads.webmproject.org/releases/webp/libwebp-${version}.tar
 checksum=61f873ec69e3be1b99535634340d5bde750b2e4447caa1db9f61be3fd49ab1e5
 
 case "$XBPS_TARGET_MACHINE" in
+	armv5*) configure_args+=" --disable-neon";;
 	armv6*) configure_args+=" --disable-neon";;
 	armv7*) CFLAGS="-mfpu=neon";;
 	*) makedepends+=" libfreeglut-devel";;

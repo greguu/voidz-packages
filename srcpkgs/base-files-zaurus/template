@@ -1,9 +1,9 @@
 # Template file for 'base-files-zaurus'
 pkgname=base-files-zaurus
-version=0.6
+version=0.7
 revision=1
 bootstrap=yes
-depends="xbps-triggers base-files busybox kbd linux-zaurus runit-void"
+depends="xbps-triggers base-files busybox-zaurus kbd linux-zaurus runit-void"
 short_desc="Void Linux base system files for Sharp Zaurus"
 maintainer="greguu <greguu@null.net>"
 homepage="https://www.oesf.org"

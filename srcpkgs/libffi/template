@@ -9,7 +9,7 @@ short_desc="Library supporting Foreign Function Interfaces"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="http://sourceware.org/libffi"
-distfiles="ftp://sourceware.org/pub/$pkgname/$pkgname-$version.tar.gz"
+distfiles="https://sourceware.org/pub/$pkgname/$pkgname-$version.tar.gz"
 checksum=72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056
 
 post_install() {

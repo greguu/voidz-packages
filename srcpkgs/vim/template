@@ -60,7 +60,7 @@ do_configure() {
 	fi
 
 	# Normal version.
-	cd $wrksrc
+	cd $wrksrc/vim-$version
 	./configure ${configure_args} ${args} ${nohuge_args} --disable-xim --enable-gui=no --with-x=no
 
 	# X11 version.
@@ -96,22 +96,23 @@ do_configure() {
 }
 
 do_build() {
-	cd $wrksrc
+	cd $wrksrc/vim-$version
 	make ${makejobs}
 
 	for f in ${_subdirs}; do
-		cd $wrksrc/$f
+		cd $wrksrc/vim-$version/$f
 		make ${makejobs}
 	done
 
 }
 
 do_check() {
-	cd $wrksrc
+	cd $wrksrc/vim-$version
 	TERM=xterm make test
 }
 
 do_install() {
+	cd $wrksrc/vim-$version
 	make DESTDIR=$DESTDIR install
 	vlicense runtime/doc/uganda.txt LICENSE
 
@@ -124,7 +125,7 @@ do_install() {
 
 	# install gvim icons
 	if [ "$build_option_gtk3" ]; then
-		cd ${wrksrc}/gvim
+		cd ${wrksrc}/vim-$version/gvim
 		sed -i "s|/locolor|/hicolor|g" src/Makefile
 		for d in 16 32 48; do
 			vmkdir usr/share/icons/hicolor/${d}x${d}/apps
