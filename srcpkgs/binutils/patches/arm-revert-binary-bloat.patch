@@ -1,0 +1,11 @@
+--- a/bfd/elf.c
++++ b/bfd/elf.c
+@@ -5376,6 +5376,9 @@ vma_page_aligned_bias (bfd_vma vma, ufile_ptr off,
+   /* PR binutils/16199: Handle an alignment of zero.  */
+   if (maxpagesize == 0)
+     maxpagesize = 1;
++  /* maximum file position alignment for segments */
++  if (maxpagesize > 4096)
++    maxpagesize = 4096;
+   return ((vma - off) % maxpagesize);
+ }
