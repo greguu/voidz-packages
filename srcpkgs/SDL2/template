@@ -18,8 +18,10 @@ distfiles="https://www.libsdl.org/release/SDL2-${version}.tar.gz"
 checksum=5f5993c530f084535c65a6879e9b26ad441169b3e25d789d83287040a9ca5165
 
 # Package build options
-build_options="gles opengl pulseaudio pipewire sndio vulkan wayland x11"
-build_options_default="gles opengl pulseaudio sndio vulkan wayland x11"
+build_options="sndio"
+build_options_default="sndio"
+#build_options="gles opengl pulseaudio pipewire sndio vulkan wayland x11"
+#build_options_default="gles opengl pulseaudio sndio vulkan wayland x11"
 
 case "$XBPS_TARGET_MACHINE" in
 	ppcle*) ;;

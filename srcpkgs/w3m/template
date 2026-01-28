@@ -3,12 +3,9 @@ pkgname=w3m
 version=0.5.5
 revision=1
 build_style=gnu-configure
-configure_args="--libexecdir=/usr/lib --enable-image=x11,fb
- --with-nkf=/usr/bin/nkf
- --with-imagelib=imlib2 --with-termlib=ncurses --disable-w3mmailer"
+configure_args="--libexecdir=/usr/lib --enable-image=fb --with-nkf=/usr/bin/nkf --with-termlib=ncurses --disable-w3mmailer"
 hostmakedepends="pkg-config gc-devel perl gettext nkf"
-makedepends="zlib-devel ncurses-devel gc-devel openssl-devel imlib2-devel
- libX11-devel"
+makedepends="zlib-devel ncurses-devel gc-devel openssl-devel"
 short_desc="Text-based Web browser and pager (with Debian patches)"
 maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="MIT"
@@ -18,7 +15,7 @@ changelog="https://git.sr.ht/~rkta/w3m/blob/master/ChangeLog"
 distfiles="https://git.sr.ht/~rkta/w3m/archive/v${version}.tar.gz"
 checksum=b271c86b13be2207700230cb3f9061271ea37fd1ace199f48b72ea542a529a0f
 
-LDFLAGS="-lX11"
+#LDFLAGS="-lX11"
 
 post_patch() {
 	rm -f Bonus/oldconfigure.sh

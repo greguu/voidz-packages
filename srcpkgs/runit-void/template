@@ -12,9 +12,7 @@ checksum=c0d3ecea4dae5bba8ca3e563706847ef3b6cbdfcc19b8bf69b3f7a9bc0451f50
 
 depends="virtual?awk procps-ng runit"
 conf_files="
- /etc/hostname
  /etc/locale.conf
- /etc/rc.conf
  /etc/rc.local
  /etc/rc.shutdown
  /etc/sv/agetty-console/conf
@@ -30,7 +28,6 @@ make_dirs="
 post_install() {
 	vmkdir usr/bin
 	mv ${DESTDIR}/usr/sbin/* ${DESTDIR}/usr/bin
-	vconf ${FILESDIR}/hostname
 	vconf ${FILESDIR}/locale.conf
 	vinstall ${FILESDIR}/apparmor 644 /etc/default/
 	vinstall ${FILESDIR}/09-apparmor.sh 644 /etc/runit/core-services/
@@ -40,6 +37,8 @@ post_install() {
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/default
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/single
 	ln -s runit-init ${DESTDIR}/usr/bin/init
+	# delete stock rc.conf
+	rm -f ${DESTDIR}/etc/rc.conf
 }
 
 runit-void-apparmor_package() {

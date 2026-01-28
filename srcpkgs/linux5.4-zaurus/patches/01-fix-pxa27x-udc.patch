@@ -1,0 +1,62 @@
+--- b/arch/arm/mach-pxa/spitz.c
++++ a/arch/arm/mach-pxa/spitz.c
+@@ -42,6 +42,7 @@
+ 
+ #include "pxa27x.h"
+ #include "pxa27x-udc.h"
++#include "udc.h"
+ #include <mach/reset.h>
+ #include <linux/platform_data/irda-pxaficp.h>
+ #include <linux/platform_data/mmc-pxamci.h>
+@@ -668,6 +669,43 @@ static inline void spitz_uhc_init(void)
+ #endif
+ 
+ /******************************************************************************
++ * USB Gadget
++ ******************************************************************************/
++#if defined(CONFIG_USB_PXA27X)||defined(CONFIG_USB_PXA27X_MODULE)
++static void spitz_udc_command(int cmd)
++{
++	if (cmd == PXA2XX_UDC_CMD_CONNECT) {
++		UP2OCR = UP2OCR_HXOE | UP2OCR_DPPUE;
++  }
++	else if (cmd == PXA2XX_UDC_CMD_DISCONNECT) {
++		UP2OCR = UP2OCR_HXOE | UP2OCR_HXS | UP2OCR_DMPDE | UP2OCR_DPPDE;
++  }
++}
++
++static int spitz_udc_is_connected(void)
++{
++  // TODO read the GPIO
++	return 1;
++}
++
++static struct pxa2xx_udc_mach_info spitz_udc_mach_info __initdata = {
++  // ref: balloon3.c
++  // ref: h5000.c
++	.gpio_pullup = -1,
++  .udc_is_connected = spitz_udc_is_connected,
++  .udc_command = spitz_udc_command,
++};
++
++static void __init spitz_udc_init(void)
++{
++  pxa_set_udc_info(&spitz_udc_mach_info);
++}
++#else
++static inline void spitz_udc_init(void) {}
++#endif
++
++
++/******************************************************************************
+  * IrDA
+  ******************************************************************************/
+ #if defined(CONFIG_PXA_FICP) || defined(CONFIG_PXA_FICP_MODULE)
+@@ -1009,6 +1047,7 @@ static void __init spitz_init(void)
+ 	spitz_pcmcia_init();
+ 	spitz_irda_init();
+ 	spitz_uhc_init();
++	spitz_udc_init();
+ 	spitz_lcd_init();
+ 	spitz_nor_init();
+ 	spitz_nand_init();

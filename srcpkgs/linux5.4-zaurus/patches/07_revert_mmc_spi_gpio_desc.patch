@@ -1,0 +1,135 @@
+--- b/drivers/mmc/host/mmc_spi.c
++++ a/drivers/mmc/host/mmc_spi.c
+@@ -1434,16 +1434,13 @@
+ 	if (status != 0)
+ 		goto fail_add_host;
+ 
++	if (host->pdata && host->pdata->flags & MMC_SPI_USE_CD_GPIO) {
++		status = mmc_gpio_request_cd(mmc, host->pdata->cd_gpio,
++					     host->pdata->cd_debounce);
++		if (status != 0)
++			goto fail_add_host;
++
++		/* The platform has a CD GPIO signal that may support
+-	/*
+-	 * Index 0 is card detect
+-	 * Old boardfiles were specifying 1 ms as debounce
+-	 */
+-	status = mmc_gpiod_request_cd(mmc, NULL, 0, false, 1, NULL);
+-	if (status == -EPROBE_DEFER)
+-		goto fail_add_host;
+-	if (!status) {
+-		/*
+-		 * The platform has a CD GPIO signal that may support
+ 		 * interrupts, so let mmc_gpiod_request_cd_irq() decide
+ 		 * if polling is needed or not.
+ 		 */
+@@ -1451,13 +1448,13 @@
+ 		mmc_gpiod_request_cd_irq(mmc);
+ 	}
+ 	mmc_detect_change(mmc, 0);
+ 
++	if (host->pdata && host->pdata->flags & MMC_SPI_USE_RO_GPIO) {
+-	/* Index 1 is write protect/read only */
+-	status = mmc_gpiod_request_ro(mmc, NULL, 1, 0, NULL);
+-	if (status == -EPROBE_DEFER)
+-		goto fail_add_host;
+-	if (!status)
+ 		has_ro = true;
++		status = mmc_gpio_request_ro(mmc, host->pdata->ro_gpio);
++		if (status != 0)
++			goto fail_add_host;
++	}
+ 
+ 	dev_info(&spi->dev, "SD/MMC host %s%s%s%s%s\n",
+ 			dev_name(&mmc->class_dev),
+--- b/drivers/mmc/host/of_mmc_spi.c
++++ a/drivers/mmc/host/of_mmc_spi.c
+@@ -16,7 +16,9 @@
+ #include <linux/device.h>
+ #include <linux/slab.h>
+ #include <linux/irq.h>
++#include <linux/gpio.h>
+ #include <linux/of.h>
++#include <linux/of_gpio.h>
+ #include <linux/of_irq.h>
+ #include <linux/spi/spi.h>
+ #include <linux/spi/mmc_spi.h>
+@@ -30,7 +32,15 @@
+ 
+ MODULE_LICENSE("GPL");
+ 
++enum {
++	CD_GPIO = 0,
++	WP_GPIO,
++	NUM_GPIOS,
++};
++
+ struct of_mmc_spi {
++	int gpios[NUM_GPIOS];
++	bool alow_gpios[NUM_GPIOS];
+ 	int detect_irq;
+ 	struct mmc_spi_platform_data pdata;
+ };
+@@ -92,6 +102,30 @@
+ 	if (mmc_of_parse_voltage(np, &oms->pdata.ocr_mask) <= 0)
+ 		goto err_ocr;
+ 
++	for (i = 0; i < ARRAY_SIZE(oms->gpios); i++) {
++		enum of_gpio_flags gpio_flags;
++
++		oms->gpios[i] = of_get_gpio_flags(np, i, &gpio_flags);
++		if (!gpio_is_valid(oms->gpios[i]))
++			continue;
++
++		if (gpio_flags & OF_GPIO_ACTIVE_LOW)
++			oms->alow_gpios[i] = true;
++	}
++
++	if (gpio_is_valid(oms->gpios[CD_GPIO])) {
++		oms->pdata.cd_gpio = oms->gpios[CD_GPIO];
++		oms->pdata.flags |= MMC_SPI_USE_CD_GPIO;
++		if (!oms->alow_gpios[CD_GPIO])
++			oms->pdata.caps2 |= MMC_CAP2_CD_ACTIVE_HIGH;
++	}
++	if (gpio_is_valid(oms->gpios[WP_GPIO])) {
++		oms->pdata.ro_gpio = oms->gpios[WP_GPIO];
++		oms->pdata.flags |= MMC_SPI_USE_RO_GPIO;
++		if (!oms->alow_gpios[WP_GPIO])
++			oms->pdata.caps2 |= MMC_CAP2_RO_ACTIVE_HIGH;
++	}
++
+ 	oms->detect_irq = irq_of_parse_and_map(np, 0);
+ 	if (oms->detect_irq != 0) {
+ 		oms->pdata.init = of_mmc_spi_init;
+--- b/include/linux/spi/mmc_spi.h
++++ a/include/linux/spi/mmc_spi.h
+@@ -8,6 +8,11 @@
+ struct device;
+ struct mmc_host;
+ 
++#define MMC_SPI_USE_CD_GPIO			(1 << 0)
++#define MMC_SPI_USE_RO_GPIO			(1 << 1)
++#define MMC_SPI_CD_GPIO_ACTIVE_LOW		(1 << 2)
++#define MMC_SPI_RO_GPIO_ACTIVE_LOW		(1 << 3)
++
+ /* Put this in platform_data of a device being used to manage an MMC/SD
+  * card slot.  (Modeled after PXA mmc glue; see that for usage examples.)
+  *
+@@ -22,6 +27,16 @@
+ 		void *);
+ 	void (*exit)(struct device *, void *);
+ 
++	/*
++	 * Card Detect and Read Only GPIOs. To enable debouncing on the card
++	 * detect GPIO, set the cd_debounce to the debounce time in
++	 * microseconds.
++	 */
++	unsigned int flags;
++	unsigned int cd_gpio;
++	unsigned int cd_debounce;
++	unsigned int ro_gpio;
++
+ 	/* Capabilities to pass into mmc core (e.g. MMC_CAP_NEEDS_POLL). */
+ 	unsigned long caps;
+ 	unsigned long caps2;
