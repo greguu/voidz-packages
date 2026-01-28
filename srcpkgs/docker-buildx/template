@@ -1,11 +1,12 @@
 # Template file for 'docker-buildx'
 pkgname=docker-buildx
-version=0.19.2
+version=0.30.1
 revision=1
 build_style=go
 go_import_path="github.com/docker/buildx"
 go_package="./cmd/buildx"
 go_ldflags="-X github.com/docker/buildx/version.Version=v${version}"
+make_check_args="-skip=(^TestGit$|^TestIntegration$)"
 depends="docker-cli"
 checkdepends="git"
 short_desc="Docker CLI plugin for extended build capabilities with BuildKit"
@@ -13,7 +14,7 @@ maintainer="Daniel Lewan <daniel@teddydd.me>"
 license="Apache-2.0"
 homepage="https://docs.docker.com/buildx/working-with-buildx/"
 distfiles="https://github.com/docker/buildx/archive/refs/tags/v${version}.tar.gz"
-checksum=f45cb0d465ef0bdcac5136764db33626280fb8720dbae5f9565102e1af58f3c4
+checksum=d16adbb11be83edfff646d8a980e7bef1768b57120e5af35f37f70f97d0cbaa3
 
 post_install() {
 	vmkdir usr/libexec/docker/cli-plugins

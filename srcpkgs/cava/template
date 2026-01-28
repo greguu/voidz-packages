@@ -1,7 +1,7 @@
 # Template file for 'cava'
 pkgname=cava
-version=0.10.2
-revision=3
+version=0.10.6
+revision=1
 build_style=gnu-configure
 hostmakedepends="autoconf-archive automake libtool pkg-config"
 makedepends="fftw-devel iniparser-devel ncurses-devel SDL2-devel
@@ -13,7 +13,7 @@ license="MIT"
 homepage="https://github.com/karlstav/cava"
 changelog="https://github.com/karlstav/cava/releases"
 distfiles="https://github.com/karlstav/cava/archive/refs/tags/${version}.tar.gz"
-checksum=853ee78729ed3501d0cdf9c1947967ad3bfe6526d66a029b4ddf9adaa6334d4f
+checksum=b1ce6653659a138cbaebf0ef2643a1569525559c597162e90bf9304ac8781398
 build_options="alsa jack pipewire pulseaudio sndio"
 build_options_default="alsa jack pipewire pulseaudio sndio"
 
@@ -27,13 +27,13 @@ post_install() {
 }
 
 xava_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc+=" (transitional dummy package)"
 	depends="${sourcepkg}>=${version}_${revision}"
 }
 
 cava-gui_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc+=" (transitional dummy package)"
 	depends="${sourcepkg}>=${version}_${revision}"
 }

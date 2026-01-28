@@ -1,6 +1,6 @@
 # Template file for 'valkey'
 pkgname=valkey
-version=8.0.2
+version=9.0.1
 revision=1
 build_style=gnu-makefile
 make_build_args="V=1 BUILD_TLS=yes"
@@ -14,7 +14,7 @@ license="BSD-3-Clause"
 homepage="https://valkey.io"
 changelog="https://github.com/valkey-io/valkey/releases"
 distfiles="https://github.com/valkey-io/valkey/archive/refs/tags/${version}.tar.gz"
-checksum=e052c45b3cbe512e24fdfdc3fd337f9f5e4b8f8b8713f349ba867b829c8ff11a
+checksum=9cfbc5f32a2a6058ee0f8c532b9c4d24167cc49d719f091dd75f1bb8353a1fc5
 
 system_accounts="_valkey"
 _valkey_homedir="/var/lib/valkey"

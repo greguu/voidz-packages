@@ -1,6 +1,6 @@
 # Template file for 'inxi'
 pkgname=inxi
-version=3.3.37.1
+version=3.3.40.1
 revision=1
 _distver="${version%.*}-${version##*.}"
 depends="dmidecode file glxinfo pciutils perl procps-ng usbutils xdpyinfo
@@ -11,7 +11,7 @@ license="GPL-3.0-or-later"
 homepage="https://smxi.org/docs/inxi.htm"
 changelog="https://codeberg.org/smxi/inxi/raw/branch/master/inxi.changelog"
 distfiles="https://codeberg.org/smxi/inxi/archive/${_distver}.tar.gz"
-checksum=da730f84f4a2ca53bab471860a83995c9d498bb34c2518fbb7ff65ee705e048e
+checksum=b3f307f06c3b969bd65151d39729b97a767af42fddd3d9bab971135c0e7cd873
 
 do_install() {
 	vbin inxi

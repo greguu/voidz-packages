@@ -1,6 +1,6 @@
 # Template file for 'lxqt-powermanagement'
 pkgname=lxqt-powermanagement
-version=2.1.0
+version=2.3.0
 revision=1
 build_style=cmake
 hostmakedepends="lxqt-build-tools qt6-base qt6-tools perl"
@@ -10,4 +10,4 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="LGPL-2.1-or-later"
 homepage="https://lxqt-project.org"
 distfiles="https://github.com/lxqt/lxqt-powermanagement/archive/${version}.tar.gz"
-checksum=368d85fe1c313433861c24868c71e87b43bd29cc3409724b667419a6be6a2033
+checksum=a816d8bca81677487d9b9cc5d8ff85cc2c646accba26a83d0a48ad559dad4a2e

@@ -94,6 +94,9 @@ update_check() {
                     dirpfx="${match##*/}"
                     urlsfx="${url#$urlpfx}"
                     urlsfx="${urlsfx#*/}"
+                    case "$urlpfx" in
+                        *download.qt.io*) urlpfx="${urlpfx%/*/}/" ;;
+                    esac
                     rx="href=[\"']?(\\Q$urlpfx\\E)?\\.?/?\\K\\Q$dirpfx\\E[-_.0-9]*[0-9]($vdsfx)[\"'/]"
                 fi
                 ;;
@@ -103,9 +106,17 @@ update_check() {
             msg_verbose "(folder) fetching $urlpfx and scanning with $rx\n"
             skipdirs=
             curl "${curlargs[@]}" "$urlpfx" |
-                grep -Po -i "$rx" |
-                # sort -V places 1.1/ before 1/, but 1A/ before 1.1A/
-                sed -e 's:$:A:' -e 's:/A$:A/:' | sort -Vru | sed -e 's:A/$:/A:' -e 's:A$::' |
+            grep -Po -i "$rx" |
+            # sort -V places 1.1/ before 1/, but 1A/ before 1.1A/
+            sed -e 's:$:A:' -e 's:/A$:A/:' | sort -Vru |
+            sed -e 's:A/$:/A:' -e 's:A$::' |
+            case "$urlpfx" in
+            *download.qt.io*)
+                while IFS= read -r newver; do
+                    printf '%s\n' "${urlpfx}${newver}"
+                done
+                ;;
+            *)
                 while IFS= read -r newver; do
                     newurl="${urlpfx}${newver}${urlsfx}"
                     if [ "$newurl" = "$url" ]; then
@@ -115,6 +126,8 @@ update_check() {
                         printf '%s\n' "$newurl"
                     fi
                 done
+                ;;
+            esac
         fi
     done |
     while IFS= read -r url; do
@@ -139,7 +152,7 @@ update_check() {
             *github.com*)
                 pkgurlname="$(printf %s "$url" | cut -d/ -f4,5)"
                 url="https://github.com/$pkgurlname/tags"
-                rx='/archive/refs/tags/(v?|\Q'"$pkgname"'\E[-_])?\K[\d.]+(?=\.tar\.gz")';;
+                rx='/archive/refs/tags/(\Q'"$pkgname"'\E|[-_v])*\K[\d.]+(?=\.tar\.gz")';;
             *//gitlab.*|*code.videolan.org*)
                 case "$url" in
                     */-/*) pkgurlname="$(printf %s "$url" | sed -e 's%/-/.*%%g; s%/$%%')";;
@@ -160,7 +173,9 @@ update_check() {
             *kernel.org/pub/linux/kernel/*)
                 rx=linux-'\K'${version%.*}'\.[\d.]+(?=\.tar\.xz)';;
             *cran.r-project.org/src/contrib*)
-                rx='\b\Q'"${pkgname#R-cran-}"'\E_\K\d+(\.\d+)*(-\d+)?(?=\.tar)';;
+                url="https://cran.r-project.org/package=${pkgname#R-cran-}"
+                # rx='\b\Q'"${pkgname#R-cran-}"'\E_\K\d+(\.\d+)*(-\d+)?(?=\.tar)';;
+                rx="(?<=${pkgname#R-cran-}_)[0-9.]+(-[0-9]*)?(?=\\.tar)" ;;
             *rubygems.org*)
                 url="https://rubygems.org/gems/${pkgname#ruby-}"
                 rx='href="/gems/'${pkgname#ruby-}'/versions/\K[\d.]*(?=")' ;;
@@ -193,6 +208,8 @@ update_check() {
                 pkgname="${pkgname#sil-}"
                 _pkgname="${pkgname//-/}"
                 rx="($_pkgname|${_pkgname}SIL)[_-]\K[0-9.]+(?=\.tar|\.zip)" ;;
+            *download.qt.io*)
+                rx="((?<=href=\")[0-9.]+(?=/\">[0-9.]+/)|(?<=$pkgname-)[0-9.]+(?=\.tar))";;
             esac
         fi
 
@@ -205,7 +222,7 @@ update_check() {
         fi
 
         msg_verbose "fetching $url and scanning with $rx\n"
-        curl "${curlargs[@]}" -H 'Accept: text/html,application/xhtml+xml,application/xml,text/plain,application/rss+xml' "$url" |
+        curl "${curlargs[@]}" -H 'Accept: text/html,application/xhtml+xml,application/xml,text/plain,application/rss+xml,application/json' "$url" |
             grep -Po -i "$rx"
         fetchedurls[$url]=yes
     done |

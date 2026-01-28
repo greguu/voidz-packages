@@ -1,6 +1,6 @@
 # Template file for 'conduit'
 pkgname=conduit
-version=0.9.0
+version=0.10.11
 revision=1
 build_style=cargo
 hostmakedepends="clang pkg-config"
@@ -10,7 +10,7 @@ maintainer="Joel Beckmeyer <joel@beckmeyer.us>"
 license="Apache-2.0"
 homepage="https://conduit.rs/"
 distfiles="https://gitlab.com/famedly/conduit/-/archive/v${version}/conduit-v${version}.tar.gz"
-checksum=572c1a5bc28b01af06d4719f97e7bdc32bc709668979d6289e1160c3c671fd00
+checksum=068bf7263540b688c4dfefed2441c5f0c12fe0fa939e8c91ec8f68e1335ba003
 
 system_accounts="_conduit"
 _conduit_homedir="/var/lib/conduit"
@@ -21,6 +21,14 @@ make_dirs="/var/lib/conduit 0700 _conduit _conduit
 if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
 	XBPS_CROSS_RUSTFLAGS+=" -latomic"
 fi
+
+# copied from srcpkgs/oniux/template
+# aws-lc-sys only ships pre-generated files for certain architectures
+case "${XBPS_TARGET_MACHINE}" in
+armv[67]l*)
+	hostmakedepends+=" cmake rust-bindgen"
+	;;
+esac
 
 post_install() {
 	vsconf conduit-example.toml conduit.toml

@@ -1,17 +1,19 @@
-# Template file for 'libheif'.
+# Template file for 'libheif'
 pkgname=libheif
-version=1.18.1
-revision=2
+version=1.20.2
+revision=1
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="pkg-config"
 makedepends="libjpeg-turbo-devel libpng-devel libde265-devel x265-devel
- libaom-devel"
+ libaom-devel gdk-pixbuf-devel"
 short_desc="ISO/IEC 23008-12:2017 HEIF file format decoder and encoder"
-maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/strukturag/libheif"
 changelog="https://github.com/strukturag/libheif/releases"
 distfiles="https://github.com/strukturag/libheif/archive/v${version}.tar.gz"
-checksum=73bc94442038d44d56fe730f72516ae53134eb15b878a7ad89ef60fac93a3318
+checksum=b70340395d84184bb8dfc833dd51c95ae049435f7ff9abc7b505a08b5ee2bd2a
 
 libheif-devel_package() {
 	short_desc+=" - development files"
@@ -30,5 +32,13 @@ libheif-tools_package() {
 		vmove usr/bin
 		vmove usr/share/man
 		vmove usr/share/thumbnailers
+	}
+}
+
+libheif-pixbuf-loader_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - pixbuf loader"
+	pkg_install() {
+		vmove "usr/lib/gdk-pixbuf-2.0"
 	}
 }

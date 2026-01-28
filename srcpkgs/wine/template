@@ -1,7 +1,7 @@
 # Template file for 'wine'
 pkgname=wine
-version=10.2
-revision=2
+version=10.20
+revision=1
 _pkgver=${version/r/-r}
 create_wrksrc=yes
 build_wrksrc=wine-${_pkgver}
@@ -13,8 +13,8 @@ license="LGPL-2.1-or-later"
 homepage="http://www.winehq.org/"
 distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${_pkgver}.tar.xz
  https://github.com/wine-staging/wine-staging/archive/v${_pkgver}.tar.gz"
-checksum="9d90dfb6cf10b810a7b4789f0067712b4730d3ea2a88b91f1be273b2ad04243f
- 44d051a8622dd6245d63b88d988eebcdb712d309ee57eccdccbe59d6c4788194"
+checksum="81b4a153958f6247fe5041d5df65eadcbbeea1b6ba8cda24eb7e3d7ce2d1fe3c
+ 83d0d97b1f4b7ee9d61b58c7a87657b768a635d2f3bd5c6435fe337419be0c7a"
 
 # NOTE: wine depends on specific versions of wine-mono and wine-gecko,
 # check for updates to these packages when updating wine
@@ -56,11 +56,11 @@ makedepends="gettext-devel ncurses-devel glu-devel libSM-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
  libpcap-devel cups-devel ocl-icd-devel vulkan-loader-devel gst-plugins-base1-devel
  SDL2-devel"
-depends="libXi libXinerama libXcomposite libXcursor libOSMesa
+depends="libXi libXinerama libXcomposite libXcursor
  desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
  gnutls SDL2 wine-common>=${version}_${revision}"
 lib32depends="libXi-32bit>=0 libXinerama-32bit>=0 libXcomposite-32bit>=0
- libXcursor-32bit>=0 libOSMesa-32bit>=0 desktop-file-utils>=0 hicolor-icon-theme>=0
+ libXcursor-32bit>=0 desktop-file-utils>=0 hicolor-icon-theme>=0
  liberation-fonts-ttf>=0 gnutls-32bit>=0 SDL2-32bit>=0
  wine-common>=${version}_${revision}"
 replaces="libwine>=0"
@@ -77,10 +77,6 @@ else
 fi
 _wineserver_suffix=${_wine_suffix}
 
-if [ "$XBPS_LIBC" = "glibc" ]; then
-	hostmakedepends+=" prelink"
-fi
-
 if [ "${build_option_wow64}" ]; then
 	configure_args+=" --enable-archs=i386,x86_64"
 	makedepends+=" cross-i686-w64-mingw32"
@@ -94,6 +90,7 @@ fi
 
 post_patch() {
 	if [ "${build_option_staging}" ]; then
+		export PATH="/usr/libexec/chroot-git:${PATH}"
 		"../wine-staging-${_pkgver}/staging/patchinstall.py" --all
 	fi
 }

@@ -1,12 +1,12 @@
 # Template file for 'kf6-kpeople'
 pkgname=kf6-kpeople
-version=6.11.0
+version=6.21.0
 revision=1
 build_style=cmake
 configure_args="-DKDE_INSTALL_QMLDIR=lib/qt6/qml
  -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins"
 hostmakedepends="extra-cmake-modules qt6-tools qt6-base
- qt6-declarative-host-tools gettext"
+ kf6-kconfig qt6-declarative-host-tools gettext"
 makedepends="kf6-kcontacts-devel kf6-kcoreaddons-devel kf6-ki18n-devel
  kf6-kwidgetsaddons-devel kf6-kitemviews-devel"
 short_desc="Library that provides access to all contacts and people who hold them"
@@ -14,7 +14,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kpeople"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#kf6-}-${version}.tar.xz"
-checksum=3f67af43442358e7b4d9a0a81d86133707ffaae0f5e05c48aa1f390ec47ff96b
+checksum=77dbd1923a52e58c0dba84c6a96de45532f72dfe814ece5b84e699bd9c0f4e61
 
 do_check() {
 	cd build

@@ -1,21 +1,19 @@
 # Template file for 'unrar'
 pkgname=unrar
-version=7.1.1
+version=7.1.10
 revision=1
-archs="x86_64* i686*"
 short_desc="Unarchiver for .rar files (non-free version)"
 maintainer="skmpz <dem.procopiou@gmail.com>"
 license="custom:freeware"
 homepage="https://www.rarlab.com/rar_add.htm"
 distfiles="https://www.rarlab.com/rar/unrarsrc-${version}.tar.gz"
-checksum=2e9cbc9d1c250b40f4a7a6a363b6ccfa3703e190534979d18c8c4ac5ae35dafc
+checksum=72a9ccca146174f41876e8b21ab27e973f039c6d10b13aabcb320e7055b9bb98
 repository=nonfree
 
 do_build() {
-	vsed -e 's/-march=native//' \
-		 -e 's/^\(CXXFLAGS\)=\(.*\)/\1+=\2/' \
-		 -e 's/^\(LDFLAGS\)=\(.*\)/\1+=-lpthread \2/' \
-		 -i makefile
+	vsed -i makefile \
+		-e 's/^\(CXXFLAGS\)=\(.*\)/\1+=\2/' \
+		-e 's/^\(LDFLAGS\)=\(.*\)/\1+=-lpthread \2/'
 	make CXX="$CXX" LD="$LD" STRIP=: -f makefile
 	# early install of unrar because makefile deletes unrar on lib creation
 	vbin unrar

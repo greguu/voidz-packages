@@ -1,6 +1,6 @@
 # Template file for 'pcsclite'
 pkgname=pcsclite
-version=2.3.1
+version=2.4.1
 revision=1
 build_style=meson
 configure_args="-Dlibudev=true -Dlibsystemd=false -Dpolkit=false"
@@ -12,7 +12,7 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="BSD-2-Clause, GPL-3.0-or-later"
 homepage="https://salsa.debian.org/debian/pcsc-lite"
 distfiles="https://salsa.debian.org/debian/pcsc-lite/-/archive/upstream/${version}/pcsc-lite-upstream-${version}.tar.gz"
-checksum=3c6a3f82ab647e42021798c45260f83f5e7943a842bfa81f55585361d75b1cc0
+checksum=4f732b49da1bcb2ac8eb8d5fbc601a79c73b47cdba1dc5ea5a4e70543494c167
 
 post_install() {
 	vsv pcscd

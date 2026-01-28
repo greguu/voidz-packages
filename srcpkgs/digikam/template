@@ -1,9 +1,10 @@
 # Template file for 'digikam'
 pkgname=digikam
-version=8.5.0
-revision=3
+version=8.8.0
+revision=2
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DENABLE_AKONADICONTACTSUPPORT=ON -DENABLE_KFILEMETADATASUPPORT=ON
  -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins -DBUILD_WITH_QT6=ON
  -DKDE_INSTALL_QMLDIR=lib/qt6/qml
  -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
@@ -18,14 +19,14 @@ makedepends="qt6-base-private-devel libjpeg-turbo-devel qt6-scxml-devel
  lcms2-devel libopencv-devel liblqr-devel libgphoto2-devel qt6-webengine-devel
  lensfun-devel eigen jasper-devel MesaLib-devel glu-devel qt6-webchannel-devel
  kf6-kconfigwidgets-devel kf6-kwidgetsaddons-devel libheif-devel qt6-networkauth-devel
- libmagick-devel libjxl-devel"
+ libmagick-devel libjxl-devel boost-headers"
 depends="qt6-plugin-sqlite qt6-plugin-mysql"
 short_desc="Advanced digital photo management application"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://www.digikam.org"
 distfiles="${KDE_SITE}/digikam/${version}/digiKam-${version}.tar.xz"
-checksum=5c4eaafbca59425a0fe8cb41e7d7a08446defbbb967528bb1148aed0e0d0e975
+checksum=db3a1b6e3c73f903e3dff8003f52455dd2ecd198cb66534fee4abbd0bdeb6b9a
 
 # TODO add marble back when it's ported to Qt6
 

@@ -1,6 +1,6 @@
 # Template file for 'mongo-c-driver'
 pkgname=mongo-c-driver
-version=1.30.1
+version=2.2.1
 revision=1
 build_style=cmake
 configure_args="-DENABLE_TESTS=OFF"
@@ -11,7 +11,7 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="Apache-2.0"
 homepage="https://mongoc.org"
 distfiles="https://github.com/mongodb/mongo-c-driver/archive/${version}.tar.gz"
-checksum=2542af022415864c08b6232da70a5323ad967e5cee183c2245e35d93eb6410a7
+checksum=de10b35ad8362eaf6951723117f90c3c171548da05980890f7e5f60aa56f8d24
 
 pre_configure() {
 	echo "${version}" > VERSION_CURRENT
@@ -22,9 +22,9 @@ mongo-c-driver-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/bin
-		vmove "usr/include/libmongoc*"
+		vmove "usr/include/mongoc*"
 		vmove "usr/lib/cmake/*mongoc*"
-		vmove "usr/lib/pkgconfig/libmongoc*"
+		vmove "usr/lib/pkgconfig/mongoc*"
 		vmove "usr/lib/libmongoc*.so"
 		vmove "usr/lib/libmongoc*.a"
 	}
@@ -41,9 +41,9 @@ libbson-devel_package() {
 	short_desc="Cross Platform BSON Library for C - development files"
 	depends="libbson>=${version}_${revision}"
 	pkg_install() {
-		vmove "usr/include/libbson*"
+		vmove "usr/include/bson*"
 		vmove "usr/lib/cmake/*bson*"
-		vmove "usr/lib/pkgconfig/libbson*"
+		vmove "usr/lib/pkgconfig/bson*"
 		vmove "usr/lib/libbson*.so"
 		vmove "usr/lib/libbson*.a"
 	}

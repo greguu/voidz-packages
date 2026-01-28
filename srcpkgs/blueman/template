@@ -1,6 +1,6 @@
 # Template file for 'blueman'
 pkgname=blueman
-version=2.4.3
+version=2.4.6
 revision=2
 build_style=gnu-configure
 configure_args="--disable-static"
@@ -15,7 +15,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/blueman-project/blueman"
 changelog="https://raw.githubusercontent.com/blueman-project/blueman/main/CHANGELOG.md"
 distfiles="https://github.com/blueman-project/blueman/releases/download/${version}/blueman-${version}.tar.xz"
-checksum=bdfc49909742cb79288f8a11d6f666b75c2713b91c085e6d0dd329434793fe85
+checksum=c712a737f9855906684c074d166d4f10c7f165378af96612818bbffcfbf8e566
 
 post_install() {
 	vdoc "${FILESDIR}/README.voidlinux"

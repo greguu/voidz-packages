@@ -1,6 +1,6 @@
 # Template file for 'eza'
 pkgname=eza
-version=0.20.23
+version=0.23.4
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -12,8 +12,8 @@ homepage="https://eza.rocks"
 changelog="https://raw.githubusercontent.com/eza-community/eza/main/CHANGELOG.md"
 distfiles="https://github.com/eza-community/eza/archive/refs/tags/v${version}.tar.gz
  https://github.com/eza-community/eza/releases/download/v${version}/man-${version}.tar.gz"
-checksum="dc844461901a948b26a9beb1e676353a9f8742244ab59b09e74fa56964b09dfe
- 8cf72c3cfb0cd7946feeabf73929cfcb0c0cebcbe6e1b0706396e27cc753d880"
+checksum="9fbcad518b8a2095206ac385329ca62d216bf9fdc652dde2d082fcb37c309635
+ afcf804979ba03df7545e8b02d41576ab5e15bd090dfc51a052f41df3a65b264"
 
 skip_extraction="man-${version}.tar.gz"
 
@@ -26,8 +26,8 @@ post_install() {
 	vcompletion completions/fish/eza.fish fish
 	vcompletion completions/zsh/_eza zsh
 
-	for manpage in manpages/*; do
-		vman ${manpage}
+	for _manpage in manpages/*; do
+		vman ${_manpage}
 	done
 
 	vlicense LICENSE.txt

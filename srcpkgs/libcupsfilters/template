@@ -1,7 +1,7 @@
 # Template file for 'libcupsfilters'
 pkgname=libcupsfilters
 version=2.1.1
-revision=2
+revision=4
 build_style=gnu-configure
 configure_args="--disable-mutool
  --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf"
@@ -36,13 +36,13 @@ libcupsfilters-devel_package() {
 }
 
 libcups-filters_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc+=" (transitional dummy package)"
 	depends="${sourcepkg}>=${version}_${revision}"
 }
 
 libcups-filters-devel_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc+=" - development files (transitional dummy package)"
 	depends="${sourcepkg}-devel>=${version}_${revision}"
 }

@@ -1,6 +1,6 @@
 # Template file for 'freeciv'
 pkgname=freeciv
-version=3.1.3
+version=3.2.0
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --enable-fcdb=sqlite3 --enable-fcmp=all"
@@ -13,7 +13,7 @@ license="GPL-2.0-or-later"
 homepage="https://www.freeciv.org/"
 changelog="https://www.freeciv.org/wiki/NEWS"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=741086fa94574374c7c27480f77ee68e5b538bfb2eff85004fa8c87b312c7f2f
+checksum=828e831b672a46b316f6fdb23e670230b2ec9c05b6fe8c66fc9f7e1c0679fcde
 nopie_files="/usr/bin/freeciv-ruledit"
 
 # gtk3.22 is a client supporting gtk+>=3.22
@@ -31,7 +31,7 @@ post_install() {
 }
 
 freeciv-gtk2_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc="Freeciv GTK+3 client (transitional dummy package)"
 	depends="freeciv-gtk3>=${version}_${revision}"
 }
@@ -46,7 +46,7 @@ freeciv-gtk3_package() {
 	}
 }
 freeciv-qt5_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc="Freeciv - Qt5 client (transitional dummy package)"
 	depends="freeciv-qt6>=${version}_${revision}"
 }
@@ -61,7 +61,7 @@ freeciv-sdl_package() {
 	}
 }
 freeciv-xaw_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc="Freeciv GTK+3 client (transitional dummy package)"
 	depends="freeciv-gtk3>=${version}_${revision}"
 }

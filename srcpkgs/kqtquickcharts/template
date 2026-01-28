@@ -1,21 +1,18 @@
 # Template file for 'kqtquickcharts'
 pkgname=kqtquickcharts
-version=24.12.1
+version=25.12.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF -DKF5_HOST_TOOLING=/usr/lib/cmake
- -DKDE_INSTALL_QTPLUGINDIR=lib/qt5/plugins
- -DKDE_INSTALL_QMLDIR=lib/qt5/qml
- -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake"
-makedepends="qt5-declarative-devel"
-depends="qt5-quickcontrols2"
+configure_args="-DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml"
+hostmakedepends="extra-cmake-modules qt6-base qt6-tools qt6-declarative-host-tools"
+makedepends="qt6-declarative-devel"
 short_desc="QtQuick plugin to render beautiful and interactive charts"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://edu.kde.org/"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=424582593658ec08aa6316871294bb1141eae57a6d8966771393ebd671377c47
+checksum=b68b8b04f2bae46b8cc6031e5db5f9713d0e01a37096a2ad57c6dba3da8c6853
 
 kqtquickcharts-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

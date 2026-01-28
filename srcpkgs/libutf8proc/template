@@ -1,6 +1,6 @@
 # Template file for 'libutf8proc'
 pkgname=libutf8proc
-version=2.9.0
+version=2.11.2
 revision=1
 build_style=cmake
 configure_args="-DBUILD_SHARED_LIBS=ON"
@@ -10,7 +10,7 @@ license="MIT"
 homepage="http://juliastrings.github.io/utf8proc/"
 changelog="https://raw.githubusercontent.com/JuliaStrings/utf8proc/master/NEWS.md"
 distfiles="https://github.com/JuliaStrings/utf8proc/archive/refs/tags/v${version}.tar.gz"
-checksum=18c1626e9fc5a2e192311e36b3010bfc698078f692888940f1fa150547abb0c1
+checksum=a9b8d8fd57fb3aeca2aede62fd58958036d3bd29871afc1b871e3916c48420a7
 
 if [ -n "$XBPS_CHECK_PKGS" ]; then
 	configure_args+=" -DUTF8PROC_ENABLE_TESTING=ON"
@@ -25,6 +25,7 @@ libutf8proc-devel_package() {
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
+		vmove usr/lib/cmake
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
 	}

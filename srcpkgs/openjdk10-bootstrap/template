@@ -2,7 +2,7 @@
 _final_jdk_home="usr/lib/jvm/java-10-openjdk"
 pkgname=openjdk10-bootstrap
 version=10.0.2p13
-revision=3
+revision=4
 _repo_ver=${version/p/+}
 archs="x86_64* i686* aarch64* arm* ppc64*"
 build_style=gnu-configure
@@ -81,6 +81,9 @@ post_patch() {
 do_configure() {
 	CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
 	CXXFLAGS=${CXXFLAGS/-D_FORTIFY_SOURCE=2/}
+
+	CFLAGS+=" -D_LARGE_FILE_SOURCE=1 -D_FILE_OFFSET_BITS=64"
+	CXXFLAGS+=" -D_LARGE_FILE_SOURCE=1 -D_FILE_OFFSET_BITS=64"
 
 	# force ELFv2 for ppc64 just in case
 	case "$XBPS_TARGET_MACHINE" in

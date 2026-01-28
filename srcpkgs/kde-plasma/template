@@ -1,8 +1,8 @@
-# Template file for 'kde-plasma'.
+# Template file for 'kde-plasma'
 pkgname=kde-plasma
-version=6.2.0
-revision=3
-build_style=meta
+version=6.5.2
+revision=1
+metapackage=yes
 depends="bluedevil>=${version}
  breeze-gtk>=${version}
  kde-gtk-config>=${version}
@@ -24,6 +24,7 @@ depends="bluedevil>=${version}
  xdg-desktop-portal-kde>=${version}
  plasma-thunderbolt>=${version}
  kf6-kded>=${version}
+ plasma-workspace-x11>=${version}
  elogind
  upower
  udisks2"
@@ -33,8 +34,9 @@ license="Public Domain"
 homepage="https://kde.org/plasma-desktop"
 
 kde5_package() {
-	build_style=meta
+	metapackage=yes
 	depends="${sourcepkg}>=${version}_${revision}
- 	 kwayland-integration>=${version}"
+	 oxygen-qt5>=${version}
+	 kwayland-integration>=${version}"
 	short_desc+=" (transitional dummy package)"
 }

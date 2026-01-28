@@ -1,6 +1,6 @@
 # Template file for 'iwd'
 pkgname=iwd
-version=3.2
+version=3.10
 revision=1
 build_style=gnu-configure
 configure_args="--disable-systemd-service --enable-pie
@@ -15,7 +15,7 @@ license="LGPL-2.1-or-later"
 homepage="https://iwd.wiki.kernel.org/"
 changelog="https://git.kernel.org/pub/scm/network/wireless/iwd.git/plain/ChangeLog"
 distfiles="${KERNEL_SITE}/network/wireless/iwd-${version}.tar.xz"
-checksum=21f5a8e29a41ff301045f36eed97a4e540262adfdc003db847fe0c7dce874e15
+checksum=640bff22540e1714f71772a83123aff6f810b7eb9d7d6df1e10fb2695beb5115
 make_dirs="/var/lib/iwd 0600 root root
  /var/lib/ead 0600 root root
  /etc/iwd 755 root root"

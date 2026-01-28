@@ -1,7 +1,7 @@
 # Template file for 'gnome-secrets'
 pkgname=gnome-secrets
 version=8.0
-revision=2
+revision=3
 build_style=meson
 hostmakedepends="pkg-config gettext gobject-introspection python3-pykeepass
  python3-pyotp glib-devel desktop-file-utils gtk-update-icon-cache
@@ -20,6 +20,6 @@ make_check=no  # Test suite fails, reported upstream: https://gitlab.gnome.org/W
 
 gnome-passwordsafe_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
-	build_style=meta
+	metapackage=yes
 	short_desc+=" - transitional dummy package"
 }

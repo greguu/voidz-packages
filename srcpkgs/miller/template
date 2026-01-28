@@ -1,6 +1,6 @@
 # Template file for 'miller'
 pkgname=miller
-version=6.13.0
+version=6.16.0
 revision=1
 build_style=go
 go_import_path="github.com/johnkerl/miller/v6"
@@ -11,7 +11,7 @@ license="BSD-2-Clause"
 homepage="http://johnkerl.org/miller/"
 changelog="https://github.com/johnkerl/miller/releases"
 distfiles="https://github.com/johnkerl/miller/releases/download/v${version}/miller-${version}.tar.gz"
-checksum=58cb2ab55a36a8ee428efcae784c538a6d0d7695b6d770d3f8b45a542d644b07
+checksum=78be784263121185273d3aa6dd78e1ed3fdc8e0c11c4f829e923893372af0f8c
 
 post_install() {
 	vman man/mlr.1

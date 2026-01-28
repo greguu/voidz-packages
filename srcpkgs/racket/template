@@ -1,13 +1,14 @@
 # Template file for 'racket'
 pkgname=racket
-version=8.16
+version=9.0
 revision=1
 archs="aarch64* armv6* armv7* i686* x86_64*"
 build_wrksrc=src
-build_style=gnu-configure
-configure_args="--enable-useprefix --enable-curses"
+build_style=configure
+configure_args="--enable-useprefix --enable-curses --prefix=/usr --sysconfdir=/etc
+ --localstatedir=/var"
 make_build_args="CC_FOR_BUILD=cc"
-hostmakedepends="liberation-fonts-ttf"
+hostmakedepends="liberation-fonts-ttf sqlite-devel"
 makedepends="gtk+3-devel liblz4-devel ncurses-devel sqlite-devel zlib-devel"
 depends="gtk+3 libssl3"
 short_desc="Multi-paradigm programming language in the Lisp-Scheme family"
@@ -15,12 +16,14 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="LGPL-3.0-only, MIT"
 homepage="http://racket-lang.org/"
 distfiles="http://mirror.racket-lang.org/installers/${version}/${pkgname}-${version}-src.tgz"
-checksum=b233a968f4a561f7b005ce06f2c4c29428562f308c1a04d28e2e2286f6b945c3
+checksum=a05f54103789477da8e6facabb777049477c4c3998c5865c0d7ce285d3577411
 nostrip=yes
 patch_args="-Np2"
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" racket sqlite-devel"
+	hostmakedepends+=" racket"
+	configure_args+=" --host=$XBPS_CROSS_TRIPLET --build=$XBPS_TRIPLET
+	 --with-sysroot=$XBPS_CROSS_BASE"
 fi
 
 pre_configure() {

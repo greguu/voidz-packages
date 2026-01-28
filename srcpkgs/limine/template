@@ -1,26 +1,19 @@
 # Template file for 'limine'
 pkgname=limine
-version=8.7.0
+version=10.6.3
 revision=1
 build_style=gnu-configure
-configure_args="--enable-all TOOLCHAIN_FOR_TARGET=llvm"
-hostmakedepends="mtools nasm llvm clang lld"
+configure_args="--enable-all"
+_llvmver=21
+hostmakedepends="mtools nasm llvm${_llvmver} clang${_llvmver} lld${_llvmver}"
 short_desc="Advanced, portable, multiprotocol bootloader"
 maintainer="Mintsuki <mintsuki@protonmail.com>"
 license="BSD-2-Clause"
 homepage="https://limine-bootloader.org/"
-changelog="https://raw.githubusercontent.com/limine-bootloader/limine/trunk/ChangeLog"
-distfiles="https://github.com/limine-bootloader/limine/releases/download/v${version}/limine-${version}.tar.gz"
-checksum=a70a11f69b4ca5d85d11efca6f273eb26bfda0d22ab49f4bd0a15d7fafe0d047
+changelog="https://codeberg.org/Limine/Limine/raw/branch/trunk/ChangeLog"
+distfiles="https://codeberg.org/Limine/Limine/releases/download/v${version}/limine-${version}.tar.gz"
+checksum=e23a71489f991d8b1a5fb79884ea278758ff61ef5017b5adf24493ec26c1b4a9
 
 post_install() {
 	vlicense COPYING
-}
-
-limine-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" - development files"
-	pkg_install() {
-		vmove usr/include
-	}
 }

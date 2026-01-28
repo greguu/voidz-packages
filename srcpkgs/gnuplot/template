@@ -1,6 +1,6 @@
 # Template file for 'gnuplot'
 pkgname=gnuplot
-version=6.0.2
+version=6.0.4
 revision=1
 configure_args="--with-readline=builtin
  --with-gpic --with-metapost --with-metafont"
@@ -14,7 +14,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="gnuplot"
 homepage="http://www.gnuplot.info/"
 distfiles="${SOURCEFORGE_SITE}/gnuplot/gnuplot/${version}/gnuplot-${version}.tar.gz"
-checksum=f68a3b0bbb7bbbb437649674106d94522c00bf2f285cce0c19c3180b1ee7e738
+checksum=458d94769625e73d5f6232500f49cbadcb2b183380d43d2266a0f9701aeb9c5b
 
 subpackages="gnuplot-common"
 if [ -z "$CROSS_BUILD" ]; then

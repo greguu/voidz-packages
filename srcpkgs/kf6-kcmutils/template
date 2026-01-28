@@ -1,6 +1,6 @@
 # Template file for 'kf6-kcmutils'
 pkgname=kf6-kcmutils
-version=6.11.0
+version=6.21.0
 revision=1
 build_style=cmake
 build_helper=qemu
@@ -9,17 +9,19 @@ configure_args="-DKF6_HOST_TOOLING=/usr/lib/cmake
 hostmakedepends="extra-cmake-modules gettext qt6-tools qt6-base
  qt6-declarative-host-tools kf6-kconfig"
 makedepends="kf6-kconfigwidgets-devel kf6-kcoreaddons-devel kf6-kio-devel
- kf6-kxmlgui-devel kf6-kconfig-devel"
+ kf6-kxmlgui-devel kf6-kconfig-devel qt6-declarative-devel"
 checkdepends="kf6-kirigami"
 short_desc="Utilities for interacting with KCModules"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kcmutils"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#kf6-}-${version}.tar.xz"
-checksum=64d2c5cd8165189c2d741bb543aab72b5bc8db5c540ca4e88c2f8d0f93e77990
+checksum=9c1808153d9c16aaa08e68b6353ce5c9af67b2e24b9a0cd7587c46a4a81e8edc
 
 kf6-kcmutils-devel_package() {
-	depends="$makedepends ${sourcepkg}>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}
+	 kf6-kconfigwidgets-devel kf6-kcoreaddons-devel
+	 qt6-declarative-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

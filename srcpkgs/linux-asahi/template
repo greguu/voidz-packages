@@ -1,13 +1,13 @@
 # Template file for 'linux-asahi'
 pkgname=linux-asahi
-version=6.12.12+1
+version=6.17.12+1
 revision=1
 short_desc="Linux kernel and modules for Apple Silicon"
-maintainer="Will Springer <skirmisher@protonmail.com>, dkwo <npiazza@disroot.org>"
+maintainer="dkwo <npiazza@disroot.org>, Will Springer <skirmisher@protonmail.com>"
 license="GPL-2.0-only"
 homepage="https://asahilinux.org"
 distfiles="https://github.com/AsahiLinux/linux/archive/asahi-${version/+/-}.tar.gz"
-checksum=a77cbc2ab61ce5c7ed135c7e53a378b426c28a7b2ba4f0d8a83bb1e11fa34433
+checksum=eb2400346cc895e6ba6b063b71210d1896b10ef6bb1490a58f5803aa150dff60
 
 python_version=3
 
@@ -21,7 +21,7 @@ preserve=yes
 
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
  pkg-config openssl-devel perl uboot-mkimage cpio pahole python3 zstd
- rust cargo rust-bindgen rust-src libclang"
+ rust rust-bindgen rust-src"
 
 _kernver=${version}-asahi_${revision}
 triggers="kernel-hooks"
@@ -53,8 +53,6 @@ post_patch() {
 	# avoid the strip wrapper, its used to copy the objects to a new location
 	# and required to avoid absolute relocations.
 	vsed -e "s|\$(STRIP) \(--strip-debug -o \$@ \$<;\)|/usr/bin/${STRIP} \1|" -i drivers/firmware/efi/libstub/Makefile
-	# use our own local version
-	rm localversion.05-asahi
 }
 
 do_configure() {
@@ -71,6 +69,8 @@ do_configure() {
 	elif [ -f ${FILESDIR}/${arch}-dotconfig ]; then
 		msg_normal "Detected a .config file for your arch, using it.\n"
 		cp -f ${FILESDIR}/${arch}-dotconfig .config
+		# Add asahi.config fragment
+		KCONFIG_CONFIG=.config ./scripts/kconfig/merge_config.sh -m .config arch/arm64/configs/asahi.config
 		make ${makejobs} ARCH=$arch ${_cross} oldconfig
 	fi
 
@@ -94,7 +94,7 @@ do_install() {
 	# Run depmod after compressing modules - makes depmod.sh a noop
 	sed -i '2iexit 0' scripts/depmod.sh
 	vmkdir usr/lib
-	ln -s usr/lib/ ${DESTDIR}
+	ln -sf usr/lib/ ${DESTDIR}
 
 	# Install kernel, firmware and modules
 	make ${makejobs} ARCH=${arch} INSTALL_MOD_PATH=${DESTDIR} ${_cross} modules_install
@@ -133,7 +133,7 @@ do_install() {
 	rm -rf ${DESTDIR}/usr/lib/firmware
 
 	for i in acpi asm-generic clocksource config crypto drm generated linux vdso \
-		math-emu media net pcmcia scsi sound trace uapi video xen dt-bindings; do
+		math-emu media net pcmcia scsi sound trace uapi video xen dt-bindings hyperv keys; do
 		if [ -d include/$i ]; then
 			cp -a include/$i ${hdrdest}/include
 		fi

@@ -3,10 +3,10 @@
 # Consider using mime.types from mime-types package
 # See comments in mime-types template
 pkgname=nginx
-version=1.26.3
-revision=1
-_tests_commit=88730862618b
-_njs_version=0.8.4
+version=1.28.1
+revision=2
+_tests_commit=898407c62387
+_njs_version=0.9.3
 create_wrksrc=yes
 build_wrksrc="nginx-${version}"
 build_style=gnu-makefile
@@ -57,7 +57,7 @@ configure_args="--prefix=${_cfgdir}
 hostmakedepends="geoip geoip-devel openssl-devel pcre2-devel perl libxslt-devel
  which"
 makedepends="${hostmakedepends}"
-checkdepends="perl perl-IO-Socket-SSL perl-GD perl-FCGI which uwsgi uwsgi-python3"
+checkdepends="perl perl-IO-Socket-SSL perl-GD perl-FCGI perl-CryptX which uwsgi uwsgi-python3"
 short_desc="High performance web and reverse proxy server"
 maintainer="Duncaen <duncaen@voidlinux.org>"
 license="BSD-2-Clause"
@@ -65,10 +65,10 @@ homepage="https://nginx.org"
 changelog="https://nginx.org/en/CHANGES-${version%.*}"
 distfiles="https://nginx.org/download/nginx-${version}.tar.gz
  https://hg.nginx.org/nginx-tests/archive/${_tests_commit}.tar.gz
- https://hg.nginx.org/njs/archive/${_njs_version}.tar.gz"
-checksum="69ee2b237744036e61d24b836668aad3040dda461fe6f570f1787eab570c75aa
- 6cc1e4b393c4d05cef06ac16f4a38d504d0e5674fca08c7be20052fd3b07b322
- 8191bff8491af9169a92e30e383ef8614717b0c6d40913d83b95051031e92321"
+ https://github.com/nginx/njs/archive/refs/tags/${_njs_version}.tar.gz"
+checksum="40e7a0916d121e8905ef50f2a738b675599e42b2224a582dd938603fed15788e
+ a3126ae0720a65b14a8619e1766ca440697a317c5abeff731e296fc33f78f132
+ a1ad089a52ebd295489443faea3089d12df414f5da624446d6c2bf7d99ec36cb"
 # Tests fail when nginx run as root and there is no nginx user
 make_check=ci-skip
 

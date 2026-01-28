@@ -1,7 +1,7 @@
 # Template file for 'gdb'
 pkgname=gdb
-version=16.2
-revision=1
+version=16.3
+revision=2
 build_style=gnu-configure
 pycompile_dirs="/usr/share/gdb/python"
 configure_args="--disable-werror --disable-nls --with-system-readline
@@ -22,7 +22,7 @@ license="GPL-3.0-or-later"
 homepage="https://www.gnu.org/software/gdb"
 changelog="https://sourceware.org/git/?p=binutils-gdb.git;a=blob_plain;f=gdb/NEWS;hb=HEAD"
 distfiles="${GNU_SITE}/gdb/gdb-${version}.tar.xz"
-checksum=4002cb7f23f45c37c790536a13a720942ce4be0402d929c9085e92f10d480119
+checksum=bcfcd095528a987917acf9fff3f1672181694926cc18d609c99d0042c00224c5
 make_check=extended  # Tests take too long, not all of them pass.
 
 python_version="3"
@@ -52,13 +52,13 @@ if [ "$XBPS_TARGET_WORDSIZE" -eq 64 ]; then
 	build_options_default+=" multiarch"
 fi
 
+subpackages="gdb-common"
 if [ "$build_option_multiarch" ]; then
 	if [ "$XBPS_TARGET_WORDSIZE" -eq 32 ]; then
 		broken="run-cris link fails: undefined reference to bpf_match_insn etc"
 	fi
-	subpackages="gdb-multiarch"
+	subpackages="gdb-multiarch ${subpackages}"
 fi
-subpackages+=" gdb-common"
 
 post_install() {
 	# resolve conflicts with binutils

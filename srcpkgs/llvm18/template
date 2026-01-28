@@ -1,7 +1,7 @@
 # Template file for 'llvm18'.
 pkgname=llvm18
 version=18.1.8
-revision=3
+revision=6
 build_wrksrc=llvm
 build_style=cmake
 configure_args="
@@ -28,8 +28,8 @@ configure_args="
  -DLLVM_BINUTILS_INCDIR=/usr/include
  -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=NO
  -DLLDB_ENABLE_PYTHON=NO"
-hostmakedepends="perl python3 zlib-devel libffi-devel swig git pkg-config
- python3-Sphinx python3-recommonmark python3-sphinx-automodapi python3-yaml
+hostmakedepends="perl python3 zlib-devel libffi-devel swig pkg-config
+ python3-Sphinx python3-sphinx-automodapi python3-yaml
  python3-sphinx-markdown-tables python3-mdit-py-plugins python3-MyST-Parser
  python3-markdown-it $(vopt_if graphviz graphviz)"
 makedepends="zlib-devel elfutils-devel libffi-devel libedit-devel libxml2-devel
@@ -186,6 +186,11 @@ post_patch() {
 			vsed -i 's,#ssp,,' ${wrksrc}/libcxx/CMakeLists.txt
 			;;
 	esac
+	PATH="/usr/libexec/chroot-git:$PATH"
+}
+
+pre_build() {
+	PATH="/usr/libexec/chroot-git:$PATH"
 }
 
 pre_configure() {
@@ -317,8 +322,11 @@ post_install() {
 
 clang18_package() {
 	lib32disabled=yes
-	depends="libstdc++-devel libgcc-devel  binutils ${XBPS_TARGET_LIBC}-devel
-	 compiler-rt18"
+	depends="libstdc++-devel libgcc-devel  binutils compiler-rt18"
+	case "${XBPS_TARGET_MACHINE}" in
+	armv[67]l-musl) depends+=" musl1.1-devel" ;;
+	*) depends+=" ${XBPS_TARGET_LIBC}-devel" ;;
+	esac
 	conflicts="clang17>=0 clang15>=0"
 	short_desc+=" - C language family frontend"
 	homepage="https://clang.llvm.org/"
@@ -366,9 +374,13 @@ clang18-headers_package() {
 
 clang18-devel_package() {
 	lib32disabled=yes
-	depends="libstdc++-devel libgcc-devel  binutils ${XBPS_TARGET_LIBC}-devel
+	depends="libstdc++-devel libgcc-devel  binutils
 	 clang18>=${version}_${revision} clang-analyzer18>=${version}_${revision}
 	 llvm18>=${version}_${revision}"
+	case "${XBPS_TARGET_MACHINE}" in
+	armv[67]l-musl) depends+=" musl1.1-devel" ;;
+	*) depends+=" ${XBPS_TARGET_LIBC}-devel" ;;
+	esac
 	conflicts="clang17-devel clang15-devel"
 	if [ "$build_option_clang_tools_extra" ]; then
 		depends+=" clang-tools-extra18>=${version}_${revision}"

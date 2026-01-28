@@ -1,28 +1,17 @@
 # Template file for 'kf6-kitemviews'
 pkgname=kf6-kitemviews
-version=6.11.0
+version=6.21.0
 revision=1
 build_style=cmake
-configure_args="$(vopt_bool designerplugin BUILD_DESIGNERPLUGIN)"
+configure_args="-DBUILD_DESIGNERPLUGIN=ON -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins"
 hostmakedepends="extra-cmake-modules qt6-tools qt6-base"
-makedepends="qt6-base-devel"
+makedepends="qt6-base-devel qt6-tools-devel"
 short_desc="Set of item views extending the Qt model-view framework"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kitemviews"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#kf6-}-${version}.tar.xz"
-checksum=e3625368e3f8cf6127218cc3e847fbf0176a5978c86228b11a320ad96fea2cbc
-
-build_options="designerplugin"
-
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="designerplugin"
-fi
-
-if [ "$build_option_designerplugin" ]; then
-	makedepends+=" qt6-tools-devel"
-	nocross="yes"
-fi
+checksum=3baa836eff923e1dcb3d989dd464fb3c3cb9ce9cac6a6723e7e7c1008f156a46
 
 kf6-kitemviews-devel_package() {
 	depends="$makedepends ${sourcepkg}>=${version}_${revision}"
@@ -31,8 +20,6 @@ kf6-kitemviews-devel_package() {
 		vmove usr/include
 		vmove usr/lib/cmake
 		vmove "usr/lib/*.so"
-		if [ "$build_option_designerplugin" ]; then
-			vmove usr/lib/qt6/plugins/designer
-		fi
+		vmove usr/lib/qt6/plugins/designer
 	}
 }

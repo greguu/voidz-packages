@@ -1,6 +1,6 @@
 # Template file for 'libarchive'
 pkgname=libarchive
-version=3.7.7
+version=3.8.5
 revision=1
 bootstrap=yes
 build_style=gnu-configure
@@ -18,7 +18,7 @@ license="BSD-2-Clause"
 homepage="https://www.libarchive.org/"
 changelog="https://github.com/libarchive/libarchive/releases"
 distfiles="https://github.com/libarchive/libarchive/releases/download/v${version}/libarchive-${version}.tar.xz"
-checksum=879acd83c3399c7caaee73fe5f7418e06087ab2aaf40af3e99b9e29beb29faee
+checksum=d68068e74beee3a0ec0dd04aee9037d5757fcc651591a6dcf1b6d542fb15a703
 
 build_options="acl expat lzo lz4 ssl zstd"
 build_options_default="acl ssl lz4 zstd"
@@ -57,7 +57,7 @@ bsdtar_package() {
 
 bsdunzip_package() {
 	reverts="20160115_1 20160115_2"
-	build_style="meta"
+	metapackage=yes
 	short_desc="BSD utilities using libarchive (transitional dummy package)"
 	depends="bsdtar>=${version}_${revision}"
 }

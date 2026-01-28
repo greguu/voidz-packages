@@ -1,28 +1,30 @@
 # Template file for 'kf6-kwidgetsaddons'
 pkgname=kf6-kwidgetsaddons
-version=6.11.0
+version=6.21.0
 revision=1
+_llvmver=21
 build_style=cmake
-configure_args="$(vopt_bool designerplugin BUILD_DESIGNERPLUGIN)"
-hostmakedepends="extra-cmake-modules qt6-tools qt6-base"
-makedepends="qt6-base-devel"
+configure_args="-DBUILD_DESIGNERPLUGIN=ON -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ $(vopt_bool python BUILD_PYTHON_BINDINGS)"
+hostmakedepends="extra-cmake-modules qt6-tools qt6-base
+ $(vopt_if python "python3-build python3-setuptools shiboken6 llvm${_llvmver}")"
+makedepends="qt6-base-devel qt6-tools-devel
+ $(vopt_if python 'libshiboken6-devel libpyside6-devel python3-devel')"
 short_desc="KWidgetsAddons"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kwidgetsaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#kf6-}-${version}.tar.xz"
-checksum=1c64e7354804845db0cd83ae671dfb5d2cb08308551a0b6c7b8a339aa6dcb436
+checksum=14a938426831c35e021a57cb2989b6e0b9379b936dbfef3ee5a3335a4689d2bc
 
-build_options="designerplugin"
+build_options="python"
+build_options_default="python"
 
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="designerplugin"
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" -DECM_SHIBOKEN_ARCH=$XBPS_CROSS_RUST_TARGET"
+	configure_args+=" -DSYSROOT_INCLUDE_DIRS=$XBPS_CROSS_BASE/usr/include"
 fi
-
-if [ "$build_option_designerplugin" ]; then
-	makedepends+=" qt6-tools-devel"
-	nocross="yes"
-fi
+export LLVM_INSTALL_DIR=/usr/lib/llvm/${_llvmver}
 
 do_check() {
 	cd build
@@ -37,8 +39,6 @@ kf6-kwidgetsaddons-devel_package() {
 		vmove usr/include
 		vmove usr/lib/cmake
 		vmove "usr/lib/*.so"
-		if [ "$build_option_designerplugin" ]; then
-			vmove usr/lib/qt6/plugins/designer
-		fi
+		vmove usr/lib/qt6/plugins/designer
 	}
 }

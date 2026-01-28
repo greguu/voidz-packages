@@ -1,7 +1,7 @@
 # Template file for 'scummvm'
 pkgname=scummvm
-version=2.8.1
-revision=1
+version=2.9.0
+revision=2
 build_style=configure
 configure_args="--prefix=/usr --enable-release-mode --enable-all-engines"
 hostmakedepends="pkg-config nasm"
@@ -14,7 +14,7 @@ maintainer="John <me@johnnynator.dev>"
 license="GPL-2.0-or-later"
 homepage="https://www.scummvm.org/"
 distfiles="https://downloads.scummvm.org/frs/${pkgname}/${version}/${pkgname}-${version}.tar.xz"
-checksum=7e97f4a13d22d570b70c9b357c941999be71deb9186039c87d82bbd9c20727b7
+checksum=d5b33532bd70d247f09127719c670b4b935810f53ebb6b7b6eafacaa5da99452
 
 CFLAGS="-fexcess-precision=fast"
 CXXFLAGS="-fexcess-precision=fast"
@@ -33,7 +33,7 @@ do_check() {
 }
 
 residualvm_package() {
-	build_style=meta
+	metapackage=yes
 	short_desc+=" (transitional dummy package)"
 	depends="${sourcepkg}>=${version}_${revision}"
 }

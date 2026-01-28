@@ -1,13 +1,18 @@
 # Template file for 'yamlfmt'
 pkgname=yamlfmt
-version=0.16.0
+version=0.20.0
 revision=1
 build_style=go
 go_import_path="github.com/google/yamlfmt"
+go_ldflags="-X main.version=${version}"
 go_package="github.com/google/yamlfmt/cmd/yamlfmt"
 short_desc="Extensible command line tool to format yaml files"
 maintainer="Bnyro <bnyro@tutanota.com>"
 license="Apache-2.0"
 homepage="https://github.com/google/yamlfmt"
 distfiles="https://github.com/google/yamlfmt/archive/refs/tags/v${version}.tar.gz"
-checksum=989d9010e2498b4f97608b1c64798c700012840e739bc9001e42ddf3f25125a2
+checksum=de6bc4373ba46c520d936dd4b60395868ec17aba338b9fd849594c1f41b6c057
+
+do_check() {
+	make test_v
+}

@@ -1,21 +1,20 @@
 # Template file for 'fluidsynth'
 pkgname=fluidsynth
-version=2.3.5
+version=2.4.8
 revision=1
 build_style=cmake
 make_check_target=check
-configure_args="-DLIB_SUFFIX=
- -DDEFAULT_SOUNDFONT:STRING=/usr/share/soundfonts/default.sf2"
+configure_args="-Denable-sdl3=ON -Denable-ladspa=ON -Denable-portaudio=ON"
 hostmakedepends="pkg-config"
-makedepends="SDL2-devel glib-devel jack-devel libsndfile-devel pipewire-devel pulseaudio-devel
- libinstpatch-devel readline-devel"
+makedepends="SDL3-devel glib-devel jack-devel libsndfile-devel pipewire-devel pulseaudio-devel
+ libinstpatch-devel readline-devel portaudio-devel ladspa-sdk"
 short_desc="Real-time software synthesizer based on the SoundFont 2 specifications"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://www.fluidsynth.org/"
 changelog="https://github.com/FluidSynth/fluidsynth/releases"
 distfiles="https://github.com/FluidSynth/fluidsynth/archive/v${version}.tar.gz"
-checksum=f89e8e983ecfb4a5b4f5d8c2b9157ed18d15ed2e36246fa782f18abaea550e0d
+checksum=d6d04e9014557906ee42aa1fe3cd580840ea482d4c3b1a45fddd45ec606d6e97
 
 libfluidsynth_package() {
 	short_desc+=" - runtime library"
@@ -25,7 +24,7 @@ libfluidsynth_package() {
 }
 
 fluidsynth-devel_package() {
-	depends="libfluidsynth>=${version} $makedepends"
+	depends="${sourcepkg}>=${version}_${revision} $makedepends"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/lib/cmake

@@ -1,9 +1,10 @@
 # Template file for 'qtractor'
 pkgname=qtractor
-version=1.4.0
+version=1.5.11
 revision=1
-_clap_tag=1.2.2
-_vst3sdk_tag=3.7.12_build_20
+_clap_tag=1.2.7
+_minibpm_commit=43de9911eee6ebad20454732223dc141b73a9e6f
+_vst3sdk_tag=3.8.0_build_66
 create_wrksrc=yes
 build_wrksrc="qtractor"
 build_style=cmake
@@ -14,22 +15,24 @@ makedepends="aubio-devel dssi-devel jack-devel ladspa-sdk liblo-devel
 depends="desktop-file-utils dssi hicolor-icon-theme lv2"
 short_desc="Audio/MIDI multi-track sequencer application written in C++/Qt"
 maintainer="Matthias von Faber <mvf@gmx.eu>"
-# qtractor is GPL-2.0-or-later. VST3SDK is GPL-3.0-only, with some parts BSD-3-Clause.
-license="GPL-3.0-only, BSD-3-Clause"
+# qtractor is GPL-2.0-or-later. VST3SDK is MIT (since 3.8.0).
+license="GPL-2.0-or-later, MIT"
 homepage="https://qtractor.org"
 changelog="https://raw.githubusercontent.com/rncbc/qtractor/master/ChangeLog"
 distfiles="https://github.com/rncbc/qtractor/archive/refs/tags/v${version}.tar.gz
  https://github.com/free-audio/clap/archive/refs/tags/${_clap_tag}.tar.gz
+ https://github.com/breakfastquay/minibpm/archive/${_minibpm_commit}.tar.gz
  https://github.com/steinbergmedia/vst3sdk/archive/refs/tags/v${_vst3sdk_tag}.tar.gz>vst3sdk-v${_vst3sdk_tag}.tar.gz
  https://github.com/steinbergmedia/vst3_base/archive/refs/tags/v${_vst3sdk_tag}.tar.gz>vst3_base-v${_vst3sdk_tag}.tar.gz
  https://github.com/steinbergmedia/vst3_pluginterfaces/archive/refs/tags/v${_vst3sdk_tag}.tar.gz>vst3_pluginterfaces-v${_vst3sdk_tag}.tar.gz
  https://github.com/steinbergmedia/vst3_public_sdk/archive/refs/tags/v${_vst3sdk_tag}.tar.gz>vst3_public_sdk-v${_vst3sdk_tag}.tar.gz"
-checksum="66ce76398a3ebe8f7c40da69b1582920d5ae637366a033e56c3c9624b274160f
- 1472bfe3b9f4eac3d7aca57d4a528f0c39709a2af82900253ce6a5b86e0b60e1
- 1cafc2665f6e77c29303f7d11fd95af328f915bdd683a4e13058b8fca720d15f
- 1d863daf5a2aae7406b4a2cebdb5c42778d483358f81fa6fc9a5fecef3aa7ea3
- 0843f95c02a8f70658b6b1a2c96508a65b7be5093b0427e1d2074d1395fec381
- 542aa4574065f1baf99da0d57ecbbf58c6ddf595134553400f128ed95cba54db"
+checksum="05da967ea1be686331f7fcbcd2f8d91aa3c5fc312b56e81474b485fd87744761
+ 77fe893cbe6973afa85c736bc50f2a96888ba238b29b6aec8ecb60f81e2e899d
+ ec25686e11932e7ad5a92b6bd21eaed50cf73aa5c2f7b2bfad285470e4493dcf
+ d93c12077d848977d4d397c8ab6721c4b4966223a7707bfe6519aa419c396af4
+ 001ef3dccf89505ee624766c8140c6c845fbd214460e02ea16145db29f1e2ed6
+ c922f0a35f2c093dfcb24ccd95282e70d00cc2de42fc0c8ac1577398ffe7b6d4
+ 83b64e6666a54a35a2292a73ef35048b6d0dadd5e50a22cb437ac4cfb69ba81f"
 
 post_extract() {
 	cd $wrksrc
@@ -37,6 +40,7 @@ post_extract() {
 	mv vst3sdk-$_vst3sdk_tag vst3sdk
 	for src_dest in \
 	 clap-$_clap_tag:$build_wrksrc/src/clap \
+	 minibpm-$_minibpm_commit:$build_wrksrc/src/minibpm \
 	 vst3_base-$_vst3sdk_tag:vst3sdk/base \
 	 vst3_pluginterfaces-$_vst3sdk_tag:vst3sdk/pluginterfaces \
 	 vst3_public_sdk-$_vst3sdk_tag:vst3sdk/public.sdk

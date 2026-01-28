@@ -1,7 +1,7 @@
 # Template file for 'linphone-desktop'
 pkgname=linphone-desktop
 version=5.2.6
-revision=4
+revision=5
 build_wrksrc="linphone-app" # The root cmake is glue code for their vendored libs
 build_style=cmake
 cmake_builddir="build-cmake"
@@ -37,7 +37,7 @@ pre_configure() {
 linphone-gui_package() {
 	short_desc+=" - (transitional dummy package)"
 	depends="linphone-desktop"
-	build_style=meta
+	metapackage=yes
 }
 
 # XXX: The cmake install does all kinds of stuff we don't want

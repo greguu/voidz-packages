@@ -1,11 +1,13 @@
 # Template file for 'ledger'
 pkgname=ledger
 version=3.3.2
-revision=1
+revision=4
 build_style=cmake
-makedepends="boost-devel gmp-devel mpfr-devel gettext-devel libedit-devel"
+makedepends="boost-devel-minimal libboost_filesystem libboost_iostreams
+ libboost_nowide libboost_unit_test_framework
+ gmp-devel mpfr-devel gettext-devel libedit-devel"
 short_desc="Double-entry accounting system with a command-line reporting interface"
-maintainer="André Cerqueira <acerqueira021@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="https://www.ledger-cli.org/"
 distfiles="https://github.com/ledger/${pkgname}/archive/v${version}.tar.gz"

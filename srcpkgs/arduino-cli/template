@@ -1,6 +1,6 @@
 # Template file for 'arduino-cli'
 pkgname=arduino-cli
-version=1.2.0
+version=1.4.0
 revision=1
 build_style=go
 build_helper="qemu"
@@ -11,11 +11,11 @@ go_ldflags="
  -X ${go_import_path}/internal/version.date=${SOURCE_DATE_EPOCH}
 "
 short_desc="Arduino command line interface"
-maintainer="Andrew J. Hesford <ajh@sideband.org>"
+maintainer="Filip Rojek <filip@filiprojek.cz>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/arduino/arduino-cli"
 distfiles="https://github.com/arduino/arduino-cli/archive/v${version}.tar.gz"
-checksum=f576e40873037e39cdd1a8297b34aa8305b53e2268307944765778a925dba0f1
+checksum=142d48462387c0bcd900e7969892b974d26bcfa9e42674bf9e9c4da2919ca857
 # Tests do not find executable in build environment
 make_check=no
 

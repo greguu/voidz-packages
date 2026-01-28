@@ -1,6 +1,6 @@
 # Template file for 'pspg'
 pkgname=pspg
-version=5.8.7
+version=5.8.14
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
@@ -10,7 +10,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSD-2-Clause"
 homepage="https://github.com/okbob/pspg"
 distfiles="https://github.com/okbob/pspg/archive/refs/tags/${version}.tar.gz"
-checksum=cbbd13898f321aab645569e32808dc3aa4c9529ea008b321f21e7a0d8360fcc9
+checksum=9ff44945fdf08b99468808ff67c903f62205583743b6b45921dc6b366aa5e243
 
 post_install() {
 	vman pspg.1

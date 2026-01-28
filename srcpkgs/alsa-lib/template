@@ -1,6 +1,6 @@
 # Template file for 'alsa-lib'
 pkgname=alsa-lib
-version=1.2.12
+version=1.2.15.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config libtool"
@@ -9,7 +9,7 @@ maintainer="cinerea0 <cinerea0@protonmail.com>"
 license="LGPL-2.1-or-later"
 homepage="http://www.alsa-project.org"
 distfiles="https://www.alsa-project.org/files/pub/lib/alsa-lib-${version}.tar.bz2"
-checksum=4868cd908627279da5a634f468701625be8cc251d84262c7e5b6a218391ad0d2
+checksum=7f983ca89ca420872ca16e8a9f8f97fb63db6c1c6e2585b91737a08bb03f566c
 
 alsa-lib-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

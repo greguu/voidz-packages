@@ -1,6 +1,6 @@
 # Template file for 'kf6-kio'
 pkgname=kf6-kio
-version=6.11.0
+version=6.21.0
 revision=1
 build_style=cmake
 configure_args="-DKDE_INSTALL_QMLDIR=lib/qt6/qml
@@ -20,7 +20,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kio"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname#kf6-}-${version}.tar.xz"
-checksum=fe511e43a5386f963c9afef93a21c0df44a2c24fcc417777e4d0569102477ff8
+checksum=b2f73a33b802cb52bb9e7c3535d315d5c616d554e3ed07ca711ca251db3105c6
 
 do_check() {
 	cd build
@@ -56,7 +56,10 @@ do_check() {
 }
 
 kf6-kio-devel_package() {
-	depends="${makedepends/qt6-tools-devel/} ${sourcepkg}>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}
+	 kf6-kbookmarks-devel kf6-kcompletion-devel kf6-kitemviews-devel
+	 kf6-kjobwidgets-devel kf6-solid-devel kf6-kwidgetsaddons-devel
+	 kf6-kwindowsystem-devel kf6-kservice-devel qt6-base-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

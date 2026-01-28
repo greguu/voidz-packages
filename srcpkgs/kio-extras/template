@@ -1,10 +1,11 @@
 # Template file for 'kio-extras'
 pkgname=kio-extras
-version=24.12.1
+version=25.12.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
- -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins"
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DWITH_LIBPROXY=ON"
 hostmakedepends="extra-cmake-modules pkg-config gperf qt6-base qt6-tools
  kf6-kdoctools kf6-kcoreaddons kf6-kio gettext KDSoap kf6-kcmutils"
 makedepends="qcoro-qt6-devel kf6-karchive-devel kf6-kconfig-devel
@@ -15,10 +16,13 @@ makedepends="qcoro-qt6-devel kf6-karchive-devel kf6-kconfig-devel
  plasma-activities-stats-devel phonon-devel samba-devel libssh-devel
  libmtp-devel libimobiledevice-devel libplist-devel KDSoap-devel
  libtirpc-devel libopenexr-devel taglib-devel libkexiv2-devel libnfs-devel
- kdsoap-ws-discovery-client-devel"
+ libproxy-devel qt6-svg-devel qt6-base-private-devel kf6-knotifications-devel
+ kdsoap-ws-discovery-client-devel qt6-qt5compat-devel"
 short_desc="Additional KIO components"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://invent.kde.org/network/kio-extras"
 distfiles="${KDE_SITE}/release-service/${version}/src/kio-extras-${version}.tar.xz"
-checksum=a92bcb6c4b880a40f86ca08da329f34e787bd360b37c764c954ff94b7a95dac6
+checksum=453563fef8563e67680daf5ace17b4f1a5abd2cbdf80d50e1cf9bdadbde8df41
+
+CFLAGS="-D_GNU_SOURCE"

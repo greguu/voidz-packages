@@ -1,9 +1,5 @@
 tcpmux              1/tcp
 tcpmux              1/udp
-compressnet         2/tcp
-compressnet         2/udp
-compressnet         3/tcp
-compressnet         3/udp
 rje                 5/tcp
 rje                 5/udp
 echo                7/tcp
@@ -457,6 +453,7 @@ fxp               286/tcp
 fxp               286/udp
 k-block           287/tcp
 k-block           287/udp
+tacacss           300/tcp
 novastorbakcup    308/tcp
 novastorbakcup    308/udp
 entrusttime       309/tcp
@@ -1317,12 +1314,6 @@ pkix-3-ca-ra      829/tcp
 pkix-3-ca-ra      829/udp
 netconf-ssh       830/tcp
 netconf-ssh       830/udp
-netconf-beep      831/tcp
-netconf-beep      831/udp
-netconfsoaphttp   832/tcp
-netconfsoaphttp   832/udp
-netconfsoapbeep   833/tcp
-netconfsoapbeep   833/udp
 dhcp-failover2    847/tcp
 dhcp-failover2    847/udp
 gdoi              848/tcp
@@ -4902,6 +4893,8 @@ f5-globalsite    2792/tcp
 f5-globalsite    2792/udp
 initlsmsad       2793/tcp
 initlsmsad       2793/udp
+urp              2794/tcp
+urp              2794/udp
 livestats        2795/tcp
 livestats        2795/udp
 ac-tech          2796/tcp
@@ -5618,8 +5611,8 @@ jpegmpeg         3155/tcp
 jpegmpeg         3155/udp
 indura           3156/tcp
 indura           3156/udp
-e3consultants    3157/tcp
-e3consultants    3157/udp
+lsa-comm         3157/tcp
+lsa-comm         3157/udp
 stvp             3158/tcp
 stvp             3158/udp
 navegaweb-port   3159/tcp
@@ -5870,6 +5863,8 @@ sysopt           3281/tcp
 sysopt           3281/udp
 datusorb         3282/tcp
 datusorb         3282/udp
+net-assistant    3283/tcp
+net-assistant    3283/udp
 4talk            3284/tcp
 4talk            3284/udp
 plato            3285/tcp
@@ -6638,6 +6633,8 @@ roverlog         3677/tcp
 roverlog         3677/udp
 ipr-dglt         3678/tcp
 ipr-dglt         3678/udp
+newton-dock      3679/tcp
+newton-dock      3679/udp
 npds-tracker     3680/tcp
 npds-tracker     3680/udp
 bts-x73          3681/tcp
@@ -7671,8 +7668,8 @@ perrla           4313/tcp
 choiceview-agt   4314/tcp
 choiceview-clt   4316/tcp
 opentelemetry    4317/tcp
-fox-skytale      4319/tcp
-fox-skytale      4319/udp
+skytale          4319/tcp
+skytale          4319/udp
 fdt-rcatp        4320/tcp
 fdt-rcatp        4320/udp
 rwhois           4321/tcp
@@ -7871,6 +7868,7 @@ awacs-ice        4488/udp
 ipsec-nat-t      4500/tcp
 ipsec-nat-t      4500/udp
 a25-fap-fgw      4502/sctp
+m-bus-oms        4503/udp
 armagetronad     4534/udp
 ehs              4535/tcp
 ehs              4535/udp
@@ -8090,6 +8088,7 @@ vxlan-gpe        4790/udp
 roce             4791/udp
 unified-bus      4792/tcp
 unified-bus      4792/udp
+uet              4793/udp
 iims             4800/tcp
 iims             4800/udp
 iwec             4801/tcp
@@ -8944,6 +8943,9 @@ fis              5912/sctp
 aoc-acars        5913/tcp
 aoc-acars        5913/udp
 ads-c            5913/sctp
+ipsdtls          5914/tcp
+ipsdtls          5914/udp
+ipsdtls          5914/sctp
 indy             5963/tcp
 indy             5963/udp
 mppolicy-v5      5968/tcp
@@ -9119,6 +9121,7 @@ abb-escp         6316/tcp
 abb-escp         6316/udp
 nav-data-cmd     6317/tcp
 nav-data         6317/udp
+iona-data        6318/tcp
 repsvc           6320/tcp
 repsvc           6320/udp
 emp-server1      6321/tcp
@@ -9640,6 +9643,7 @@ aries-kfinder    7570/tcp
 aries-kfinder    7570/udp
 coherence        7574/tcp
 coherence-disc   7574/udp
+wtmi-panel       7575/tcp
 sun-lm           7588/tcp
 sun-lm           7588/udp
 mipi-debug       7606/tcp
@@ -9662,6 +9666,7 @@ cuseeme          7648/tcp
 cuseeme          7648/udp
 rome             7663/tcp
 rome             7663/udp
+authoritygate    7668/tcp
 imqstomp         7672/tcp
 imqstomps        7673/tcp
 imqtunnels       7674/tcp
@@ -10469,6 +10474,7 @@ odnsp            9966/udp
 xybrid-rt        9978/tcp
 visweather       9979/tcp
 pumpkindb        9981/tcp
+kaostransport    9986/tcp
 dsm-scm-target   9987/tcp
 dsm-scm-target   9987/udp
 nsesrvr          9988/tcp
@@ -11004,6 +11010,7 @@ notezilla-lan   21010/tcp
 trinket-agent   21212/tcp
 cohesity-agent  21213/tcp
 aigairserver    21221/tcp
+xahaud          21337/tcp
 rdm-tfs         21553/tcp
 dfserver        21554/tcp
 dfserver        21554/udp
@@ -11118,6 +11125,7 @@ binkp           24554/tcp
 binkp           24554/udp
 bilobit         24577/tcp
 bilobit-update  24577/udp
+udpstp          24601/udp
 sdtvwcam        24666/tcp
 canditv         24676/tcp
 canditv         24676/udp
@@ -11151,6 +11159,7 @@ icl-twobase9    25008/tcp
 icl-twobase9    25008/udp
 icl-twobase10   25009/tcp
 icl-twobase10   25009/udp
+db2c-tls        25100/tcp
 rna             25471/sctp
 sauterdongle    25576/tcp
 idtp            25604/tcp
@@ -11188,6 +11197,7 @@ exoconfig       26487/udp
 exonet          26489/tcp
 exonet          26489/udp
 flex-lmadmin    27010/tcp
+chlenix         27016/tcp
 mongodb         27017/tcp
 imagepump       27345/tcp
 imagepump       27345/udp
@@ -11431,8 +11441,8 @@ ciscocsdb       43441/udp
 z-wave-tunnel   44123/tcp
 pmcd            44321/tcp
 pmcd            44321/udp
-pmcdproxy       44322/tcp
-pmcdproxy       44322/udp
+pmproxy         44322/tcp
+pmproxy         44322/udp
 pmwebapi        44323/tcp
 cognex-dataman  44444/tcp
 acronis-backup  44445/tcp
@@ -11451,6 +11461,8 @@ rs-status       45002/tcp
 synctest        45045/tcp
 invision-ag     45054/tcp
 invision-ag     45054/udp
+witsnet         45185/tcp
+witsnet         45185/udp
 cloudcheck      45514/tcp
 cloudcheck-ping 45514/udp
 eba             45678/tcp

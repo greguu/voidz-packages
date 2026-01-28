@@ -1,6 +1,6 @@
 # Template file for 'git'
 pkgname=git
-version=2.48.1
+version=2.52.0
 revision=1
 hostmakedepends="asciidoc gettext perl pkg-config xmlto"
 makedepends="libglib-devel libcurl-devel libsecret-devel pcre2-devel"
@@ -11,9 +11,9 @@ short_desc="Git Tree History Storage Tool"
 maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="GPL-2.0-only"
 homepage="https://git-scm.com/"
-changelog="https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/${version}.txt"
+changelog="https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/${version}.adoc"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=1c5d545f5dc1eb51e95d2c50d98fdf88b1a36ba1fa30e9ae5d5385c6024f82ad
+checksum=3cd8fee86f69a949cb610fee8cd9264e6873d07fa58411f6060b3d62729ed7c5
 replaces="git-perl>=0"
 python_version=3
 
@@ -40,6 +40,10 @@ do_configure() {
 	# those symlinks were kept for scripts written before 2010
 	SKIP_DASHED_BUILT_INS = Yes
 	GIT_TEST_UTF8_LOCALE=C.UTF-8
+	NO_STRLCPY =
+	NEEDS_LIBRT =
+	# https://lore.kernel.org/git/xmqqr02wbtdn.fsf@gitster.g/
+	CSPRNG_METHOD = getrandom
 	EOF
 
 	if [ "$XBPS_TARGET_LIBC" = musl ]; then
@@ -97,7 +101,7 @@ git-scalar_package() {
 }
 
 git-all_package() {
-	build_style=meta
+	metapackage=yes
 	depends="${subpackages/git-all/}"
 	short_desc+=" - meta-package for complete Git installation"
 }

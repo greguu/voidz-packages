@@ -1,17 +1,17 @@
 # Template file for 'broot'
 pkgname=broot
-version=1.44.2
+version=1.48.0
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
-makedepends="libgit2-1.8-devel oniguruma-devel"
+makedepends="libgit2-1.9-devel"
 short_desc="Interactive directory tree view, fuzzy search, balanced BFS descent"
 maintainer="cinerea0 <cinerea0@protonmail.com>"
 license="MIT"
 homepage="https://dystroy.org/broot/"
 changelog="https://raw.githubusercontent.com/Canop/broot/main/CHANGELOG.md"
 distfiles="https://github.com/Canop/broot/archive/refs/tags/v${version}.tar.gz"
-checksum=e1b78354c21680914a07ed4b856257c83ef873b878ef281bd2d1aed7fcba3828
+checksum=7b8e456c3cdfce87e902b3fa839126e5446ce0f0dbfa9b10db5c2758c1f506b1
 
 if [ "$XBPS_TARGET_ENDIAN" = "be" ]; then
 	broken="exr crate errors on big endian"

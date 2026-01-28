@@ -1,17 +1,17 @@
 # Template file for 'halloy'
 pkgname=halloy
-version=2025.2
+version=2026.1.1
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
-makedepends="alsa-lib-devel libglvnd-devel liblzma-devel libzstd-devel openssl-devel sqlite-devel wayland-devel"
+makedepends="alsa-lib-devel libxcb-devel openssl-devel"
 short_desc="IRC application"
 maintainer="tranzystorekk <tranzystorek.io@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/squidowl/halloy"
 changelog="https://raw.githubusercontent.com/squidowl/halloy/main/CHANGELOG.md"
 distfiles="https://github.com/squidowl/halloy/archive/refs/tags/${version}.tar.gz"
-checksum=d05f495048a97cf321c1a24757e36909e08e5ff944a8a9ecc6345aafaba10510
+checksum=a4b3421feb8f5cf1f609bcccab4252b48518664209a5719863c42fcaea3b71be
 
 post_install() {
 	vinstall assets/linux/org.squidowl.halloy.appdata.xml 644 usr/share/metainfo

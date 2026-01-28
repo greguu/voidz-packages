@@ -1,10 +1,10 @@
 # Template file for 'dpkg'
 pkgname=dpkg
-version=1.22.10
+version=1.23.3
 revision=1
 build_style=gnu-configure
 configure_args="--disable-start-stop-daemon --with-libz --with-libbz2
- --with-liblzma"
+ --with-liblzma  --with-zshcompletionsdir=/usr/share/zsh/site-functions"
 hostmakedepends="pkg-config perl tar po4a"
 makedepends="zlib-devel bzip2-devel liblzma-devel ncurses-devel libmd-devel
  libzstd-devel"
@@ -16,7 +16,7 @@ license="GPL-2.0-or-later"
 homepage="http://packages.debian.org/dpkg"
 changelog="https://git.dpkg.org/git/dpkg/dpkg.git/plain/debian/changelog"
 distfiles="${DEBIAN_SITE}/main/d/dpkg/dpkg_${version}.tar.xz"
-checksum=4375f0715171ba31c547a00834ca0364fc8b3edcc3cd61fdcdec9131bd74e058
+checksum=57f759b573dfe25602be8f4f0df24d5264367bbd6489741dd767c30dde65ae36
 
 dpkg-devel_package() {
 	short_desc+=" - development files"

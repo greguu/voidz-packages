@@ -1,6 +1,6 @@
 # Template file for 'lego'
 pkgname=lego
-version=4.22.2
+version=4.26.0
 revision=1
 build_style=go
 go_import_path="github.com/go-acme/lego/v4"
@@ -11,7 +11,7 @@ license="MIT"
 homepage="https://go-acme.github.io/lego"
 changelog="https://raw.githubusercontent.com/go-acme/lego/master/CHANGELOG.md"
 distfiles="https://github.com/go-acme/lego/archive/v${version}.tar.gz"
-checksum=d4d5a3032d1ed99a5cdf551b2555288c3fcd961be536e58f477dce35d22c8702
+checksum=31b01627ff6e40aa8a8955b68a95ee7be9c10297faed86a5528734b9a9edd981
 
 post_install() {
 	vlicense LICENSE

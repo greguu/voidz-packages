@@ -1,6 +1,6 @@
 # Template file for 'Vulkan-ValidationLayers'
 pkgname=Vulkan-ValidationLayers
-version=1.3.296.0
+version=1.4.328.1
 revision=1
 build_style=cmake
 configure_args="-Wno-dev
@@ -15,4 +15,4 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://www.khronos.org/vulkan/"
 distfiles="https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/vulkan-sdk-${version}.tar.gz"
-checksum=dea290d614c71eeb512452dff1555f907a405a5a21baefcf41b5548d5d0fe157
+checksum=91d9be1347a270288bcc50206bda8ccf6aad33bab8318c0643dd36bef97478f9

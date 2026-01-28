@@ -1,6 +1,6 @@
 # Template file for 'opensc'
 pkgname=opensc
-version=0.25.1
+version=0.26.1
 revision=1
 build_style=gnu-configure
 configure_args="--enable-static=no --enable-doc --enable-man
@@ -12,8 +12,8 @@ short_desc="Tools and libraries for smart cards"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/OpenSC/OpenSC/wiki"
-distfiles="https://github.com/OpenSC/OpenSC/archive/${version}.tar.gz"
-checksum=989e6305900d4f2f56ef84aa0da07c044459b4f8a508957a4cdefce6a1367c7b
+distfiles="https://github.com/OpenSC/OpenSC/releases/download/0.26.1/opensc-${version}.tar.gz"
+checksum=f16291a031d86e570394762e9f35eaf2fcbc2337a49910f3feae42d54e1688cb
 conf_files="/etc/opensc.conf"
 
 pre_configure() {

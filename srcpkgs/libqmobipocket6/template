@@ -1,6 +1,6 @@
 # Template file for 'libqmobipocket6'
 pkgname=libqmobipocket6
-version=24.12.1
+version=25.12.0
 revision=1
 build_style=cmake
 configure_args="-DQT_MAJOR_VERSION=6"
@@ -12,7 +12,7 @@ license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/kde/kdegraphics-mobipocket"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kdegraphics-mobipocket"
 distfiles="${KDE_SITE}/release-service/${version}/src/kdegraphics-mobipocket-${version}.tar.xz"
-checksum=76ef050af8169f1ad9325b0a358c4bf5812d6fb858ac3538f173b3a2c3a8ea66
+checksum=f515f6427e253f8c58b9a8fe64fe6ea65aac9e780e4b19b5e0ce299f3292700d
 
 libqmobipocket6-devel_package() {
 	short_desc+=" - development files"

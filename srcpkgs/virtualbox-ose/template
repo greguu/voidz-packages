@@ -1,14 +1,14 @@
 # Template file for 'virtualbox-ose'
 pkgname=virtualbox-ose
-version=7.1.6
-revision=2
+version=7.2.4
+revision=1
 short_desc="General-purpose full virtualizer for x86 hardware"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only, CDDL-1.0"
 homepage="https://www.virtualbox.org"
 changelog="https://www.virtualbox.org/wiki/Changelog"
 distfiles="http://download.virtualbox.org/virtualbox/${version%[a-z]*}/VirtualBox-${version}.tar.bz2"
-checksum=7860c1f14be062424dfee3eae38aec14b078a403b4e2ebafcc4b79cb6eadadcb
+checksum=d281ec981b5f580211a0cedd1b75a1adcb0fbfcbb768d8c2bf4429f4763e8bbd
 
 nopie=yes
 lib32disabled=yes
@@ -17,11 +17,11 @@ archs="x86_64"
 hostmakedepends="acpica-utils dev86 perl pkg-config qt6-tools tar yasm which glslang
  vulkan-loader"
 makedepends="device-mapper-devel docbook-xsl gsoap-devel libcap-devel libcurl-devel
- libIDL-devel libvpx-devel libXcomposite-devel libXcursor-devel qt6-tools-devel
+ libvpx-devel libXcomposite-devel libXcursor-devel qt6-tools-devel vde2-devel
  libXinerama-devel libxslt-devel opus-devel pam-devel qt6-base-devel qt6-scxml-devel
  sdl12-compat-devel xorg-server-devel libslirp-devel libtpms-devel libxml2-devel
  libvncserver-devel openssl-devel libpng-devel zlib-devel dbus-devel device-mapper-devel
- libglvnd-devel libX11-devel libXt-devel libXcursor-devel pam-devel vde2-devel SDL2-devel
+ libglvnd-devel libX11-devel libXt-devel libXcursor-devel pam-devel SDL2-devel
  SDL2_ttf-devel SDL2_gfx-devel SDL2_image-devel SDL2_net-devel SDL2_mixer-devel"
 
 if [ "$XBPS_MACHINE" = "x86_64" ]; then

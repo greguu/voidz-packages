@@ -1,9 +1,9 @@
 # Template file for 'SuiteSparse'
 pkgname=SuiteSparse
-version=7.8.3
+version=7.11.0
 revision=1
 build_style=cmake
-hostmakedepends="cmake gcc-fortran"
+hostmakedepends="gcc-fortran"
 makedepends="libgomp-devel mpfr-devel
  $(vopt_if openblas 'openblas-devel' 'lapack-devel')"
 short_desc="Suite of sparse matrix software"
@@ -12,7 +12,7 @@ license="custom:multiple"
 homepage="https://people.engr.tamu.edu/davis/suitesparse.html"
 changelog="https://raw.githubusercontent.com/DrTimothyAldenDavis/SuiteSparse/master/ChangeLog"
 distfiles="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${version}.tar.gz"
-checksum=ce39b28d4038a09c14f21e02c664401be73c0cb96a9198418d6a98a7db73a259
+checksum=93ed4c4e546a49fc75884c3a8b807d5af4a91e39d191fbbc60a07380b12a35d1
 
 build_options="openblas"
 

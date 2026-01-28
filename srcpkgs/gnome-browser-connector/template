@@ -1,7 +1,7 @@
 # Template file for 'gnome-browser-connector'
 pkgname=gnome-browser-connector
 version=42.1
-revision=4
+revision=5
 build_style=meson
 hostmakedepends="python3-gobject"
 depends="python3-gobject dbus gnome-shell"
@@ -16,5 +16,5 @@ checksum=b624f53ce329a667746a0f3771b44a704d26b58e6ee93d76896ca7a8df512b2c
 chrome-gnome-shell_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }

@@ -1,6 +1,6 @@
 # Template file for 'kitinerary'
 pkgname=kitinerary
-version=24.08.0
+version=25.08.3
 revision=2
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
@@ -19,7 +19,7 @@ license="LGPL-2.1-or-later"
 homepage="https://kontact.kde.org"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kitinerary"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=befb95f1620e0c9baa82264aabfba0cc676c9ee40583938be2091f1254f2cdac
+checksum=b37406fdb6a5135fbc17c88ccb7f2d0888e6d53e16f42d8194ea618911f47220
 
 do_check() {
 	cd build

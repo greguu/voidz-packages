@@ -1,6 +1,6 @@
 # Template file for 'python3-curl'
 pkgname=python3-curl
-version=7.45.3
+version=7.45.7
 revision=2
 build_style=python3-module
 # hanging/failing tests
@@ -15,14 +15,14 @@ make_check_args="--ignore tests/multi_socket_select_test.py
 hostmakedepends="python3-setuptools"
 makedepends="openssl-devel libcurl-devel python3-devel"
 depends="python3"
-checkdepends="python3-pytest python3-bottle python3-flaky"
+checkdepends="python3-pytest python3-Flask python3-flaky"
 short_desc="Python3 interface to cURL library"
 maintainer="skmpz <dem.procopiou@gmail.com>"
 license="LGPL-2.1-or-later, MIT"
 homepage="http://pycurl.io/"
 changelog="https://raw.githubusercontent.com/pycurl/pycurl/master/ChangeLog"
 distfiles="${PYPI_SITE}/p/pycurl/pycurl-${version}.tar.gz"
-checksum=8c2471af9079ad798e1645ec0b0d3d4223db687379d17dd36a70637449f81d6b
+checksum=9d43013002eab2fd6d0dcc671cd1e9149e2fc1c56d5e796fad94d076d6cb69ef
 
 pre_build() {
 	vsed -i "/setup_args\['data_files'\] = /d" setup.py

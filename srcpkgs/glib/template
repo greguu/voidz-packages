@@ -1,8 +1,8 @@
 # Template file for 'glib'
 # keep in sync with glib-bootstrap
 pkgname=glib
-version=2.82.4
-revision=1
+version=2.86.1
+revision=2
 build_style=meson
 build_helper="qemu"
 # static version is necessary for qemu-user
@@ -11,7 +11,8 @@ configure_args="-Dman=true -Dselinux=disabled -Dintrospection=enabled
  $(vopt_bool gtk_doc documentation) --default-library=both -Db_lto=false"
 hostmakedepends="gettext pkg-config gobject-introspection-bootstrap
  libxslt docbook-xsl $(vopt_if gtk_doc gi-docgen) python3-packaging python3-docutils"
-makedepends="zlib-devel pcre2-devel libffi-devel dbus-devel elfutils-devel libmount-devel"
+makedepends="zlib-devel pcre2-devel libffi-devel dbus-devel elfutils-devel libmount-devel
+ $(vopt_if gtk_doc gi-docgen)"
 checkdepends="glib-bootstrap desktop-file-utils shared-mime-info dbus python3-pytest"
 short_desc="GNU library of C routines"
 maintainer="Orphaned <orphan@voidlinux.org>"
@@ -20,7 +21,8 @@ homepage="https://wiki.gnome.org/Projects/GLib"
 changelog="https://gitlab.gnome.org/GNOME/glib/raw/glib-2-82/NEWS"
 #changelog="https://gitlab.gnome.org/GNOME/glib/raw/main/NEWS"
 distfiles="${GNOME_SITE}/glib/${version%.*}/glib-${version}.tar.xz"
-checksum=37dd0877fe964cd15e9a2710b044a1830fb1bd93652a6d0cb6b8b2dff187c709
+checksum=119d1708ca022556d6d2989ee90ad1b82bd9c0d1667e066944a6d0020e2d5e57
+python_version=3
 conflicts="gir-freedesktop<1.80.0_1" # glib typelibs are now in glib
 make_check_pre="dbus-run-session"
 

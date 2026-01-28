@@ -1,9 +1,9 @@
 # Template file for 'libabigail'
 pkgname=libabigail
-version=2.6
+version=2.9
 revision=1
 build_style=gnu-configure
-hostmakedepends="automake cpio dpkg libtool pkg-config python3-Sphinx texinfo"
+hostmakedepends="automake cpio dpkg libtool pkg-config python3-Sphinx tar texinfo"
 makedepends="binutils-devel elfutils-devel libbpf-devel libxml2-devel
  xxHash-devel"
 short_desc="ABI Generic Analysis and Instrumentation Library"
@@ -11,7 +11,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="LGPL-3.0-or-later"
 homepage="https://www.sourceware.org/libabigail/"
 distfiles="http://mirrors.kernel.org/sourceware/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=3bfa8ba753ff27722baa7f73b15a475f8a4599355e47439108423d1912bb5469
+checksum=b4b86baa3105a28ada25091f1ef0535e7a60616d3d5d4cb1ee2aceaba341d738
 
 case "$XBPS_TARGET_MACHINE" in
 *-musl)

@@ -1,6 +1,6 @@
 # Template file for 'tinysparql'
 pkgname=tinysparql
-version=3.8.2
+version=3.10.1
 revision=1
 build_style=meson
 build_helper="gir qemu"
@@ -15,11 +15,12 @@ short_desc="Low-footprint RDF triple store library with SPARQL 1.1 interface"
 maintainer="oreo639 <oreo6391@gmail.com>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://gitlab.gnome.org/GNOME/tinysparql"
-#changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/master/NEWS"
-changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/tinysparql-3.8/NEWS"
+changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/main/NEWS"
+#changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/tinysparql-3.9/NEWS"
 distfiles="${GNOME_SITE}/tinysparql/${version%.*}/tinysparql-${version}.tar.xz"
-checksum=bb8643386c8edc591a03205d4a0eda661dcdd2094473bffb9bbdb94e93589cb2
+checksum=5a7f3e789db6671a550ed6280ed4f60a60bea77368da92be68dc7d8d7e230265
 make_check_pre="dbus-run-session"
+replaces="tracker>=0 tracker3>=0"
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --cross-file=${XBPS_WRAPPERDIR}/meson/xbps_sqlite.cross"
@@ -49,6 +50,7 @@ post_patch() {
 tinysparql-devel_package() {
 	depends="libtinysparql>=${version}_${revision} libglib-devel
 	 json-glib-devel libxml2-devel sqlite-devel"
+	replaces="tracker-devel>=0 tracker3-devel>=0"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
@@ -61,6 +63,7 @@ tinysparql-devel_package() {
 
 libtinysparql_package() {
 	short_desc+=" - shared libraries"
+	replaces="libtracker>=0 libtracker3>=0"
 	pkg_install() {
 		vmove "usr/lib/*.so.*"
 		vmove usr/lib/girepository-1.0
@@ -71,36 +74,36 @@ tracker_package() {
 	lib32mode=full
 	depends="tinysparql>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }
 
 tracker-devel_package() {
 	depends="tinysparql-devel>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }
 
 libtracker_package() {
 	lib32mode=full
 	depends="libtinysparql>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }
 
 tracker3_package() {
 	depends="tracker>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }
 
 tracker3-devel_package() {
 	depends="tracker-devel>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }
 
 libtracker3_package() {
 	depends="libtracker>=${version}_${revision}"
 	short_desc+=" - transitional dummy package"
-	build_style=meta
+	metapackage=yes
 }

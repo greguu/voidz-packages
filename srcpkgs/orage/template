@@ -1,6 +1,6 @@
 # Template file for 'orage'
 pkgname=orage
-version=4.18.0
+version=4.20.2
 revision=1
 build_style=gnu-configure
 configure_args="--with-locales-dir=/usr/share/locale"
@@ -15,4 +15,4 @@ license="GPL-2.0-or-later"
 homepage="https://docs.xfce.org/apps/orage/start"
 changelog="https://gitlab.xfce.org/apps/orage/-/raw/master/NEWS"
 distfiles="https://archive.xfce.org/src/apps/orage/${version%.*}/orage-$version.tar.bz2"
-checksum=6313b49b26cfa39fc5e99468f3fbcfe0fa1c0f3f74273f03674f1a7d6141a3ec
+checksum=6bfd3da084c2977fb5cee26c8e94bf55e358da8e86dd2a83c6fa9174f24672a1

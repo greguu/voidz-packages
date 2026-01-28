@@ -1,10 +1,10 @@
 # Template file for 'kglobalacceld'
 pkgname=kglobalacceld
-version=6.3.2
+version=6.5.4
 revision=1
 build_style=cmake
 configure_args="-DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins"
-hostmakedepends="extra-cmake-modules qt6-base qt6-tools"
+hostmakedepends="extra-cmake-modules qt6-base qt6-tools kf6-kconfig"
 makedepends="kf6-kglobalaccel-devel kf6-kconfig-devel kf6-kcrash-devel
  kf6-kdbusaddons-devel kf6-kwindowsystem-devel kf6-kservice-devel
  kf6-kio-devel qt6-base-private-devel"
@@ -13,7 +13,7 @@ maintainer="John <me@johnnynator.dev>"
 license="GPL-3.0-or-later"
 homepage="https://invent.kde.org/plasma/kglobalacceld"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=a3263e42fb74ef087d263a25c7e3a55a960872262dbb4acfcf23514a3686b419
+checksum=1606b5016b6fa554e3a660fc03e59fd340269de52d6ca4ee3a62e6b79dd858d2
 
 do_check() {
 	cd build
@@ -31,7 +31,7 @@ kglobalacceld-devel_package() {
 }
 
 khotkeys_package() {
-	build_style=meta
+	metapackage=yes
 	depends="kglobalacceld"
 	short_desc+=" - transition"
 }

@@ -1,19 +1,19 @@
 # Template file for 'vaultwarden'
 pkgname=vaultwarden
-version=1.33.2
+version=1.35.2
 revision=1
 build_style=cargo
 configure_args="--features sqlite,mysql,postgresql"
 hostmakedepends="pkg-config"
 makedepends="openssl-devel libmysqlclient-devel postgresql-libs-devel
- sqlite-devel zlib-devel"
+ sqlite-devel zlib-devel libzstd-devel"
 short_desc="Unofficial Bitwarden compatible server written in Rust"
 maintainer="Joel Beckmeyer <joel@beckmeyer.us>"
 license="AGPL-3.0-only"
 homepage="https://github.com/dani-garcia/vaultwarden"
 changelog="https://github.com/dani-garcia/vaultwarden/releases"
 distfiles="https://github.com/dani-garcia/vaultwarden/archive/${version}.tar.gz"
-checksum=b0a412bd5fa857a82dd12fe7ccaad5ac647c4ac932d873218c6eb2408e705682
+checksum=b976b1af5de9c382bbe50e2219ad9ff56396d3a0a50742c935665284ca64146b
 
 system_accounts="_vaultwarden"
 _vaultwarden_homedir="/var/lib/vaultwarden"

@@ -1,6 +1,6 @@
 # Template file for 'kbounce'
 pkgname=kbounce
-version=24.12.2
+version=25.12.1
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
@@ -18,4 +18,4 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://apps.kde.org/kbounce/"
 distfiles="${KDE_SITE}/release-service/${version}/src/kbounce-${version}.tar.xz"
-checksum=ef41af9251d2dcf3a8f35d485dec6c6c78369f595a379b6a523282a5e04c5c41
+checksum=3450b2d8c199e87dc1ce6732224a319a0e94f9555a2a0bfe660ccdb1a8e768ed

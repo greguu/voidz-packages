@@ -1,7 +1,7 @@
 # Template file for 'q'
 pkgname=q
-version=0.19.2
-revision=2
+version=0.19.11
+revision=1
 build_style=go
 go_import_path="github.com/natesales/q"
 go_ldflags="-X main.version=${version}"
@@ -11,4 +11,4 @@ license="GPL-3.0-only"
 homepage="https://github.com/natesales/q"
 changelog="https://github.com/natesales/q/releases"
 distfiles="https://github.com/natesales/q/archive/refs/tags/v${version}.tar.gz"
-checksum=9ce80c34ba2b75fc9ea486df412e7bdf9d9dceffa1a08f4113d0ab3210757a92
+checksum=c13dbb556f2eaa26c7bd66632a3ced4026f26486f6563104e919e3cc6d7776ce

@@ -1,6 +1,6 @@
 # Template file for 'discord-ptb'
 pkgname=discord-ptb
-version=0.0.126
+version=0.0.153
 revision=1
 archs="x86_64"
 depends="alsa-lib dbus-glib gtk+3 libnotify nss libXtst libcxx libatomic
@@ -10,7 +10,7 @@ maintainer="0x5c <dev@0x5c.io>"
 license="custom:Proprietary"
 homepage="https://discord.com/"
 distfiles="https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz"
-checksum=e0ebc611e38fe22e23ed6c0c8e79d2bda350d9ee5167410c17bf7bc6822c58c6
+checksum=a63c00ff4cac1bce67c2b501a44ab45be16710ad80f461f5743584c5bbb92925
 nopie=yes
 restricted=yes
 repository=nonfree

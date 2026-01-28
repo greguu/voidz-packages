@@ -1,6 +1,6 @@
 # Template file for 'console-setup'
 pkgname=console-setup
-version=1.233
+version=1.245
 revision=1
 hostmakedepends="perl"
 depends="kbd ckbcomp"
@@ -9,7 +9,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-or-later"
 homepage="https://packages.debian.org/sid/console-setup"
 distfiles="${DEBIAN_SITE}/main/c/console-setup/console-setup_${version}.tar.xz"
-checksum=a53bb455ea02a964d246052c1b18809299d8f13ca6cda07dc2c8b15f498da5c6
+checksum=0e2a683d7d4d6ff202b698348a6ae87e1d4ab7f6b9040c8c23e9fe227e2ed3b7
 conf_files="/etc/console-setup/console-setup
  /etc/console-setup/keyboard"
 

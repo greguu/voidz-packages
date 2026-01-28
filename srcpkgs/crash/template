@@ -1,11 +1,12 @@
 # Template file for 'crash'
 pkgname=crash
-version=8.0.6
+version=9.0.1
 revision=1
 archs="i686 x86_64"  # broken on musl
 build_style=gnu-makefile
 hostmakedepends="flex tar wget texinfo"
-makedepends="lzo-devel ncurses-devel zlib-devel readline-devel"
+makedepends="gmp-devel lzo-devel mpfr-devel ncurses-devel readline-devel
+ zlib-devel"
 depends="binutils"
 short_desc="Kernel crash dump debugger and live inspector"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
@@ -13,7 +14,7 @@ license="GPL-3.0-or-later"
 homepage="https://crash-utility.github.io/"
 changelog="https://crash-utility.github.io/crash.changelog.html"
 distfiles="https://github.com/crash-utility/crash/archive/${version}.tar.gz"
-checksum=fb918ade7faf9b1f76c7bd371a2aebf639bf10197134d3ba776e13a1867104fb
+checksum=73dcdc633ec75ea2fc5329a1c3760407cceb9171428f4d0b885874f943a16797
 nocross=yes
 disable_parallel_build=yes
 LDFLAGS="-llzo2"

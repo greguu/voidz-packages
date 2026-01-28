@@ -1,17 +1,17 @@
 # Template file for 'swww'
 pkgname=swww
-version=0.9.5
+version=0.11.2
 revision=1
 build_style=cargo
 hostmakedepends="scdoc pkg-config"
-makedepends="liblz4-devel"
+makedepends="liblz4-devel wayland-devel wayland-protocols"
 short_desc="Solution to your Wayland Wallpaper Woes"
 maintainer="Daniel Martinez <danielmartinez@cock.li>"
 license="GPL-3.0-only"
-homepage="https://github.com/LGFae/swww"
-changelog="https://raw.githubusercontent.com/LGFae/swww/main/CHANGELOG.md"
-distfiles="https://github.com/LGFae/swww/archive/refs/tags/v${version}.tar.gz"
-checksum=567e2ac76203ad47df5aaafab7d9d0e4e283a74e34690930a4730ecf0a667428
+homepage="https://codeberg.org/LGFae/awww"
+changelog="https://codeberg.org/LGFae/awww/src/branch/main/CHANGELOG.md"
+distfiles="https://codeberg.org/LGFae/awww/archive/v${version}.tar.gz"
+checksum=0bd1d3a7461b1bc0b99f49aa64ce01d3e84412c5afd6534a1221c4aa3341ccd6
 
 post_build() {
 	./doc/gen.sh

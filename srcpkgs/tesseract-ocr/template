@@ -1,15 +1,14 @@
 # Template file for 'tesseract-ocr'
 pkgname=tesseract-ocr
-version=5.3.3
-revision=1
+version=5.5.0
+revision=3
 _tessdataver=4.1.0
-create_wrksrc=yes
 build_style=gnu-configure
 configure_args="LIBLEPT_HEADERSDIR=${XBPS_CROSS_BASE}/usr/include $(vopt_enable openmp)"
 make_build_args="all training"
 hostmakedepends="automake libtool pkg-config leptonica libxslt asciidoc"
-makedepends="cairo-devel pango-devel leptonica-devel $(vopt_if openmp libgomp-devel) icu-devel
- libarchive-devel libcurl-devel"
+makedepends="cairo-devel pango-devel leptonica-devel $(vopt_if openmp libgomp-devel)
+ icu-devel libarchive-devel libcurl-devel"
 short_desc="Tesseract Open Source OCR engine"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
@@ -17,7 +16,7 @@ homepage="https://github.com/tesseract-ocr/tesseract"
 distfiles="
  https://github.com/tesseract-ocr/tesseract/archive/${version}.tar.gz>${pkgname}-${version}.tar.gz
  https://github.com/tesseract-ocr/tessdata/archive/${_tessdataver}.tar.gz>tessdata-${_tessdataver}.tar.gz"
-checksum="dc4329f85f41191b2d813b71b528ba6047745813474e583ccce8795ff2ff5681
+checksum="f2fb34ca035b6d087a42875a35a7a5c4155fa9979c6132365b1e5a28ebc3fc11
  990fffb9b7a9b52dc9a2d053a9ef6852ca2b72bd8dfb22988b0b990a700fd3c7"
 
 build_options="openmp"
@@ -25,6 +24,8 @@ build_options_default="openmp"
 desc_option_openmp="Enable Open MP (gomp)"
 
 disable_parallel_build=yes # fails to build otherwise
+
+skip_extraction="tessdata-${_tessdataver}.tar.gz"
 
 # Create a package for one specific language $1
 pkg_lang() {
@@ -48,9 +49,12 @@ pkg_lang() {
 }
 
 post_extract() {
-	mv tesseract-${version}/* .
-	rm -rf tessdata-${_tessdataver}/{tessconfigs,configs,pdf.ttf}
-	mv tessdata-${_tessdataver}/* ${wrksrc}/tessdata
+	mv tessdata/configs tessdata/configs.orig
+	mv tessdata/pdf.ttf tessdata/pdf.ttf.orig
+	vsrcextract -C tessdata tessdata-${_tessdataver}.tar.gz
+	rm -f tessdata/configs tessdata/pdf.ttf
+	mv tessdata/configs.orig tessdata/configs
+	mv tessdata/pdf.ttf.orig tessdata/pdf.ttf
 }
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
@@ -106,7 +110,7 @@ tesseract-ocr-devel_package() {
 }
 tesseract-ocr-basic_package() {
 	local lang
-	build_style=meta
+	metapackage=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	conflicts="tesseract-ocr-all>=0"
 	short_desc+=" - basic languages data"
@@ -117,7 +121,7 @@ tesseract-ocr-basic_package() {
 }
 tesseract-ocr-all_package() {
 	local lang
-	build_style=meta
+	metapackage=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	conflicts="tesseract-ocr-basic>=0"
 	short_desc+=" - all languages data"
