@@ -22,6 +22,22 @@ homepage="http://www.netsurf-browser.org"
 distfiles="http://download.netsurf-browser.org/netsurf/releases/source/netsurf-${version}-src.tar.gz"
 checksum=c28a626aefee428d053b13f88b5c440922245976522d12eaf137cfd32d201cb2
 
+pre_build() {
+    find . -type f -name "*.c" -exec sed -i \
+        's|calloc(sizeof(\([^)]*\)), \([^)]*\))|calloc(\2, sizeof(\1))|g' {} +
+
+    sed -i 's|^char \*strndup|//char *strndup|' utils/config.h
+    sed -i 's|^char \*strcasestr|//char *strcasestr|' utils/config.h
+}
+
+do_build() {
+    make ${makejobs} \
+        TARGET=framebuffer \
+        PREFIX=/usr \
+        ${make_build_args}
+        CFLAGS="${CFLAGS} -Wno-error=cast-align -fno-strict-aliasing -Wno-error=calloc-transposed-args"
+}
+
 post_install() {
         # Install license
         vlicense COPYING

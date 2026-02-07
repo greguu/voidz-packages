@@ -3,7 +3,7 @@ pkgname=opus
 version=1.6
 revision=1
 build_style=gnu-configure
-configure_args="--enable-dred --enable-osce --enable-custom-modes
+configure_args="--disable-dred --disable-osce --enable-custom-modes --enable-fixed-point --disable-intrinsics
 	--enable-opus-custom-api $(vopt_enable qext qext)"
 short_desc="Totally open, royalty-free, highly versatile audio codec"
 maintainer="Rutpiv <roger_freitas@live.com>"

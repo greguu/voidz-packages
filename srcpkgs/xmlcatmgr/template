@@ -19,6 +19,12 @@ if [ "$CROSS_BUILD" ]; then
 	hostmakedepends="xmlcatmgr"
 fi
 
+pre_build() {
+	# musl does not provide getprogname/setprogname
+	# Insert a compatibility shim at the top of src/main.c
+	sed -i '1i #include <string.h>\nstatic const char *pname = "xmlcatmgr";\nvoid setprogname(const char *n) { const char *p = strrchr(n, '"'/'"'); pname = p ? p + 1 : n; }\nconst char *getprogname(void) { return pname; }' src/main.c
+}
+
 pre_install() {
 	if [ -n "$CROSS_BUILD" ]; then
 		_xmlcatmgr="xmlcatmgr"

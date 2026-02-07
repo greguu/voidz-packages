@@ -160,6 +160,33 @@ post_extract() {
 	[ -n "${SOURCE_DATE_EPOCH}" ] && touch -h -d @$SOURCE_DATE_EPOCH patchlevel.h
 }
 
+pre_configure() {
+	# 1. Force architecture-specific sizes for armv5tel (LP32)
+	# This bypasses the broken readelf probes in Perl 5.42
+	configure_args+=" -Dcharsize=1"
+	configure_args+=" -Dshortsize=2"
+	configure_args+=" -Dintsize=4"
+	configure_args+=" -Dlongsize=4"
+	configure_args+=" -Dptrsize=4"
+	configure_args+=" -Ddoublesize=8"
+	configure_args+=" -Dlonglongsize=8"
+	configure_args+=" -Doff_t_size=8" # Usually 8 for Large File Support
+
+	# 2. Fix Toolchain Paths
+	# Ensure Configure knows where the cross-readelf is
+	configure_args+=" -Dreadelf=${XBPS_CROSS_TRIPLET}-readelf"
+	configure_args+=" -Dnm=${XBPS_CROSS_TRIPLET}-nm"
+
+	# 3. Clean up CFLAGS for the probe phase
+	# LTO and stack-clash-protection are the main culprits for 'unknown' sizes
+	#export CFLAGS="${CFLAGS/-flto/}"
+	#export CFLAGS="${CFLAGS/-fstack-clash-protection/}"
+	#export CFLAGS="${CFLAGS/-fstack-protector-strong/}"
+
+	# Force symbols out of COMMON and into .bss/.data for better visibility
+	#export CFLAGS+=" -fno-common"
+}
+
 do_configure() {
 	local _args="-Dusethreads -Duseshrplib -Dusesoname -Dusevendorprefix
 		-Dprefix=/usr -Dvendorprefix=/usr

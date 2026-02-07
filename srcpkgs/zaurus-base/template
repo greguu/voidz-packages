@@ -2,7 +2,7 @@
 pkgname=zaurus-base
 version=0.7
 revision=1
-build_style=meta
+metapackage=yes
 short_desc="Base package for the Sharp Zaurus Cxx00 handhelds"
 homepage="http://www.oesf.org"
 maintainer="greguu <greguu@null.net>"

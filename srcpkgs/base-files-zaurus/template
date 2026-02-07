@@ -1,6 +1,6 @@
 # Template file for 'base-files-zaurus'
 pkgname=base-files-zaurus
-version=0.7
+version=0.8
 revision=1
 bootstrap=yes
 depends="xbps-triggers base-files busybox-zaurus kbd linux-zaurus runit-void"
@@ -29,8 +29,17 @@ do_install() {
 	# Install default fstab
 	vinstall ${FILESDIR}/fstab 644 etc
 
+	# Install default group
+	vinstall ${FILESDIR}/group 644 etc
+
+	# Install default passwd
+	vinstall ${FILESDIR}/passwd 644 etc
+
 	# Install default rc.conf
 	vinstall ${FILESDIR}/rc.conf 644 etc
+
+	# Install voidz default rc.local.voidz
+	vinstall ${FILESDIR}/rc.local.voidz 755 etc
 
 	# Install default profile
 	vinstall ${FILESDIR}/profile 644 etc
@@ -40,4 +49,12 @@ do_install() {
 
 	# Install spleen font for tty console
 	vinstall ${FILESDIR}/spleen-6x12.psfu.gz 644 usr/share/kbd/consolefonts
+
+	# Install test wav file
+	vinstall ${FILESDIR}/void_smooth_16bit.wav 644 /usr/share/sounds/alsa
+
+	# Create zaurus user directory
+	vmkdir home/zaurus
+	chmod 700 "${destdir}/home/zaurus"
+	chown 1000:1000 "${destdir}/home/zaurus"
 }

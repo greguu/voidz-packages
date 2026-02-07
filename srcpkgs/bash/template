@@ -26,6 +26,18 @@ alternatives="
 
 CFLAGS="-DSSH_SOURCE_BASHRC -DNON_INTERACTIVE_LOGIN_SHELLS -DSYS_BASHRC='\"/etc/bash/bashrc\"'"
 
+pre_configure() {
+	CFLAGS="${CFLAGS//-flto/}"
+	LDFLAGS="${LDFLAGS//-flto/}"
+	export CFLAGS LDFLAGS
+}
+
+do_build() {
+    make ${makejobs} \
+        bash_cv_termcap_lib=-lncursesw \
+        LDFLAGS="${LDFLAGS} -L${XBPS_CROSS_BASE}/usr/lib"
+}
+
 post_install() {
 	rm -r ${DESTDIR}/usr/share/doc
 	ln -s bash ${DESTDIR}/usr/bin/rbash

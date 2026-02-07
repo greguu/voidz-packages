@@ -7,7 +7,7 @@ configure_args="--program-prefix=eu- --enable-debuginfod --enable-libdebuginfod"
 hostmakedepends="pkg-config m4"
 _devel_depends="bzip2-devel liblzma-devel zlib-devel libzstd-devel"
 makedepends="${_devel_depends} libcurl-devel libarchive-devel sqlite-devel
- libmicrohttpd-devel json-c-devel"
+ libmicrohttpd-devel json-c-devel argp-standalone"
 checkdepends="zstd bzip2 curl rpm cpio iproute2 procps-ng"
 short_desc="Utilities to handle ELF object files"
 maintainer="Érico Nogueira <ericonr@disroot.org>"

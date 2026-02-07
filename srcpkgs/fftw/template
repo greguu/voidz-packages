@@ -18,26 +18,26 @@ pre_configure() {
 
 do_configure() {
 	PATH=$PATH:/usr/libexec/xbps-src/bin
-	local CARGS="--enable-shared --enable-threads --enable-openmp"
+	local CARGS="--enable-shared --disable-threads --disable-openmp --enable-single --disable-double --disable-fortran"
 
 	case "$XBPS_TARGET_MACHINE" in
 		i686*|x86_64*) _sse="--enable-sse"; _sse2="--enable-sse2";;
 	esac
 
 	# double precision
-	mkdir build-double
-	cd ${wrksrc}/build-double
-	../configure ${configure_args} ${CARGS} ${_sse2}
+	#mkdir build-double
+	#cd ${wrksrc}/build-double
+	#../configure ${configure_args} ${CARGS} ${_sse2}
 
 	# long double precision
-	mkdir ${wrksrc}/build-long-double
-	cd ${wrksrc}/build-long-double
-	../configure ${configure_args} ${CARGS} --enable-long-double
+	#mkdir ${wrksrc}/build-long-double
+	#cd ${wrksrc}/build-long-double
+	#../configure ${configure_args} ${CARGS} --enable-long-double
 
 	# single precision
 	mkdir ${wrksrc}/build-single
 	cd ${wrksrc}/build-single
-	../configure ${configure_args} ${CARGS} --enable-float ${_sse}
+	../configure ${configure_args} ${CARGS} --disable-float ${_sse}
 
 	cd ${wrksrc}
 	# fix wrong soname in FFTW3LibraryDepends.cmake
@@ -45,29 +45,29 @@ do_configure() {
 
 	# create missing FFTW3LibraryDepends.cmake
 	cmake -B build -D CMAKE_INSTALL_PREFIX=/usr -D CMAKE_BUILD_TYPE=None \
-			-D ENABLE_OPENMP=ON -D ENABLE_THREADS=ON -D ENABLE_FLOAT=ON \
-			-D ENABLE_LONG_DOUBLE=ON -D ENABLE_QUAD_PRECISION=ON -D ENABLE_SSE=ON \
-			-D ENABLE_SSE2=ON -D ENABLE_AVX=ON -D ENABLE_AVX2=ON
+		-D ENABLE_OPENMP=OFF -D ENABLE_THREADS=OFF -D ENABLE_FLOAT=OFF \
+		-D ENABLE_LONG_DOUBLE=OFF -D ENABLE_QUAD_PRECISION=OFF -D ENABLE_SSE=OFF \
+		-D ENABLE_SSE2=OFF -D ENABLE_AVX=OFF -D ENABLE_AVX2=OFF -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 	# fix broken IMPORTED_LOCATION: https://github.com/FFTW/fftw3/issues/130#issuecomment-1030280157
 	sed -e 's|\(IMPORTED_LOCATION_NONE\).*|\1 "/usr/lib/libfftw3.so.3"|' -i build/FFTW3LibraryDepends.cmake
 }
 
 do_build() {
-	for f in double long-double single; do
+	for f in single; do
 		cd ${wrksrc}/build-${f}
 		make ${makejobs}
 	done
 }
 
 do_check() {
-	for f in double long-double single; do
+	for f in single; do
 		cd ${wrksrc}/build-${f}
 		make DESTDIR=${DESTDIR} check
 	done
 }
 
 do_install() {
-	for f in double long-double single; do
+	for f in single; do
 		cd ${wrksrc}/build-${f}
 		make DESTDIR=${DESTDIR} install
 	done

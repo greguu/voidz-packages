@@ -15,6 +15,25 @@ post_extract() {
 	vsed -i Makefile -e 's/_BSD_SOURCE/_DEFAULT_SOURCE/g'
 }
 
+pre_build() {
+    # Fix 'calloc' argument order in the source files to satisfy GCC 14
+    # This swaps: calloc(sizeof(X), Y) -> calloc(Y, sizeof(X))
+    
+    # 1. Fix expat_xmlparser.c
+    sed -i 's/calloc(sizeof(\*parser), 1)/calloc(1, sizeof(*parser))/' \
+        bindings/xml/expat_xmlparser.c
+
+    # 2. Fix node.c
+    sed -i 's/calloc(sizeof(\*t), size)/calloc(size, sizeof(*t))/' \
+        src/core/node.c
+
+    # 3. Fix html_document.c
+    sed -i 's/calloc(sizeof(dom_string \*), hds_COUNT)/calloc(hds_COUNT, sizeof(dom_string *))/' \
+        src/html/html_document.c
+    sed -i 's/calloc(sizeof(dom_string \*),/calloc(hds_COUNT,/; /calloc(hds_COUNT,/n; s/hds_COUNT)/sizeof(dom_string *))/' \
+        src/html/html_document.c
+}
+
 do_build() {
 	make ${makejobs} COMPONENT_TYPE=lib-shared PREFIX=/usr
 	make ${makejobs} COMPONENT_TYPE=lib-static PREFIX=/usr
