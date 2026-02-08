@@ -10,8 +10,13 @@ license="GPL-2.0-or-later"
 homepage="http://www.fftw.org/"
 distfiles="${homepage}/fftw-${version}.tar.gz"
 checksum=56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
+build_style=gnu-configure
+configure_args="--enable-shared --enable-threads --disable-fortran
+ --disable-sse --disable-sse2 --disable-avx --disable-avx2 
+ --disable-neon"
 
 pre_configure() {
+	export CMAKE_POLICY_VERSION_MINIMUM=3.5
 	vsed -i configure.ac -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g'
 	autoreconf -fi
 }

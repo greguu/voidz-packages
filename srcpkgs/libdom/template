@@ -11,6 +11,13 @@ homepage="https://www.netsurf-browser.org"
 distfiles="https://download.netsurf-browser.org/libs/releases/libdom-${version}-src.tar.gz"
 checksum=d05e45af16547014c2b0a3aecf3670fa13d419f505b3f5fc7ac8a1491fc30f3c
 
+pre_configure() {
+	find src -name "*.c" -exec sed -i ':a;N;$!ba;s/calloc(sizeof(\([^)]*\)),\s*\([^)]*\))/calloc(\2, sizeof(\1))/g' {} +
+	sed -i 's/sizeof(dom_string \*),/html_tag_COUNT, sizeof(dom_string \*)/' src/html/html_document.c
+	sed -i 's/calloc(sizeof(\*parser), 1)/calloc(1, sizeof(\*parser))/g' bindings/xml/expat_xmlparser.c
+	sed -i 's/doc->elements = calloc(sizeof(dom_string \*),/doc->elements = calloc(html_tag_COUNT, sizeof(dom_string \*),/' src/html/html_document.c
+}
+
 post_extract() {
 	vsed -i Makefile -e 's/_BSD_SOURCE/_DEFAULT_SOURCE/g'
 }

@@ -1,8 +1,8 @@
 # Template file for 'base-system-busybox-zaurus'
 pkgname=base-system-busybox-zaurus
-version=0.7
+version=0.8
 revision=1
-build_style=meta
+metapackage=yes
 homepage="http://www.oesf.org/"
 short_desc="Void Linux base system meta package for containers/chroots with busybox (Sharp Zaurus) "
 maintainer="greguu <greguu@null.net>"

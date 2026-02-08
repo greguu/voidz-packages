@@ -11,6 +11,11 @@ homepage="http://www.netsurf-browser.org"
 distfiles="http://download.netsurf-browser.org/libs/releases/${pkgname}-${version}-src.tar.gz"
 checksum=2c0dcf952f1cd882c3e95401ef9459f16dbb53c5d3e4512339b2f9eb769d7781
 
+pre_build() {
+    find . -type f -name "*.c" -exec sed -i \
+        's/calloc(sizeof(\([^)]*\)), \([^)]*\))/calloc(\2, sizeof(\1))/g' {} +
+}
+
 do_build() {
 	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-shared PREFIX=/usr
 	make ${makejobs} HOST_CC=cc COMPONENT_TYPE=lib-static PREFIX=/usr

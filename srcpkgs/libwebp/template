@@ -3,11 +3,18 @@ pkgname=libwebp
 version=1.6.0
 revision=3
 build_style=cmake
-configure_args="-DWEBP_BUILD_EXTRAS=OFF -DWEBP_BUILD_VWEBP=OFF
- -DBUILD_SHARED_LIBS=ON -DCMAKE_SKIP_INSTALL_RPATH=ON"
+configure_args="-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+		-DWEBP_BUILD_EXTRAS=OFF
+		-DWEBP_BUILD_VWEBP=OFF
+		-DWEBP_ENABLE_SIMD=OFF
+		-DWEBP_ENABLE_NEAR_LOSSLESS=OFF
+		-DWEBP_BUILD_ANIM_UTILS=OFF
+		-DWEBP_BUILD_IMG2WEBP=OFF
+		-DWEBP_ENABLE_GL=OFF
+		-DBUILD_SHARED_LIBS=ON
+  		-DCMAKE_SKIP_INSTALL_RPATH=ON"
 hostmakedepends="pkg-config"
-makedepends="giflib-devel libpng-devel libfreeglut-devel
- $(vopt_if tiff tiff-devel)"
+makedepends="giflib-devel libpng-devel $(vopt_if tiff tiff-devel)"
 short_desc="WebP image format"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
@@ -17,10 +24,9 @@ distfiles="http://downloads.webmproject.org/releases/webp/libwebp-${version}.tar
 checksum=e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564
 
 case "$XBPS_TARGET_MACHINE" in
-	armv5*) configure_args+=" --disable-neon";;
-	armv6*) configure_args+=" --disable-neon";;
+	armv5*) configure_args+=" -DWEBP_ENABLE_SIMD=OFF";;
+	armv6*) configure_args+=" -DWEBP_ENABLE_SIMD=OFF";;
 	armv7*) CFLAGS="-mfpu=neon";;
-	*) makedepends+=" libfreeglut-devel";;
 esac
 
 # May split libwebp-tools package out, if we really want it enabled

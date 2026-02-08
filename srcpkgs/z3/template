@@ -3,7 +3,7 @@ pkgname=z3
 version=4.15.4
 revision=2
 build_style=configure
-configure_args="--prefix=/usr -g --python $(vopt_if ocaml --ml)"
+configure_args="--prefix=/usr -g --python $(vopt_if ocaml --ml) --staticlib --single-threaded"
 make_build_args="-C build all examples"
 make_install_args="-C build install"
 hostmakedepends="python3 which $(vopt_if ocaml 'ocaml ocaml-findlib')"
@@ -30,6 +30,34 @@ fi
 do_check() {
 	make ${MAKEJOBS} -C build test
 	./build/test-z3 /a
+}
+
+pre_configure() {
+	# 1. Neutralize the hardware rounding mode calls that crash the build.
+	# Since there is no FPU, these constants don't exist in your fenv.h.
+	sed -i 's/fesetround(RM)/((void)0)/g' src/util/hwf.cpp
+	sed -i 's/fegetround()/0/g' src/util/hwf.cpp
+
+	# 2. Force the compiler to bypass FENV logic.
+	# We also set -D_GNU_SOURCE to ensure standard types are mapped correctly.
+	export CXXFLAGS="${CXXFLAGS} -DHAS_FENV=0 -D_GNU_SOURCE"
+	
+	# 3. For ARMv5 soft-float, we ensure the build doesn't try to use 
+	# SSE or NEON detection logic.
+	export CFLAGS="${CFLAGS} -D_GNU_SOURCE"
+}
+
+do_configure() {
+	# Z3's gnu-configure style actually prefers running their python script.
+	python3 scripts/mk_make.py ${configure_args}
+}
+
+do_build() {
+	make -C build ${make_build_args}
+}
+
+do_install() {
+	make -C build DESTDIR=${DESTDIR} install
 }
 
 post_install() {
