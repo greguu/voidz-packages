@@ -1,0 +1,20 @@
+#!/bin/sh
+# Voidz  /etc/rc.local
+
+# Basic time sync
+(
+    # Wait up to 60 seconds for an IP/Network
+    COUNT=0
+    while ! ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1 && [ $COUNT -lt 30 ]; do
+        sleep 2
+        COUNT=$((COUNT + 1))
+    done
+
+    # If network is up, sync using BusyBox ntpd
+    if [ $COUNT -lt 30 ]; then
+        ntpd -q -p pool.ntp.org
+        # Save the synced time to fake-hwclock immediately
+        [ -x /usr/bin/fake-hwclock ] && fake-hwclock save
+    fi
+) &
+

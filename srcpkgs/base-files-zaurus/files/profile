@@ -34,5 +34,29 @@ if [ -d /etc/profile.d/ ]; then
 fi
 
 # voidz defaults
+
+if [ "$(id -u)" = "0" ]; then
+    USER_COL="1;31"
+    echo -ne "\033[?17;0;224c"
+else
+    USER_COL="1;32"
+    echo -ne "\033[?17;0;224c"
+fi
+
+# Prompt
+export PS1="\[\e[${USER_COL}m\]\u\[\e[1;37m\]:\[\e[1;34m\] \W\[\e[1;35m\] $\[\e[0m\] "
+
+export ENV=/etc/shrc
+
+# Global Aliases
+alias sudo='sudo '
+alias doas='sudo '
 alias ls='ls --color=auto'
-PS1="[\[\e[32m\]\u\[\e[m\]@\[\e[33;40m\]\h\[\e[m\] \[\e[34m\]\w\[\e[m\]] "
+alias ll='ls -lh'
+alias la='ls -A'
+alias grep='grep --color=auto'
+alias df='df -h'
+alias free='free -m'
+
+# Disable console screen blanking, needs setterm
+# setterm -blank 0 -powersave off

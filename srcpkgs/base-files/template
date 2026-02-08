@@ -20,8 +20,6 @@ conf_files="
 	/etc/subuid
 	/etc/subgid
 	/etc/issue
-	/etc/passwd
-	/etc/group
 	/etc/crypttab
 	/etc/nsswitch.conf"
 
@@ -59,7 +57,7 @@ do_install() {
 
 	vinstall ${FILESDIR}/securetty 600 etc
 	for f in hosts host.conf issue subuid subgid \
-		inputrc passwd group crypttab nsswitch.conf; do
+		inputrc crypttab nsswitch.conf; do
 		vinstall ${FILESDIR}/${f} 644 etc
 	done
 	vmkdir etc/colors
